@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ObatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
 
 Route::get('/dashboard',function(){
-    return view('dashboard.index');
+    return view('dashboard.index',[
+        "title" => "Apotek"
+    ]);
 });
 
-Route::get('/test',function(){
-    return view('dashboard.test');
-});
+//Obat
+Route::resource('dashboard/obat',ObatController::class);
+
+
+
+

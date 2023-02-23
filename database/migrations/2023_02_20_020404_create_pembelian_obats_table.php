@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('supliers', function (Blueprint $table) {
+        Schema::create('pembelian_obats', function (Blueprint $table) {
             $table->id();
+            $table->string("nama_obat");
+            $table->string("harga_beli");
+            $table->string("banyak");
+            $table->string("sub_total");
             $table->string("nama_pemasok");
-            $table->string("alamat");
-            $table->string("telepon");
+            $table->string("tanggal_beli");
+            $table->string("total");
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supliers');
+        Schema::dropIfExists('pembelian_obats');
     }
 };

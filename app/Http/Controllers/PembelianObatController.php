@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\PembelianObat;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class PembelianObatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,20 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()) {
-            $data = Obat::with('category');
-            return Datatables::eloquent($data)
-            ->addIndexColumn()
-            ->addColumn('category', function(Obat $obat){
-                return $obat->category->nama_kategori;
-            })
-            ->addColumn('action', 'dashboard.obat.action')
-            ->rawColumns(['action'])
-            ->make(true);
-            }
-            return view('dashboard.obat.index',[
-                'title' => 'Obat'
-            ]);
+        //
     }
 
     /**
@@ -54,10 +41,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\PembelianObat  $pembelianObat
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(PembelianObat $pembelianObat)
     {
         //
     }
@@ -65,10 +52,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\PembelianObat  $pembelianObat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(PembelianObat $pembelianObat)
     {
         //
     }
@@ -77,10 +64,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\PembelianObat  $pembelianObat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, PembelianObat $pembelianObat)
     {
         //
     }
@@ -88,10 +75,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\PembelianObat  $pembelianObat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(PembelianObat $pembelianObat)
     {
         //
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use DataTables;
 
 class ObatController extends Controller
 {
@@ -14,7 +16,22 @@ class ObatController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            $model = Obat::with('category')->latest()->get();
+                return DataTables::of($model)
+                ->addColumn('category', function (Obat $obat) {
+                    return $obat->category->nama_kategori;
+                })
+                ->addColumn('action', 'dashboard.obat.action')
+                ->addIndexColumn()
+                ->toJson();
+        }
+            return view('dashboard.obat.index',[
+                'title' => 'Obat'
+            ]);
+
+
+
     }
 
     /**
@@ -24,7 +41,10 @@ class ObatController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.obat.create',[
+            'title' => 'Tambah Obat',
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -35,7 +55,22 @@ class ObatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_obat' => 'required',
+            'penyimpanan' => 'required',
+            'category_id' => 'required',
+            'stok' => 'required',
+            'kadaluwarsa' => 'required',
+            'harga_jual' => 'required',
+            'deskripsi_obat' => 'required',
+            'harga_beli' => 'required',
+            'pemasok_id' => 'required',
+            'unit_id' => 'required'
+            ]);
+
+            Obat::create($validatedData);
+            return redirect()->route('obat.index')
+            ->with('success','Obat has been created successfully.');
     }
 
     /**
@@ -46,7 +81,7 @@ class ObatController extends Controller
      */
     public function show(Obat $obat)
     {
-        //
+        
     }
 
     /**
@@ -57,7 +92,11 @@ class ObatController extends Controller
      */
     public function edit(Obat $obat)
     {
-        //
+        return view('dashboard.obat.edit',[
+            'title' => 'Edit Obat',
+            'obat' => $obat,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -69,7 +108,24 @@ class ObatController extends Controller
      */
     public function update(Request $request, Obat $obat)
     {
-        //
+        $validateData = $request->validate([
+            'nama_obat' => 'required',
+            'penyimpanan' => 'required',
+            'category_id' => 'required',
+            'stok' => 'required',
+            'kadaluwarsa' => 'required',
+            'harga_jual' => 'required',
+            'deskripsi_obat' => 'required',
+            'harga_beli' => 'required',
+            'pemasok_id' => 'required',
+            'unit_id' => 'required'
+            ]);
+
+            Obat::where('id',$obat->id)
+            ->update($validateData);
+
+            return redirect()->route('obat.index')
+            ->with('success','Obat Has Been updated successfully');
     }
 
     /**
@@ -80,6 +136,11 @@ class ObatController extends Controller
      */
     public function destroy(Obat $obat)
     {
-        //
+        Obat::destroy($obat->id);
+
+        return redirect()->route('obat.index')
+        ->with('success','Obat Has Been deleted successfully');
     }
+
+
 }
