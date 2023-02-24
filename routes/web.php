@@ -22,7 +22,9 @@ Route::get('/dashboard',function(){
 });
 
 //Obat
-Route::resource('dashboard/obat',ObatController::class);
+Route::get('/dashboard/obat/kadaluwarsa',[ObatController::class,'kadaluwarsa'])->name('kadaluwarsa');
+Route::resource('/dashboard/obat',ObatController::class);
+
 
 
 

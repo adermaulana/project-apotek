@@ -6,6 +6,7 @@ use App\Models\Obat;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use DataTables;
+use Carbon\Carbon;
 
 class ObatController extends Controller
 {
@@ -141,6 +142,43 @@ class ObatController extends Controller
         return redirect()->route('obat.index')
         ->with('success','Obat Has Been deleted successfully');
     }
+
+    public function kadaluwarsa(){
+
+        if (request()->ajax()) {
+            $model = Obat::whereDate('kadaluwarsa', '<=', Carbon::now())->get();
+                return DataTables::of($model)
+                ->addColumn('category', function (Obat $obat) {
+                    return $obat->category->nama_kategori;
+                })
+                ->addColumn('action', 'dashboard.obat.action')
+                ->addIndexColumn()
+                ->toJson();
+        }
+
+        return view('dashboard.obat.kadaluwarsa.index',[
+            'title' => 'Kadaluwarsa'
+        ]);
+    }
+
+    public function habis(){
+
+        if (request()->ajax()) {
+            $model = Obat::whereDate('kadaluwarsa', '<=', Carbon::now())->get();
+                return DataTables::of($model)
+                ->addColumn('category', function (Obat $obat) {
+                    return $obat->category->nama_kategori;
+                })
+                ->addColumn('action', 'dashboard.obat.action')
+                ->addIndexColumn()
+                ->toJson();
+        }
+
+        return view('dashboard.obat.kadaluwarsa.index',[
+            'title' => 'Kadaluwarsa'
+        ]);
+    }
+
 
 
 }

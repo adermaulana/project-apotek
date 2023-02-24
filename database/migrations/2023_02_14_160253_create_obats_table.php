@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("nama_obat");
             $table->string("penyimpanan");
             $table->string("stok");
-            $table->string("kadaluwarsa");
+            $table->date("kadaluwarsa");
             $table->text("deskripsi_obat");
             $table->string("harga_beli");
             $table->string("harga_jual");

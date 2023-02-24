@@ -26,7 +26,7 @@
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="/dashboard/obat/kadaluwarsa">
               <i class="bi bi-circle"></i><span>Obat Kadaluarsa</span>
             </a>
           </li>
