@@ -3,6 +3,12 @@
 @section('container')
 <main id="main" class="main">
 
+@if(session()->has('success'))
+      <div class="alert alert-success col-lg-4" role="alert">
+        {{ session('success') }}
+      </div>
+      @endif
+
 <div class="pagetitle">
   <h1>Dashboard</h1>
 </div><!-- End Page Title -->

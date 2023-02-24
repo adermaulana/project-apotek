@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use DataTables;
+use Carbon\Carbon;
 
 class CategoryController extends Controller
 {
@@ -14,19 +16,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()) {
-            $data = Obat::with('category');
-            return Datatables::eloquent($data)
-            ->addIndexColumn()
-            ->addColumn('category', function(Obat $obat){
-                return $obat->category->nama_kategori;
-            })
-            ->addColumn('action', 'dashboard.obat.action')
-            ->rawColumns(['action'])
-            ->make(true);
-            }
-            return view('dashboard.obat.index',[
-                'title' => 'Obat'
+        if (request()->ajax()) {
+            $model = Category::latest()->get();
+                return DataTables::of($model)
+                ->addColumn('action', 'dashboard.categories.action')
+                ->addIndexColumn()
+                ->toJson();
+        }
+
+            return view('dashboard.categories.index',[
+                'title' => 'Kategori'
             ]);
     }
 
@@ -37,7 +36,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.categories.create',[
+            'title' => 'Tambah Kategori'
+        ]);
     }
 
     /**
@@ -48,7 +49,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_kategori' => 'required',
+            'deskripsi_kategori' => 'required',
+            ]);
+
+            Category::create($validatedData);
+            return redirect()->route('categories.index')
+            ->with('success','Kategori has been created successfully.');
     }
 
     /**
@@ -70,7 +78,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('dashboard.categories.edit',[
+            'title' => 'Edit Kategori',
+            'categories' => $category
+        ]);
     }
 
     /**
@@ -82,7 +93,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validateData = $request->validate([
+            'nama_kategori' => 'required',
+            'deskripsi_kategori' => 'required',
+            ]);
+
+            Category::where('id',$category->id)
+            ->update($validateData);
+
+            return redirect()->route('categories.index')
+            ->with('success','Kategori Has Been updated successfully');
     }
 
     /**
@@ -93,6 +113,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Category::destroy($category->id);
+
+        return redirect()->route('categories.index')
+        ->with('success','Kategori Has Been deleted successfully');
     }
 }

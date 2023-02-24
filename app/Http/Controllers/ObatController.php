@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
+use App\Models\Pemasok;
+use App\Models\Unit;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use DataTables;
@@ -18,10 +20,13 @@ class ObatController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $model = Obat::with('category')->latest()->get();
+            $model = Obat::with('category','unit')->latest()->get();
                 return DataTables::of($model)
                 ->addColumn('category', function (Obat $obat) {
                     return $obat->category->nama_kategori;
+                })
+                ->addColumn('unit', function (Obat $obat) {
+                    return $obat->unit->unit;
                 })
                 ->addColumn('action', 'dashboard.obat.action')
                 ->addIndexColumn()
@@ -30,8 +35,6 @@ class ObatController extends Controller
             return view('dashboard.obat.index',[
                 'title' => 'Obat'
             ]);
-
-
 
     }
 
@@ -44,7 +47,9 @@ class ObatController extends Controller
     {
         return view('dashboard.obat.create',[
             'title' => 'Tambah Obat',
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'units' => Unit::all(),
+            'pemasoks' => Pemasok::all()
         ]);
     }
 
@@ -96,7 +101,9 @@ class ObatController extends Controller
         return view('dashboard.obat.edit',[
             'title' => 'Edit Obat',
             'obat' => $obat,
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'units' => Unit::all(),
+            'pemasoks' => Pemasok::all()
         ]);
     }
 
@@ -164,7 +171,7 @@ class ObatController extends Controller
     public function habis(){
 
         if (request()->ajax()) {
-            $model = Obat::whereDate('kadaluwarsa', '<=', Carbon::now())->get();
+            $model = Obat::where('stok', '<=', 0)->get();
                 return DataTables::of($model)
                 ->addColumn('category', function (Obat $obat) {
                     return $obat->category->nama_kategori;
@@ -174,8 +181,8 @@ class ObatController extends Controller
                 ->toJson();
         }
 
-        return view('dashboard.obat.kadaluwarsa.index',[
-            'title' => 'Kadaluwarsa'
+        return view('dashboard.obat.habis.index',[
+            'title' => 'Habis'
         ]);
     }
 

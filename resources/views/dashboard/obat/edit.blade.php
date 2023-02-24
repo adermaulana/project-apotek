@@ -43,7 +43,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Nama Obat</h6>
-<input type="text" name="nama_obat" value="{{ $obat->nama_obat }}" class="form-control" >
+<input type="text" name="nama_obat" value="{{ old('nama_obat',$obat->nama_obat) }}" class="form-control" >
 @error('nama_obat')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -52,7 +52,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Penyimpanan</h6>
-<input type="text" name="penyimpanan" class="form-control"  value="{{ $obat->penyimpanan }}">
+<input type="text" name="penyimpanan" class="form-control"  value="{{ old('penyimpanan',$obat->penyimpanan) }}">
 @error('penyimpanan')
 <div class="alert alert-danger mt-2 mb-1">{{ $message }}</div>
 @enderror
@@ -77,7 +77,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Stok</h6>
-<input type="number" name="stok" class="form-control"  value="{{ $obat->stok }}">
+<input type="number" name="stok" class="form-control"  value="{{ old('stok',$obat->stok) }}">
 @error('stok')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -86,7 +86,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Kadaluwarsa</h6>
-<input type="date" name="kadaluwarsa" class="form-control"  value="{{ $obat->kadaluwarsa }}">
+<input type="date" name="kadaluwarsa" class="form-control"  value="{{ old('kadaluwarsa',$obat->kadaluwarsa) }}">
 @error('kadaluwarsa')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -95,7 +95,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Deskripsi Obat</h6>
-<input type="text" name="deskripsi_obat" value="{{ $obat->deskripsi_obat }}" class="form-control" >
+<input type="text" name="deskripsi_obat" value="{{ old('deskripsi_obat',$obat->deskripsi_obat) }}" class="form-control" >
 @error('deskripsi_obat')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -104,7 +104,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Harga Beli</h6>
-<input type="text" name="harga_beli" class="form-control"  value="{{ $obat->harga_beli }}">
+<input type="text" name="harga_beli" class="form-control"  value="{{ old('harga_beli',$obat->harga_beli) }}">
 @error('harga_beli')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -113,7 +113,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Harga Jual</h6>
-<input type="text" name="harga_jual" class="form-control"  value="{{ $obat->harga_jual }}">
+<input type="text" name="harga_jual" class="form-control"  value="{{ old('harga_jual',$obat->harga_jual) }}">
 @error('harga_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -122,19 +122,33 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Unit</h6>
-<input type="text" name="unit_id" value="{{ $obat->unit_id }}" class="form-control" >
-@error('unit_id')
-<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-@enderror
+<select class="form-select" name="unit_id">
+        @foreach ($units as $unit)
+
+        @if(old('unit_id',$obat->unit_id) == $unit->id)
+          <option value="{{ $unit->id }} " selected> {{ $unit->unit }} </option>
+        @else
+          <option value="{{ $unit->id }}"> {{ $unit->unit }} </option>
+        @endif
+
+        @endforeach
+</select>
 </div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Nama Pemasok</h6>
-<input type="text" name="pemasok_id" value="{{ $obat->pemasok_id }}" class="form-control" >
-@error('pemasok_id')
-<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-@enderror
+<select class="form-select" name="pemasok_id">
+        @foreach ($pemasoks as $pemasok)
+
+        @if(old('pemasok_id',$obat->pemasok_id) == $pemasok->id)
+          <option value="{{ $pemasok->id }} " selected> {{ $pemasok->nama_pemasok }} </option>
+        @else
+          <option value="{{ $pemasok->id }}"> {{ $pemasok->nama_pemasok }} </option>
+        @endif
+
+        @endforeach
+</select>
 </div>
 </div>
 <button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>

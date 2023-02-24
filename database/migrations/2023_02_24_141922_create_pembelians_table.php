@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('pembelians', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_obat");
-            $table->string("harga_jual");
-            $table->string("banyak");
-            $table->string("sub_total");
-            $table->string("nama_pembeli");
-            $table->string("tanggal_pembeli");
-            $table->string("total");
+            $table->foreignId('pemasok_id');
+            $table->string('nama_obat');
+            $table->string('harga_beli');
+            $table->string('banyak');
+            $table->string('sub_total');
+            $table->string('tanggal_beli');
+            $table->string('total');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('pembelians');
     }
 };

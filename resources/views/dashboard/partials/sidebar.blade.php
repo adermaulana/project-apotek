@@ -31,7 +31,7 @@
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="/dashboard/obat/habis">
               <i class="bi bi-circle"></i><span>Obat Habis</span>
             </a>
           </li>
@@ -44,22 +44,22 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/dashboard/kategori/create">
+            <a href="/dashboard/categories/create">
               <i class="bi bi-circle"></i><span>Tambah Kategori</span>
             </a>
           </li>
           <li>
-            <a href="/dashboard/kategori">
+            <a href="/dashboard/categories">
               <i class="bi bi-circle"></i><span>Lihat Kategori</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
+            <a href="/dashboard/unit/create">
               <i class="bi bi-circle"></i><span>Tambah Unit</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/dashboard/unit">
               <i class="bi bi-circle"></i><span>Lihat Unit</span>
             </a>
           </li>
@@ -72,12 +72,12 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
+            <a href="/dashboard/pemasok/create">
               <i class="bi bi-circle"></i><span>Tambah Pemasok</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
+            <a href="/dashboard/pemasok">
               <i class="bi bi-circle"></i><span>Lihat Pemasok</span>
             </a>
           </li>
@@ -99,11 +99,6 @@
               <i class="bi bi-circle"></i><span>Lihat Penjualan</span>
             </a>
           </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>Grafik Penjualan</span>
-            </a>
-          </li>
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -113,43 +108,39 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+            <a href="/dashboard/pembelian/create">
+              <i class="bi bi-circle"></i><span>Tambah Pembelian</span>
             </a>
           </li>
           <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
+            <a href="/dashboard/pembelian">
+              <i class="bi bi-circle"></i><span>Lihat Pembelian</span>
             </a>
           </li>
         </ul>
       </li><!-- End Icons Nav -->
 
+      @can('admin')
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#kasir-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Data Kasir</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span>Data Pengelola</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="kasir-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Tambah Kasir</span>
+            <a href="/dashboard/user/create">
+              <i class="bi bi-circle"></i><span>Tambah User</span>
             </a>
           </li>
           <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Lihat Kasir</span>
+            <a href="/dashboard/user">
+              <i class="bi bi-circle"></i><span>Lihat User</span>
             </a>
           </li>
         </ul>
       </li><!-- End Icons Nav -->
-
+      @endcan('admin')
     </ul>
 
   </aside><!-- End Sidebar-->

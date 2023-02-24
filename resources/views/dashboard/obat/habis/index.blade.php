@@ -26,8 +26,7 @@
           <div class="card recent-sales overflow-auto">
 
             <div class="card-body">
-              <h5 class="card-title">Daftar Obat</h5>
-              <a class="btn btn-success mb-3" href="{{ route('obat.create') }}"> Tambah Obat</a>
+              <h5 class="card-title">Daftar Obat Habis</h5>
               <table class="table table-bordered" id="datatable-crud">
             <thead>
             <tr>
@@ -70,7 +69,7 @@ headers: {
 $('#datatable-crud').DataTable({
 processing: true,
 serverSide: true,
-ajax: "{{ route('obat.index') }}",
+ajax: "{{ route('habis') }}",
 columns: [
 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 { data: 'nama_obat', name: 'nama_obat' },
@@ -79,7 +78,7 @@ columns: [
 { data: 'stok', name: 'stok' },
 { data: 'kadaluwarsa', name: 'kadaluwarsa' },
 { data: 'harga_jual', name: 'harga_jual' },
-{ data: 'unit', name: 'unit.unit' },
+{ data: 'unit_id', name: 'unit_id' },
 { data: 'action', name: 'action', orderable: false },
 
 ],

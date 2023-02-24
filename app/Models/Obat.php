@@ -20,11 +20,11 @@ class Obat extends Model
     }
     
     public function unit(){
-        return $this->belongsTo(Category::class,'unit_id','id'); 
+        return $this->belongsTo(Unit::class,'unit_id','id'); 
     }
 
-    public function suplier(){
-        return $this->belongsTo(Category::class,'pemasok_id','id'); 
+    public function pemasok(){
+        return $this->belongsTo(Pemasok::class,'pemasok_id','id'); 
     }
 
     //carbon

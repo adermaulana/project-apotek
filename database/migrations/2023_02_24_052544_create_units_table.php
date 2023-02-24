@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('supliers', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_pemasok");
-            $table->string("alamat");
-            $table->string("telepon");
+            $table->string("unit");
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supliers');
+        Schema::dropIfExists('units');
     }
 };
