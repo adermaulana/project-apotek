@@ -11,6 +11,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 
+//Buat Dashboard
+use App\Models\Obat;
+use App\Models\Category;
+use App\Models\Pemasok;
+use App\Models\Unit;
+use App\Models\Penjualan;
+use App\Models\Pembelian;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +38,21 @@ Route::post('/login', [LoginController::class,'authenticate']);
 Route::post('/logout', [LoginController::class,'logout']);
 
 Route::get('/dashboard',function(){
-    return view('dashboard.index',[
-        "title" => "Apotek"
-    ]);
+    $title = 'Apotek';
+    $penjualan = Penjualan::all();
+    $total_penjualan = $penjualan->sum('total');
+    $total_pelanggan = $penjualan->count('nama_pembeli');
+    $obat = Obat::all();
+    $total_obat = $obat->sum('stok');
+    $kategori = Category::all();
+    $total_kategori = $kategori->count();
+    $unit = Unit::all();
+    $total_unit = $unit->count();
+    $pemasok = Pemasok::all();
+    $total_pemasok = $pemasok->count();
+    $pembelian = Pembelian::all();
+    $total_pembelian = $pembelian->sum('total');
+    return view('dashboard.index',compact('title','total_penjualan','total_obat','total_kategori','total_unit','total_pemasok','total_pembelian','total_pelanggan'));
 })->middleware('auth');;
 
 //Obat
@@ -61,6 +81,10 @@ Route::resource('/dashboard/user',UserController::class)->middleware('auth');
 //Laporan
 Route::get('/dashboard/laporan',[LaporanController::class,'index'])->name('reports')->middleware('auth');
 Route::post('/dashboard/laporan',[LaporanController::class,'getData'])->middleware('auth');
+
+
+//Export
+Route::get('dashboard/laporan/export',[LaporanController::class,'export'])->middleware('auth');
 
 
 

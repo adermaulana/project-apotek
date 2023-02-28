@@ -28,7 +28,10 @@
             <div class="card-body">
               <h5 class="card-title">{{ $title }}</h5>
               <div class="col-sm-12 col">
-              <a class="btn btn-success mb-3" href="">Export</a>
+              <a class="btn btn-success mb-3" href="/dashboard/laporan/export">Export</a>
+			  @isset($pembelian)
+              <a class="btn btn-success mb-3" href="/dashboard/laporan/export">Export</a>
+			  @endisset
 	          <button  type="button"  data-bs-toggle="modal" data-bs-target="#generate_report" class="btn btn-primary mb-3">Pilih Laporan</button>
             <div class="col-md-12">
 	

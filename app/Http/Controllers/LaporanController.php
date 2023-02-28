@@ -7,6 +7,8 @@ use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PenjualanExport;
 
 use Illuminate\Http\Request;
 
@@ -46,5 +48,11 @@ class LaporanController extends Controller
             $total_penjualan = $penjualan->sum('total');
             return view('dashboard.laporan.index',compact('title','penjualan','total_penjualan'));
         }
+    }
+
+    public function export(Request $request){
+
+        return Excel::download(new PenjualanExport,'laporan.xlsx');
+
     }
 }
