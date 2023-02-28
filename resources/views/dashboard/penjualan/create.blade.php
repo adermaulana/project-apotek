@@ -5,7 +5,7 @@
 <main id="main" class="main">
 
 <div class="pagetitle">
-  <h1>Pembelian Obat</h1>
+  <h1>Penjualan Obat</h1>
 </div><!-- End Page Title -->
 
 <section class="section dashboard">
@@ -27,7 +27,7 @@
 <div class="pull-left">
 </div>
 <div class="pull-right">
-<a class="btn btn-danger" href="{{ route('pembelian.index') }}" enctype="multipart/form-data"> Batal</a>
+<a class="btn btn-danger" href="{{ route('penjualan.index') }}" enctype="multipart/form-data"> Batal</a>
 </div>
 </div>
 </div>
@@ -36,32 +36,25 @@
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('pembelian.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('penjualan.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 <div class="row mt-3">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Nama Pemasok</h6>
-<select class="form-select" name="pemasok_id">
-        @foreach ($pemasoks as $pemasok)
-
-        @if(old('pemasok_id') == $pemasok->id)
-          <option value="{{ $pemasok->id }} " selected> {{ $pemasok->nama_pemasok }} </option>
-        @else
-          <option value="{{ $pemasok->id }}"> {{ $pemasok->nama_pemasok }} </option>
-        @endif
-
-        @endforeach
-</select>
+<h6>Nama Pembeli</h6>
+<input type="text" name="nama_pembeli" id="nama_pembeli" value="{{ old('nama_pembeli') }}" class="form-control"  >
+@error('nama_pembeli')
+<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+@enderror
 </div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Obat Yang di Pilih</h6>
 <select class="form-select" name="obat_id" id="obat_id">
-        <option selected value="0"></option>
+          <option value="0"></option>
         @foreach ($obats as $obat)
-          <option  data-price="{{ $obat->harga_beli }}" data-unit="{{ $obat->unit->unit }}" data-stok="{{ $obat->stok }}" value="{{ $obat->id }} " > {{ $obat->nama_obat }} </option>
+          <option value="{{ $obat->id }}"  data-price="{{ $obat->harga_jual }}" data-unit="{{ $obat->unit->unit }}" data-stok="{{ $obat->stok }}" > {{ $obat->nama_obat }} </option>
         @endforeach
 </select>
 </div>
@@ -69,7 +62,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Stok</h6>
-<input type="text" name="stok" id="stok" class="form-control" readonly >
+<input type="text" name="stok" id="stok" value="{{ old('stok') }}"  class="form-control" readonly >
 @error('stok')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -77,9 +70,9 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Harga Beli</h6>
-<input type="text" name="harga_beli" id="harga"  class="form-control" readonly >
-@error('harga_beli')
+<h6>Harga Jual</h6>
+<input type="text" name="harga_jual" id="harga" value="{{ old('harga_jual') }}"  class="form-control" readonly >
+@error('harga_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
 </div>
@@ -87,7 +80,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Unit</h6>
-<input type="text" name="unit_id" value="" class="form-control" readonly >
+<input type="text" name="unit_id" value="{{ old('unit_id') }}" class="form-control" readonly >
 @error('unit_id')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -105,8 +98,8 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Tanggal Beli</h6>
-<input type="date" name="tanggal_beli" value="{{ old('tanggal_beli') }}" class="form-control" >
-@error('tanggal_beli')
+<input type="date" name="tanggal_jual" value="{{ old('tanggal_jual') }}" class="form-control" >
+@error('tanggal_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
 </div>

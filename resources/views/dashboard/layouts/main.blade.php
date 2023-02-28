@@ -18,7 +18,7 @@
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
   <!-- Favicons -->
-  <link href="/assets/img/medical.jpg" rel="icon" type="image/x-icon">
+  <link href="/assets/img/medical-remove.png" rel="icon" type="image/x-icon">
   <link href="/img/apple-touch-icon.png" rel="apple-touch-icon" type="image/x-icon">
 
   <!-- Google Fonts -->

@@ -18,14 +18,14 @@
   <div class="row">
 
     <!-- columns -->
-    <div class="col-lg-8">
+    <div class="col-lg-10">
       <div class="row">
 
         <!-- Recent Sales -->
-        <div class="col-12">
+        <div class="col-10">
           <div class="card recent-sales overflow-auto">
 
-            <div class="card-body col-12">
+            <div class="card-body col-8">
               <h5 class="card-title">Daftar Unit Obat</h5>
               <a class="btn btn-success mb-3" href="{{ route('unit.create') }}"> Tambah Unit</a>
               <table class="table table-bordered " id="datatable-crud">

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pembelian;
-use App\Models\Pemasok;
+use App\Models\Penjualan;
 use App\Models\Obat;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
 
-class PembelianController extends Controller
+class PenjualanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +17,16 @@ class PembelianController extends Controller
      */
     public function index()
     {
-
         if (request()->ajax()) {
-            $model = Pembelian::with('pemasok')->latest()->get();
+            $model = Penjualan::get();
                 return DataTables::of($model)
-                ->addColumn('pemasok', function (Pembelian $pembelian) {
-                    return $pembelian->pemasok->nama_pemasok;
-                })
-                ->addColumn('action', 'dashboard.pembelian.action')
+                ->addColumn('action', 'dashboard.penjualan.action')
                 ->addIndexColumn()
                 ->toJson();
         }
 
-            return view('dashboard.pembelian.index',[
-                'title' => 'Pembelian'
+            return view('dashboard.penjualan.index',[
+                'title' => 'Penjualan'
             ]);
     }
 
@@ -42,9 +37,8 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        return view('dashboard.pembelian.create',[
-            'title' => 'Tambah Pembelian',
-            'pemasoks' => Pemasok::all(),
+        return view('dashboard.penjualan.create',[
+            'title' => 'Tambah Penjualan',
             'obats' => Obat::all()
         ]);
     }
@@ -59,30 +53,30 @@ class PembelianController extends Controller
     {
         $validatedData = $request->validate([
             'obat_id' => 'required',
-            'harga_beli' => 'required',
+            'nama_pembeli' => 'required',
+            'harga_jual' => 'required',
             'banyak' => 'required',
-            'pemasok_id' => 'required',
-            'tanggal_beli' => 'required',
+            'tanggal_jual' => 'required',
             'total' => 'required'
             ]);
 
-            Pembelian::create($validatedData);
-            
+            Penjualan::create($validatedData);
+
             $obat = Obat::find($request->obat_id);
-            $obat->stok += $request->banyak;
+            $obat->stok -= $request->banyak;
             $obat->save();
 
-            return redirect()->route('pembelian.index')
-            ->with('success','Pembelian has been created successfully.');
+            return redirect()->route('penjualan.index')
+            ->with('success','Penjualan has been created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pembelian  $pembelian
+     * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(Pembelian $pembelian)
+    public function show(Penjualan $penjualan)
     {
         //
     }
@@ -90,36 +84,37 @@ class PembelianController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pembelian  $pembelian
+     * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pembelian $pembelian)
+    public function edit(Penjualan $penjualan)
     {
 
     }
+
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pembelian  $pembelian
+     * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pembelian $pembelian)
+    public function update(Request $request, Penjualan $penjualan)
     {
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pembelian  $pembelian
+     * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembelian $pembelian)
+    public function destroy(Penjualan $penjualan)
     {
-        Pembelian::destroy($pembelian->id);
+        Penjualan::destroy($penjualan->id);
 
-        return redirect()->route('pembelian.index')
+        return redirect()->route('penjualan.index')
         ->with('success','Produk Has Been deleted successfully');
     }
 }

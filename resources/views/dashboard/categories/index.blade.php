@@ -18,7 +18,7 @@
   <div class="row">
 
     <!-- columns -->
-    <div class="col-lg-8">
+    <div class="col-lg-10">
       <div class="row">
 
         <!-- Recent Sales -->

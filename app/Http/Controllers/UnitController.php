@@ -16,6 +16,7 @@ class UnitController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin');
         if (request()->ajax()) {
             $model = Unit::latest()->get();
                 return DataTables::of($model)

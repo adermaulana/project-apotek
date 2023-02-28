@@ -78,7 +78,7 @@ columns: [
 { data: 'stok', name: 'stok' },
 { data: 'kadaluwarsa', name: 'kadaluwarsa' },
 { data: 'harga_jual', name: 'harga_jual' },
-{ data: 'unit_id', name: 'unit_id' },
+{ data: 'unit', name: 'unit.unit' },
 { data: 'action', name: 'action', orderable: false },
 
 ],

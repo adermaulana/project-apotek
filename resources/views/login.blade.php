@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Login</title>
+    <link rel="icon"  href="/assets/img/medical-remove.png">
+    <title>Login | {{ $title }}</title>
 </head>
 <body >
 <div class="container">
@@ -21,14 +22,13 @@
     @endif
 
     @if(session()->has('loginError'))
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
         {{ session('loginError') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     @endif
 
     <main  class="form-signin">
-      <img class="mt-2 mb-2" src="img/pendaki.jpg" alt="" width="100" style="margin-left:120px">
+      <img class="mt-2 mb-2" src="/assets/img/medical-remove.png" alt="" width="200" style="margin-left:80px">
       <h1 class="h4 mb-3 fw-normal text-center ">Please login</h1>
       <form action="/login" method="post">
         @csrf
@@ -45,8 +45,8 @@
           <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
           <label for="password">Password</label>
         </div>
-    
-        <button style="background-color:blue;" class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+
+        <button style="background-color:#219ebc; border:none;" class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
       </form>
     
     </main>

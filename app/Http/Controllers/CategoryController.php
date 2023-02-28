@@ -16,6 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin');
         if (request()->ajax()) {
             $model = Category::latest()->get();
                 return DataTables::of($model)

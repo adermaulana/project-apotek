@@ -18,6 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin');
         if (request()->ajax()) {
             $model = User::get();
                 return DataTables::of($model)

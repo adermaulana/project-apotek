@@ -19,6 +19,7 @@ class ObatController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin');
         if (request()->ajax()) {
             $model = Obat::with('category','unit')->latest()->get();
                 return DataTables::of($model)
@@ -157,6 +158,9 @@ class ObatController extends Controller
                 return DataTables::of($model)
                 ->addColumn('category', function (Obat $obat) {
                     return $obat->category->nama_kategori;
+                })
+                ->addColumn('unit', function (Obat $obat) {
+                    return $obat->unit->unit;
                 })
                 ->addColumn('action', 'dashboard.obat.action')
                 ->addIndexColumn()

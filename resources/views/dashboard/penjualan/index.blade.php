@@ -11,7 +11,7 @@
 @endif
 
 <div class="pagetitle">
-  <h1>Pembelian Obat</h1>
+  <h1>Penjualan Obat</h1>
 </div><!-- End Page Title -->
 
 <section class="section dashboard">
@@ -26,16 +26,16 @@
           <div class="card recent-sales overflow-auto">
 
             <div class="card-body col-12">
-              <h5 class="card-title">Daftar Pembelian Obat</h5>
-              <a class="btn btn-success mb-3" href="{{ route('pembelian.create') }}"> Beli Obat</a>
+              <h5 class="card-title">Daftar Penjualan Obat</h5>
+              <a class="btn btn-success mb-3" href="{{ route('penjualan.create') }}"> Jual Obat</a>
               <table class="table table-bordered " id="datatable-crud">
             <thead>
             <tr>
                 <th>No</th>
-                <th>Tangal Beli</th>
-                <th>Nama Pemasok</th>
+                <th>Tangal Transaksi</th>
+                <th>Nama Pembeli</th>
                 <th>Banyak</th>
-                <th>Total Pembelian</th>
+                <th>Total Penjualan</th>
                 <th>Action</th>
 
             </tr>
@@ -67,11 +67,11 @@ headers: {
 $('#datatable-crud').DataTable({
 processing: true,
 serverSide: true,
-ajax: "{{ route('pembelian.index') }}",
+ajax: "{{ route('penjualan.index') }}",
 columns: [
 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-{ data: 'tanggal_beli', name: 'tanggal_beli' },
-{ data: 'pemasok', name: 'pemasok.nama_pemasok' },
+{ data: 'tanggal_jual', name: 'tanggal_jual' },
+{ data: 'nama_pembeli', name: 'nama_pembeli' },
 { data: 'banyak', name: 'banyak' },
 { data: 'total', name: 'total' },
 { data: 'action', name: 'action', orderable: false },

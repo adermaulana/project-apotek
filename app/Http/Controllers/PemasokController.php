@@ -16,6 +16,7 @@ class PemasokController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin');
         if (request()->ajax()) {
             $model = Pemasok::latest()->get();
                 return DataTables::of($model)
