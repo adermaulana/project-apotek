@@ -20,14 +20,6 @@
         <li>php artisan key:generate (generate app key)</li>
         <li>php artisan migrate (migrasi database)</li>
         <li>php artisan db:seed</li>
-    </ul>
-    <h2>Fitur</h2>
-     <ul>
-        <li>LOGIN USER</li>
-        <li>REGISTRASI</li>
-        <li>CRUD BARANG</li>
-        <li>CRUD SUPPLIER</li>
-        <li>EXPORT KE EXCEL</li>
-    </ul>
+
 </body>
 </html>
