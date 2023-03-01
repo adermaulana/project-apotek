@@ -8,7 +8,7 @@ use App\Models\Obat;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class PenjualanExport implements FromCollection
+class PenjualanExport implements FromCollection,WithHeadings,WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
