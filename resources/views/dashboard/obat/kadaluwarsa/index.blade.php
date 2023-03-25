@@ -32,12 +32,9 @@
             <tr>
                 <th>No</th>
                 <th>Nama Obat</th>
-                <th>Penyimpanan</th>
-                <th>Kategori</th>
-                <th>Stok</th>
-                <th>Kadaluarsa</th>
-                <th>Harga Jual</th>
-                <th>Unit</th>
+                <th>Banyak</th>
+                <th>Nama Pemasok</th>
+                <th>Kadaluwarsa</th>
                 <th>Action</th>
 
             </tr>
@@ -72,13 +69,10 @@ serverSide: true,
 ajax: "{{ route('kadaluwarsa') }}",
 columns: [
 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-{ data: 'nama_obat', name: 'nama_obat' },
-{ data: 'penyimpanan', name: 'penyimpanan' },
-{ data: 'category', name: 'category.nama_kategori' },
-{ data: 'stok', name: 'stok' },
+{ data: 'obat', name: 'obat.nama_obat' },
+{ data: 'banyak', name: 'banyak' },
+{ data: 'pemasok', name: 'pemasok.nama_pemasok' },
 { data: 'kadaluwarsa', name: 'kadaluwarsa' },
-{ data: 'harga_jual', name: 'harga_jual' },
-{ data: 'unit', name: 'unit.unit' },
 { data: 'action', name: 'action', orderable: false },
 
 ],

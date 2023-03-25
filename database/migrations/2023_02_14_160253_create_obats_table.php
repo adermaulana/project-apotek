@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('obats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("category_id");
             $table->foreignId("pemasok_id");
             $table->foreignId("unit_id");
-            $table->string("nama_obat");
-            $table->string("penyimpanan");
-            $table->string("stok");
-            $table->date("kadaluwarsa");
+            $table->string("nama_obat")->nullable();
+            $table->string("stok")->nullable();
+            $table->string("kadaluwarsa")->nullable();
             $table->text("deskripsi_obat");
             $table->string("harga_beli");
             $table->string("harga_jual");

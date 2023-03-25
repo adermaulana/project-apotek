@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemasok;
+use App\Models\Pembelian;
+use App\Models\Obat;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
@@ -25,9 +27,16 @@ class PemasokController extends Controller
                 ->toJson();
         }
 
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
             return view('dashboard.pemasok.index',[
                 'title' => 'Pemasok'
-            ]);
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -37,9 +46,17 @@ class PemasokController extends Controller
      */
     public function create()
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.pemasok.create',[
             'title' => 'Tambah Pemasok'
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -58,7 +75,7 @@ class PemasokController extends Controller
 
             Pemasok::create($validatedData);
             return redirect()->route('pemasok.index')
-            ->with('success','Pemasok has been created successfully.');
+            ->with('success','Pemasok Berhasil Ditambahkan');
     }
 
     /**
@@ -80,10 +97,18 @@ class PemasokController extends Controller
      */
     public function edit(Pemasok $pemasok)
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.pemasok.edit',[
             'title' => 'Edit Pemasok',
             'pemasok' => $pemasok
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -105,7 +130,7 @@ class PemasokController extends Controller
             ->update($validateData);
 
             return redirect()->route('pemasok.index')
-            ->with('success','Pemasok Has Been updated successfully');
+            ->with('success','Pemasok Berhasil Diperbarui');
     }
 
     /**
@@ -119,6 +144,6 @@ class PemasokController extends Controller
         Pemasok::destroy($pemasok->id);
 
         return redirect()->route('pemasok.index')
-        ->with('success','Pemasok Has Been deleted successfully');
+        ->with('success','Pemasok Berhasil Dihapus');
     }
 }

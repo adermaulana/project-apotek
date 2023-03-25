@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
+use App\Models\Pembelian;
 use App\Models\Obat;
 use Illuminate\Http\Request;
 use DataTables;
@@ -25,9 +26,16 @@ class PenjualanController extends Controller
                 ->toJson();
         }
 
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
             return view('dashboard.penjualan.index',[
                 'title' => 'Penjualan'
-            ]);
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -37,10 +45,18 @@ class PenjualanController extends Controller
      */
     public function create()
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.penjualan.create',[
             'title' => 'Tambah Penjualan',
-            'obats' => Obat::all()
-        ]);
+            'obat' => Obat::all()
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -67,7 +83,7 @@ class PenjualanController extends Controller
             $obat->save();
 
             return redirect()->route('penjualan.index')
-            ->with('success','Penjualan has been created successfully.');
+            ->with('success','Transaksi Berhasil Ditambahkan');
     }
 
     /**
@@ -115,6 +131,6 @@ class PenjualanController extends Controller
         Penjualan::destroy($penjualan->id);
 
         return redirect()->route('penjualan.index')
-        ->with('success','Produk Has Been deleted successfully');
+        ->with('success','Transaksi Berhasil Dihapus');
     }
 }

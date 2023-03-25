@@ -30,9 +30,16 @@ class PembelianController extends Controller
                 ->toJson();
         }
 
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
             return view('dashboard.pembelian.index',[
                 'title' => 'Pembelian'
-            ]);
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -42,11 +49,19 @@ class PembelianController extends Controller
      */
     public function create()
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.pembelian.create',[
             'title' => 'Tambah Pembelian',
             'pemasoks' => Pemasok::all(),
-            'obats' => Obat::all()
-        ]);
+            'obat' => Obat::all()
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -62,6 +77,7 @@ class PembelianController extends Controller
             'harga_beli' => 'required',
             'banyak' => 'required',
             'pemasok_id' => 'required',
+            'kadaluwarsa' => 'required',
             'tanggal_beli' => 'required',
             'total' => 'required'
             ]);
@@ -73,7 +89,7 @@ class PembelianController extends Controller
             $obat->save();
 
             return redirect()->route('pembelian.index')
-            ->with('success','Pembelian has been created successfully.');
+            ->with('success','Produk Berhasil Ditambahkan');
     }
 
     /**
@@ -120,6 +136,14 @@ class PembelianController extends Controller
         Pembelian::destroy($pembelian->id);
 
         return redirect()->route('pembelian.index')
-        ->with('success','Produk Has Been deleted successfully');
+        ->with('success','Produk Berhasil Dihapus');
+    }
+
+    public function hapus(Pembelian $pembelian)
+    {
+        Pembelian::destroy($pembelian->id);
+
+        return redirect()->route('kadaluwarsa.index')
+        ->with('success','Produk Berhasil Dihapus');
     }
 }

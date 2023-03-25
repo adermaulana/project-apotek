@@ -5,9 +5,10 @@
 <main id="main" class="main">
 
 @if ($message = Session::get('success'))
-<div class="alert alert-success">
-<p>{{ $message }}</p>
-</div>
+<div class="alert alert-success alert-dismissible fade show col-lg-12" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
 @endif
 
 <div class="pagetitle">
@@ -33,14 +34,10 @@
             <tr>
                 <th>No</th>
                 <th>Nama Obat</th>
-                <th>Penyimpanan</th>
-                <th>Kategori</th>
                 <th>Stok</th>
-                <th>Kadaluarsa</th>
                 <th>Harga Jual</th>
                 <th>Unit</th>
                 <th>Action</th>
-
             </tr>
         </thead>
         <tbody>
@@ -60,6 +57,8 @@
 
 </main><!-- End #main -->
 
+
+
 <script type="text/javascript" id="javascript">
 $(document).ready( function () {
 $.ajaxSetup({
@@ -74,10 +73,7 @@ ajax: "{{ route('obat.index') }}",
 columns: [
 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 { data: 'nama_obat', name: 'nama_obat' },
-{ data: 'penyimpanan', name: 'penyimpanan' },
-{ data: 'category', name: 'category.nama_kategori' },
 { data: 'stok', name: 'stok' },
-{ data: 'kadaluwarsa', name: 'kadaluwarsa' },
 { data: 'harga_jual', name: 'harga_jual' },
 { data: 'unit', name: 'unit.unit' },
 { data: 'action', name: 'action', orderable: false },

@@ -14,10 +14,6 @@ class Obat extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-
-    public function category(){
-        return $this->belongsTo(Category::class,'category_id','id'); 
-    }
     
     public function unit(){
         return $this->belongsTo(Unit::class,'unit_id','id'); 
@@ -27,12 +23,5 @@ class Obat extends Model
         return $this->belongsTo(Pemasok::class,'pemasok_id','id'); 
     }
 
-    //carbon
-    public function getCreatedAtAttribute()
-    {
-
-        return Carbon::parse($this->attributes['kadaluwarsa'])
-           ->format('d M Y');
-    }
 
 }

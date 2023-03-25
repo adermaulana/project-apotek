@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Obat;
+use App\Models\Unit;
 use App\Models\Pemasok;
 
 class Pembelian extends Model
@@ -19,6 +20,10 @@ class Pembelian extends Model
 
     public function obat(){
         return $this->belongsTo(Obat::class,'obat_id','id'); 
+    }
+
+    public function unit(){
+        return $this->belongsTo(Unit::class,'unit_id','id'); 
     }
 
 

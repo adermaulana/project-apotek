@@ -53,8 +53,8 @@
 <h6>Obat Yang di Pilih</h6>
 <select class="form-select" name="obat_id" id="obat_id">
           <option value="0"></option>
-        @foreach ($obats as $obat)
-          <option value="{{ $obat->id }}"  data-price="{{ $obat->harga_jual }}" data-unit="{{ $obat->unit->unit }}" data-stok="{{ $obat->stok }}" > {{ $obat->nama_obat }} </option>
+        @foreach ($obat as $obats)
+          <option value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
         @endforeach
 </select>
 </div>
@@ -115,7 +115,6 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<a id="send" type="submit" class="btn btn-success col-6 me-1 mb-3">Total</a>
 <button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
 </div>
 </form>
@@ -156,7 +155,7 @@
   $('#harga').val(`${total}`);
 });
 
-  $('#send').on('click',function(){
+  $('#banyak').on('change',function(){
     const price = $('#obat_id option:selected').data('price');
     const banyak = $('#banyak').val();
 

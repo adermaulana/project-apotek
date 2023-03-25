@@ -16,9 +16,12 @@ class LaporanController extends Controller
 {
 
     public function index(){
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
         return view ('dashboard.laporan.index',[
             'title' => 'Laporan'
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa'));
     }
 
     public function getData(Request $request){
@@ -30,29 +33,32 @@ class LaporanController extends Controller
         $from_date = $request->from_date;
         $to_date = $request->to_date;
         if ($request->resource == 'obat'){
+            $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+            $total_kadaluwarsa = $kadaluwarsa->count();
             $obat = Obat::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
             $total_obat = $obat->count();
             $total_stok =$obat->sum('stok');
             $title = "Laporan Jumlah Obat";
-            return view('dashboard.laporan.index',compact('obat','title','total_obat','total_stok'));
+            return view('dashboard.laporan.index',compact('kadaluwarsa','obat','title','total_obat','total_stok','total_kadaluwarsa'));
         }
         if($request->resource == "pembelian"){
+            $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+            $total_kadaluwarsa = $kadaluwarsa->count();
             $title = "Laporan Pembelian Obat";
+            $total_obat = Obat::all();
             $pembelian = Pembelian::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
             $total_pembelian = $pembelian->sum('total');
-            return view('dashboard.laporan.index',compact('title','pembelian','total_pembelian'));
+            return view('dashboard.laporan.index',compact('kadaluwarsa','title','pembelian','total_pembelian','total_kadaluwarsa','total_obat'));
         }
         if($request->resource == 'penjualan'){
+            $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+            $total_kadaluwarsa = $kadaluwarsa->count();
             $title = "Laporan Penjualan Obat";
+            $total_obat = Obat::all();
             $penjualan = Penjualan::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
             $total_penjualan = $penjualan->sum('total');
-            return view('dashboard.laporan.index',compact('title','penjualan','total_penjualan'));
+            return view('dashboard.laporan.index',compact('kadaluwarsa','total_obat','title','penjualan','total_penjualan','total_kadaluwarsa'));
         }
     }
 
-    public function export(Request $request){
-
-        return Excel::download(new PenjualanExport,'laporan.xlsx');
-
-    }
 }

@@ -5,9 +5,10 @@
 <main id="main" class="main">
 
 @if ($message = Session::get('success'))
-<div class="alert alert-success">
-<p>{{ $message }}</p>
-</div>
+<div class="alert alert-success alert-dismissible fade show col-lg-12" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
 @endif
 
 <div class="pagetitle">
@@ -18,14 +19,14 @@
   <div class="row">
 
     <!-- columns -->
-    <div class="col-lg-10">
+    <div class="col-lg-12">
       <div class="row">
 
         <!-- Recent Sales -->
-        <div class="col-10">
+        <div class="col-12">
           <div class="card recent-sales overflow-auto">
 
-            <div class="card-body col-8">
+            <div class="card-body">
               <h5 class="card-title">Daftar Unit Obat</h5>
               <a class="btn btn-success mb-3" href="{{ route('unit.create') }}"> Tambah Unit</a>
               <table class="table table-bordered " id="datatable-crud">
@@ -53,6 +54,10 @@
 </section>
 
 </main><!-- End #main -->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+<script>
+    feather.replace();
+</script>
 
 <script type="text/javascript" id="javascript">
 $(document).ready( function () {

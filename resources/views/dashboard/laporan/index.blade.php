@@ -28,18 +28,20 @@
             <div class="card-body">
               <h5 class="card-title">{{ $title }}</h5>
               <div class="col-sm-12 col">
-              <a class="btn btn-success mb-3" href="/dashboard/laporan/export">Export</a>
-			  @isset($pembelian)
+			  <!-- @isset($pembelian)
               <a class="btn btn-success mb-3" href="/dashboard/laporan/export">Export</a>
 			  @endisset
+			  @isset($penjualan)
+              <a class="btn btn-success mb-3" href="/dashboard/laporan/export">Export</a>
+			  @endisset -->
 	          <button  type="button"  data-bs-toggle="modal" data-bs-target="#generate_report" class="btn btn-primary mb-3">Pilih Laporan</button>
-            <div class="col-md-12">
+
 	
 
         @isset($pembelian)
 			<!--  Sales -->
 			<div class="card">
-				<div class="card-body">
+				<div class="card-body mt-3 mb-3">
 					<div class="table-responsive">
 						<table id="datatable-export" class="table table-hover table-center mb-0">
 							<thead>
@@ -65,9 +67,9 @@
 								@endforeach
 							</tbody>
 						</table>
-						<div class="container-fluid mt-4">
+						<!-- <div class="container-fluid mt-4">
 							<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ $total_pembelian }}</p>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -78,9 +80,9 @@
 		@isset($penjualan)
 			<!--  Sales -->
 			<div class="card">
-				<div class="card-body">
+				<div class="card-body mt-3">
 					<div class="table-responsive">
-						<table id="datatable-export" class="table table-hover table-center mb-0">
+						<table id="datatable-export" class="table table-hover table-center">
 							<thead>
 								<tr>
 									<th>No</th>
@@ -178,8 +180,5 @@
 <!-- /Generate Modal -->
 
 </main><!-- End #main -->
-
-
-
 
 @endsection

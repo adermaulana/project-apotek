@@ -18,6 +18,7 @@ use App\Models\Pemasok;
 use App\Models\Unit;
 use App\Models\Penjualan;
 use App\Models\Pembelian;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,30 +31,39 @@ use App\Models\Pembelian;
 |
 */
 
-
+//LandingPage
+Route::get('/',function(){
+    return view('home',[
+        'title' => 'Home'
+    ]);
+});
 
 //login
-Route::get('/', [LoginController::class,'index'])->name('login')->middleware('guest');
+Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::post('/logout', [LoginController::class,'logout']);
 
 Route::get('/dashboard',function(){
+    $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+    $total_kadaluwarsa = $kadaluwarsa->count();
+    $obat_habis = Obat::where('stok', '<=', 0)->get();
+    $total_obat_habis = $obat_habis->count();
+    $total_notif = $total_kadaluwarsa + $total_obat_habis;
     $title = 'Apotek';
     $penjualan = Penjualan::all();
     $total_penjualan = $penjualan->sum('total');
     $total_pelanggan = $penjualan->count('nama_pembeli');
-    $obat = Obat::all();
-    $total_obat = $obat->sum('stok');
-    $kategori = Category::all();
-    $total_kategori = $kategori->count();
+    $total_obat = Obat::all();
+    $total_obats = $total_obat->sum('stok');
     $unit = Unit::all();
     $total_unit = $unit->count();
     $pemasok = Pemasok::all();
     $total_pemasok = $pemasok->count();
     $pembelian = Pembelian::all();
     $total_pembelian = $pembelian->sum('total');
-    return view('dashboard.index',compact('title','total_penjualan','total_obat','total_kategori','total_unit','total_pemasok','total_pembelian','total_pelanggan'));
-})->middleware('auth');;
+    $total_pendapatan = $total_penjualan - $total_pembelian;
+    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif'));
+})->middleware('auth');
 
 //Obat
 Route::get('/dashboard/obat/kadaluwarsa',[ObatController::class,'kadaluwarsa'])->name('kadaluwarsa')->middleware('auth');
@@ -62,9 +72,6 @@ Route::resource('/dashboard/obat',ObatController::class)->middleware('auth');
 
 //Unit
 Route::resource('/dashboard/unit',UnitController::class)->middleware('auth');
-
-//Category
-Route::resource('/dashboard/categories',CategoryController::class)->middleware('auth');
 
 //Pemasok
 Route::resource('/dashboard/pemasok',PemasokController::class)->middleware('auth');
@@ -82,9 +89,6 @@ Route::resource('/dashboard/user',UserController::class)->middleware('auth');
 Route::get('/dashboard/laporan',[LaporanController::class,'index'])->name('reports')->middleware('auth');
 Route::post('/dashboard/laporan',[LaporanController::class,'getData'])->middleware('auth');
 
-
-//Export
-Route::get('dashboard/laporan/export',[LaporanController::class,'export'])->middleware('auth');
 
 
 

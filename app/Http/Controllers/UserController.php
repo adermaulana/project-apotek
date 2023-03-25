@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Obat;
+use App\Models\Pembelian;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
@@ -27,9 +29,17 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->toJson();
         }
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
             return view('dashboard.user.index',[
                 'title' => 'User'
-            ]);
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -39,9 +49,16 @@ class UserController extends Controller
      */
     public function create()
     {
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.user.create',[
             'title' => 'Tambah Pengelola'
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -63,7 +80,7 @@ class UserController extends Controller
 
             User::create($validatedData);
             return redirect()->route('user.index')
-            ->with('success','Pengelola has been created successfully.');
+            ->with('success','Akun Pengguna Berhasil Ditambahkan');
     }
 
     /**
@@ -85,10 +102,17 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.user.edit',[
             'title' => 'Edit Pengelola',
             'user' => $user
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -113,7 +137,7 @@ class UserController extends Controller
             ->update($validateData);
 
             return redirect()->route('user.index')
-            ->with('success','Pengelola Has Been updated successfully');
+            ->with('success','Akun Pengguna Berhasil Diperbarui');
     }
 
     /**
@@ -124,6 +148,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+
+        return redirect()->route('user.index')
+        ->with('success','Akun Pengguna Berhasil Dihapus');
     }
 }

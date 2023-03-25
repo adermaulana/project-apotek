@@ -50,49 +50,6 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Penyimpanan</h6>
-<input type="text" name="penyimpanan" class="form-control"  value="{{ old('penyimpanan') }}">
-@error('penyimpanan')
-<div class="alert alert-danger mt-2 mb-1">{{ $message }}</div>
-@enderror
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
-<h6>Nama Kategori</h6>
-<select class="form-select" name="category_id">
-        @foreach ($categories as $category)
-
-        @if(old('category_id') == $category->id)
-          <option value="{{ $category->id }} " selected> {{ $category->nama_kategori }} </option>
-        @else
-          <option value="{{ $category->id }}"> {{ $category->nama_kategori }} </option>
-        @endif
-
-        @endforeach
-</select>
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
-<h6>Stok</h6>
-<input type="number" name="stok" class="form-control"  value="{{ old('stok') }}">
-@error('stok')
-<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-@enderror
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
-<h6>Kadaluwarsa</h6>
-<input type="date" name="kadaluwarsa" class="form-control"  value="{{ old('kadaluwarsa') }}">
-@error('kadaluwarsa')
-<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-@enderror
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
 <h6>Deskripsi Obat</h6>
 <input type="text" name="deskripsi_obat" value="{{ old('deskripsi_obat') }}" class="form-control" >
 @error('deskripsi_obat')

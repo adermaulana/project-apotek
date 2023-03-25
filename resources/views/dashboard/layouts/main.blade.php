@@ -10,6 +10,11 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <!-- Terbaru Datatables -->
+
+  <link rel="stylesheet" href="{{asset('asset/plugins/DataTables/datatables.css')}}">
+  <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
   <!-- DataTables -->
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
@@ -53,6 +58,12 @@
     @yield('container')
 
     @include('dashboard.partials.footer')
+
+
+	<!-- jQuery -->
+	<script src="{{asset('asset/js/jquery-3.2.1.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/DataTables/datatables.min.js')}}"></script>
+
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -63,9 +74,12 @@
   <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="/assets/vendor/php-email-form/validate.js"></script>
 
+  <!-- Datatables -->
+
+  <script src="{{asset('asset/js/datatables-customizer.js')}}"></script>
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 </body>
 
 </html>

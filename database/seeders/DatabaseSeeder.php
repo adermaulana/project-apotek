@@ -32,23 +32,6 @@ class DatabaseSeeder extends Seeder
             'is_admin' => 1
         ]);
 
-
-        Category::create([
-            'nama_kategori' => 'Anti Depresan',
-            'deskripsi_kategori' => 'Membuat Anda Slebew'
-        ]);
-
-        Category::create([
-            'nama_kategori' => 'Vitamin',
-            'deskripsi_kategori' => 'Membuat Badan Sehat'
-        ]);
-
-        Category::create([
-            'nama_kategori' => 'Anti Biotik',
-            'deskripsi_kategori' => 'Membuat Badan Sehat Banget'
-        ]);
-
-
         Unit::create([
             'unit' => 'Kapsul'
         ]);

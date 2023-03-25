@@ -5,9 +5,10 @@
 <main id="main" class="main">
 
 @if ($message = Session::get('success'))
-<div class="alert alert-success">
-<p>{{ $message }}</p>
-</div>
+<div class="alert alert-success alert-dismissible fade show col-lg-12" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
 @endif
 
 <div class="pagetitle">
@@ -37,7 +38,6 @@
                 <th>Banyak</th>
                 <th>Total Pembelian</th>
                 <th>Action</th>
-
             </tr>
         </thead>
         <tbody>
@@ -56,6 +56,10 @@
 </section>
 
 </main><!-- End #main -->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+<script>
+    feather.replace();
+</script>
 
 <script type="text/javascript" id="javascript">
 $(document).ready( function () {

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('obat_id');
             $table->string('harga_beli');
             $table->string('banyak');
+            $table->string('kadaluwarsa');
             $table->string('tanggal_beli');
             $table->string('total');
             $table->timestamps();

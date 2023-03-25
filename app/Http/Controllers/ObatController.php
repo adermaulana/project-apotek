@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Obat;
 use App\Models\Pemasok;
+use App\Models\Pembelian;
 use App\Models\Unit;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
@@ -21,11 +21,8 @@ class ObatController extends Controller
     {
         $this->authorize('admin');
         if (request()->ajax()) {
-            $model = Obat::with('category','unit')->latest()->get();
+            $model = Obat::with('unit')->latest()->get();
                 return DataTables::of($model)
-                ->addColumn('category', function (Obat $obat) {
-                    return $obat->category->nama_kategori;
-                })
                 ->addColumn('unit', function (Obat $obat) {
                     return $obat->unit->unit;
                 })
@@ -33,9 +30,17 @@ class ObatController extends Controller
                 ->addIndexColumn()
                 ->toJson();
         }
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
             return view('dashboard.obat.index',[
                 'title' => 'Obat'
-            ]);
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
 
     }
 
@@ -46,12 +51,19 @@ class ObatController extends Controller
      */
     public function create()
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.obat.create',[
             'title' => 'Tambah Obat',
-            'categories' => Category::all(),
             'units' => Unit::all(),
             'pemasoks' => Pemasok::all()
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -64,10 +76,6 @@ class ObatController extends Controller
     {
         $validatedData = $request->validate([
             'nama_obat' => 'required',
-            'penyimpanan' => 'required',
-            'category_id' => 'required',
-            'stok' => 'required',
-            'kadaluwarsa' => 'required',
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
@@ -77,7 +85,7 @@ class ObatController extends Controller
 
             Obat::create($validatedData);
             return redirect()->route('obat.index')
-            ->with('success','Obat has been created successfully.');
+            ->with('success','Obat Berhasil Ditambahkan');
     }
 
     /**
@@ -99,13 +107,20 @@ class ObatController extends Controller
      */
     public function edit(Obat $obat)
     {
+
+        $kadaluwarsa = Obat::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+        
         return view('dashboard.obat.edit',[
             'title' => 'Edit Obat',
             'obat' => $obat,
-            'categories' => Category::all(),
             'units' => Unit::all(),
             'pemasoks' => Pemasok::all()
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -119,10 +134,7 @@ class ObatController extends Controller
     {
         $validateData = $request->validate([
             'nama_obat' => 'required',
-            'penyimpanan' => 'required',
-            'category_id' => 'required',
             'stok' => 'required',
-            'kadaluwarsa' => 'required',
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
@@ -134,7 +146,7 @@ class ObatController extends Controller
             ->update($validateData);
 
             return redirect()->route('obat.index')
-            ->with('success','Obat Has Been updated successfully');
+            ->with('success','Obat Berhasil Diperbarui');
     }
 
     /**
@@ -148,17 +160,42 @@ class ObatController extends Controller
         Obat::destroy($obat->id);
 
         return redirect()->route('obat.index')
-        ->with('success','Obat Has Been deleted successfully');
+        ->with('success','Obat Berhasil Dihapus');
     }
 
     public function kadaluwarsa(){
+        
+        if (request()->ajax()) {
+            $model = Pembelian::whereDate('kadaluwarsa', '<=', Carbon::now())->get();
+                return DataTables::of($model)
+                ->addColumn('obat', function (Pembelian $pembelian) {
+                    return $pembelian->obat->nama_obat;
+                })
+                ->addColumn('pemasok', function (Pembelian $pembelian) {
+                    return $pembelian->pemasok->nama_pemasok;
+                })
+                ->addColumn('action', 'dashboard.pembelian.action')
+                ->addIndexColumn()
+                ->toJson();
+        }
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
+        return view('dashboard.obat.kadaluwarsa.index',[
+            'title' => 'Kadaluwarsa'
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
+    }
+
+    public function habis(){
 
         if (request()->ajax()) {
-            $model = Obat::whereDate('kadaluwarsa', '<=', Carbon::now())->get();
+            $model = Obat::where('stok', '<=', 0)->get();
                 return DataTables::of($model)
-                ->addColumn('category', function (Obat $obat) {
-                    return $obat->category->nama_kategori;
-                })
                 ->addColumn('unit', function (Obat $obat) {
                     return $obat->unit->unit;
                 })
@@ -167,29 +204,16 @@ class ObatController extends Controller
                 ->toJson();
         }
 
-        return view('dashboard.obat.kadaluwarsa.index',[
-            'title' => 'Kadaluwarsa'
-        ]);
-    }
-
-    public function habis(){
-
-        if (request()->ajax()) {
-            $model = Obat::where('stok', '<=', 0)->get();
-                return DataTables::of($model)
-                ->addColumn('category', function (Obat $obat) {
-                    return $obat->category->nama_kategori;
-                })
-                ->addColumn('action', 'dashboard.obat.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
+        $total_obat = Obat::all();
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
 
         return view('dashboard.obat.habis.index',[
             'title' => 'Habis'
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
-
-
 
 }

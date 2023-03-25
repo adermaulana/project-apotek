@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Models\Obat;
+use App\Models\Pembelian;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
@@ -25,9 +27,16 @@ class UnitController extends Controller
                 ->toJson();
         }
 
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
             return view('dashboard.unit.index',[
                 'title' => 'Unit'
-            ]);
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -37,9 +46,17 @@ class UnitController extends Controller
      */
     public function create()
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.unit.create',[
             'title' => 'Tambah Unit'
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -56,7 +73,7 @@ class UnitController extends Controller
 
             Unit::create($validatedData);
             return redirect()->route('unit.index')
-            ->with('success','Unit has been created successfully.');
+            ->with('success','Unit Berhasil Ditambahkan');
     }
 
     /**
@@ -78,10 +95,18 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
         return view('dashboard.unit.edit',[
             'title' => 'Edit Unit',
             'unit' => $unit
-        ]);
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -101,7 +126,7 @@ class UnitController extends Controller
             ->update($validateData);
 
             return redirect()->route('unit.index')
-            ->with('success','Unit Has Been updated successfully');
+            ->with('success','Unit Berhasil Diperbarui');
     }
 
     /**
@@ -115,6 +140,6 @@ class UnitController extends Controller
         Unit::destroy($unit->id);
 
         return redirect()->route('unit.index')
-        ->with('success','Unit Has Been deleted successfully');
+        ->with('success','Unit Berhasil Dihapus');
     }
 }

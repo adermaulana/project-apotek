@@ -60,8 +60,8 @@
 <h6>Obat Yang di Pilih</h6>
 <select class="form-select" name="obat_id" id="obat_id">
         <option selected value="0"></option>
-        @foreach ($obats as $obat)
-          <option  data-price="{{ $obat->harga_beli }}" data-unit="{{ $obat->unit->unit }}" data-stok="{{ $obat->stok }}" value="{{ $obat->id }} " > {{ $obat->nama_obat }} </option>
+        @foreach ($obat as $obats)
+          <option  data-price="{{ $obats->harga_beli }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" value="{{ $obats->id }} " > {{ $obats->nama_obat }} </option>
         @endforeach
 </select>
 </div>
@@ -104,6 +104,15 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
+<h6>Kadaluwarsa</h6>
+<input type="date" name="kadaluwarsa" value="{{ old('kadaluwarsa') }}" class="form-control" >
+@error('kadaluwarsa')
+<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+@enderror
+</div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-6">
+<div class="form-group">
 <h6>Tanggal Beli</h6>
 <input type="date" name="tanggal_beli" value="{{ old('tanggal_beli') }}" class="form-control" >
 @error('tanggal_beli')
@@ -122,7 +131,6 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<a id="send" type="submit" class="btn btn-success col-6 me-1 mb-3">Total</a>
 <button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
 </div>
 </form>
@@ -163,7 +171,7 @@
   $('#harga').val(`${total}`);
 });
 
-  $('#send').on('click',function(){
+  $('#banyak').on('change',function(){
     const price = $('#obat_id option:selected').data('price');
     const banyak = $('#banyak').val();
 
