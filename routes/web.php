@@ -41,7 +41,8 @@ Route::get('/',function(){
     $total_notif = $total_kadaluwarsa + $total_obat_habis;
 
     return view('home',[
-        'title' => 'Home'
+        'title' => 'Home',
+        'obat' => Obat::all()
     ],compact('total_notif','obat_habis','total_kadaluwarsa','kadaluwarsa'));
 });
 
