@@ -21,6 +21,7 @@
 
             <div class="card-body">
               <h5 class="card-title">{{ $title }}</h5>
+              <p>Role 1 = Admin<br>Role 0 = Kasir</p>
               <div class="container">
 <div class="row">
 <div class="col-lg-12 margin-tb">

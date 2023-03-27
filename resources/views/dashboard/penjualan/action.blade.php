@@ -1,6 +1,6 @@
-<!-- <a href="" data-toggle="tooltip" data-original-title="Edit" class="edit btn btn-success edit">
-Invoice
-</a> -->
+<a href="{{ route('penjualan.edit',$id) }}" data-toggle="tooltip" data-original-title="Edit" class="edit btn btn-success edit">
+<span data-feather="edit"></span>
+</a>
 
 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="delete btn btn-danger" ><span data-feather="x-circle"></span></button>
 
@@ -18,7 +18,7 @@ Invoice
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <form action="{{ route('pembelian.destroy',$id) }}}}" method="post" class="d-inline">
+        <form action="{{ route('penjualan.destroy',$id) }}}}" method="post" class="d-inline">
                     @method('delete')
                     @csrf
                     <button class="delete btn btn-danger">Hapus</button>

@@ -41,6 +41,11 @@
         @else
         <ul id="icons-nav" class="nav-content collapse ">
         @endif
+        <li>
+            <a href="/dashboard/pembelian/obat/create">
+              <i class="bi bi-circle"></i><span>Tambah Obat</span>
+            </a>
+          </li>
           <li>
             <a href="/dashboard/pembelian/create">
               <i class="bi bi-circle"></i><span>Tambah Pembelian</span>
@@ -83,11 +88,6 @@
         @else
         <ul id="components-nav" class="nav-content collapse ">
         @endif
-          <li>
-            <a href="/dashboard/obat/create">
-              <i class="bi bi-circle"></i><span>Tambah Obat</span>
-            </a>
-          </li>
           <li>
             <a href="/dashboard/obat">
               <i class="bi bi-circle"></i><span>Lihat Obat</span>

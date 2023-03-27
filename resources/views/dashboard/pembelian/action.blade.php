@@ -1,6 +1,7 @@
-<!-- <a href="" data-toggle="tooltip" data-original-title="Edit" class="edit btn btn-success edit">
-Invoice
-</a> -->
+<a href="{{ route('pembelian.edit',$id) }}" data-toggle="tooltip" data-original-title="Edit" class="edit btn btn-success edit">
+<span data-feather="edit"></span>
+</a>
+
 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="delete btn btn-danger" ><span data-feather="x-circle"></span></button>
 
 <!-- Modal -->

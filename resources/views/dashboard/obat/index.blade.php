@@ -28,7 +28,6 @@
 
             <div class="card-body">
               <h5 class="card-title">Daftar Obat</h5>
-              <a class="btn btn-success mb-3" href="{{ route('obat.create') }}"> Tambah Obat</a>
               <table class="table table-bordered" id="datatable-crud">
             <thead>
             <tr>

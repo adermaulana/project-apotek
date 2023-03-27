@@ -106,6 +106,18 @@ class PenjualanController extends Controller
     public function edit(Penjualan $penjualan)
     {
 
+        $kadaluwarsa = Obat::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+        
+        return view('dashboard.penjualan.edit',[
+            'title' => 'Edit Penjualan',
+            'penjualan' => $penjualan,
+            'obat' => Obat::all()
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -117,7 +129,24 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, Penjualan $penjualan)
     {
-        //
+        $validatedData = $request->validate([
+            'obat_id' => 'required',
+            'nama_pembeli' => 'required',
+            'harga_jual' => 'required',
+            'banyak' => 'required',
+            'tanggal_jual' => 'required',
+            'total' => 'required'
+            ]);
+
+            Penjualan::where('id',$penjualan->id)
+            ->update($validatedData);
+
+            $obat = Obat::find($request->obat_id);
+            $obat->stok += $request->banyak;
+            $obat->save();
+
+            return redirect()->route('penjualan.index')
+            ->with('success','Transaksi Berhasil Diperbarui');
     }
 
     /**

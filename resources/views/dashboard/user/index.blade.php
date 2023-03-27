@@ -28,8 +28,7 @@
             <div class="card-body">
               <h5 class="card-title">Daftar Pengelola Obat</h5>
               <a class="btn btn-success mb-3" href="{{ route('user.create') }}"> Tambah Pengelola</a>
-              <p>Role 1 = Admin</p>
-              <p>Role 0 = Kasir</p>
+              <p>Role 1 = Admin<br>Role 0 = Kasir</p>
               <table class="table table-bordered " id="datatable-crud">
             <thead>
             <tr>

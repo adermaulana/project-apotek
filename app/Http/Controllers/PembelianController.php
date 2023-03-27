@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pembelian;
 use App\Models\Pemasok;
 use App\Models\Obat;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
@@ -111,7 +112,19 @@ class PembelianController extends Controller
      */
     public function edit(Pembelian $pembelian)
     {
-
+        $kadaluwarsa = Obat::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+        
+    return view('dashboard.pembelian.edit',[
+            'title' => 'Edit Pembelian',
+            'pembelian' => $pembelian,
+            'pemasoks' => Pemasok::all(),
+            'obat' => Obat::all()
+        ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
     /**
      * Update the specified resource in storage.
@@ -122,7 +135,25 @@ class PembelianController extends Controller
      */
     public function update(Request $request, Pembelian $pembelian)
     {
+        $validatedData = $request->validate([
+            'obat_id' => 'required',
+            'harga_beli' => 'required',
+            'banyak' => 'required',
+            'pemasok_id' => 'required',
+            'kadaluwarsa' => 'required',
+            'tanggal_beli' => 'required',
+            'total' => 'required'
+            ]);
 
+            Pembelian::where('id',$pembelian->id)
+            ->update($validatedData);
+            
+            $obat = Obat::find($request->obat_id);
+            $obat->stok += $request->banyak;
+            $obat->save();
+
+            return redirect()->route('pembelian.index')
+            ->with('success','Produk Berhasil Diperbarui');
     }
 
     /**

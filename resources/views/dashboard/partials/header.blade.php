@@ -6,7 +6,11 @@
         <img src="/assets/img/medical-remove.png" alt="">
         <span class="d-none d-lg-block">Pharmacy</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      @if( $title === 'Home' )
+        <!-- Nothing is Impossible -->
+      @else
+      <i class="bi bi-list toggle-sidebar-btn"></i> 
+      @endif
     </div><!-- End Logo -->
     @else
     <div class="d-flex align-items-center justify-content-between">

@@ -33,9 +33,16 @@ use Carbon\Carbon;
 
 //LandingPage
 Route::get('/',function(){
+
+    $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+    $total_kadaluwarsa = $kadaluwarsa->count();
+    $obat_habis = Obat::where('stok', '<=', 0)->get();
+    $total_obat_habis = $obat_habis->count();
+    $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
     return view('home',[
         'title' => 'Home'
-    ]);
+    ],compact('total_notif','obat_habis','total_kadaluwarsa'));
 });
 
 //login
@@ -81,6 +88,7 @@ Route::resource('/dashboard/penjualan',PenjualanController::class)->middleware('
 
 //Pembelian
 Route::resource('/dashboard/pembelian',PembelianController::class)->middleware('auth');
+Route::get('/dashboard/pembelian/obat/create',[ObatController::class,'create'])->middleware('auth');
 
 //User
 Route::resource('/dashboard/user',UserController::class)->middleware('auth');
