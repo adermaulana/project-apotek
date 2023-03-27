@@ -42,7 +42,7 @@ Route::get('/',function(){
 
     return view('home',[
         'title' => 'Home'
-    ],compact('total_notif','obat_habis','total_kadaluwarsa'));
+    ],compact('total_notif','obat_habis','total_kadaluwarsa','kadaluwarsa'));
 });
 
 //login

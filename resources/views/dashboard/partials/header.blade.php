@@ -125,7 +125,7 @@
         <a style="color:#1d3557; font-family:poppins;" href="/" class="nav-link {{ ($title === 'Home') ? 'active' : '' }}"><i class="bi bi-house-door"></i>Home</a>
       </li>
       <li class="nav-item me-5 mt-1">
-        <a style="color:#1d3557; font-family:poppins;" href="/login" class="nav-link {{ ($title === 'Lnogin') ? 'active' : '' }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+        <a style="color:#1d3557; font-family:poppins;" href="/login" class="nav-link {{ ($title === 'Login') ? 'active' : '' }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
       </li>
       @endauth
       </ul>
