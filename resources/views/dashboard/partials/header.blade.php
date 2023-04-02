@@ -106,13 +106,13 @@
               <a class="dropdown-item d-flex align-items-center" href="/"><i class="bi bi-house"></i>Home</a>
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/dashboard"><i class="bi bi-list"></i>Dashboard</a>
+              <a  class="dropdown-item d-flex align-items-center" href="/dashboard"><i class="bi bi-list"></i>Dashboard</a>
             </li>
             <li>
               <form action="/logout" method="post" class="dropdown-item d-flex align-items-center">
               @csrf
-                <i class="bi bi-box-arrow-right"></i>
-                <button type="submit" class="dropdown-item">
+              <button style="margin-left:-12px; background-color:blue; color:white;" type="submit" class="dropdown-item">
+                  <i class="bi bi-box-arrow-right"></i>
                   Logout
                 </button>
               </form>

@@ -149,7 +149,7 @@ class PembelianController extends Controller
             ->update($validatedData);
             
             $obat = Obat::find($request->obat_id);
-            $obat->stok += $request->banyak;
+            $obat->stok = $request->banyak;
             $obat->save();
 
             return redirect()->route('pembelian.index')

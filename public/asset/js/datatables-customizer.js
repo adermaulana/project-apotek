@@ -9,19 +9,7 @@ $(document).ready(function (){
             text: 'Export Data',
             buttons: [
 				{
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: "thead th:not(.action-btn)"
-                    }
-                },
-				{
                     extend: 'excel',
-                    exportOptions: {
-                        columns: "thead th:not(.action-btn)"
-                    }
-                },
-				{
-                    extend: 'csv',
                     exportOptions: {
                         columns: "thead th:not(.action-btn)"
                     }
