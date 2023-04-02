@@ -118,7 +118,7 @@
               </form>
             </li>
 
-          </ul><!-- End Profile Dropdown Items -->
+          </ul><!-- End Profile Dropdown Items -->  
         </li><!-- End Profile Nav -->
       @else
       <li class="nav-item me-3 mt-1">
