@@ -98,7 +98,7 @@
 
             <!-- <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
+                <i class="bi bi-person">tes</i>
                 <span>My Profile</span>
               </a>
             </li> -->
