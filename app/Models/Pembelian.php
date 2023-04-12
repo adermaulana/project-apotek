@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Obat;
 use App\Models\Unit;
 use App\Models\Pemasok;
+use App\Traits\HasFormatRupiah;
 
 class Pembelian extends Model
 {
     use HasFactory;
-
+    use HasFormatRupiah;
+    
     protected $guarded = ['id'];
 
     public function pemasok(){

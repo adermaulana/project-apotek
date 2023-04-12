@@ -61,9 +61,12 @@ class LaporanController extends Controller
             $total_kadaluwarsa = $kadaluwarsa->count();
             $title = "Laporan Penjualan Obat";
             $total_obat = Obat::all();
+            $obat_habis = Obat::where('stok', '<=', 0)->get();
+            $total_obat_habis = $obat_habis->count();
+            $total_notif = $total_kadaluwarsa + $total_obat_habis;
             $penjualan = Penjualan::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
             $total_penjualan = $penjualan->sum('total');
-            return view('dashboard.laporan.index',compact('kadaluwarsa','total_obat','title','penjualan','total_penjualan','total_kadaluwarsa'));
+            return view('dashboard.laporan.index',compact('total_notif','kadaluwarsa','total_obat','title','penjualan','total_penjualan','total_kadaluwarsa','obat_habis','total_obat_habis'));
         }
     }
 

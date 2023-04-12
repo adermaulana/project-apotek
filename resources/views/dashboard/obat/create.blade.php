@@ -60,7 +60,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Harga Beli</h6>
-<input type="text" name="harga_beli" class="form-control"  value="{{ old('harga_beli') }}">
+<input type="number" name="harga_beli"  class="form-control"  value="{{ old('harga_beli') }}">
 @error('harga_beli')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -69,7 +69,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Harga Jual</h6>
-<input type="text" name="harga_jual" class="form-control"  value="{{ old('harga_jual') }}">
+<input type="number" name="harga_jual"  class="form-control"  value="{{ old('harga_jual') }}">
 @error('harga_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -107,7 +107,9 @@
 </select>
 </div>
 </div>
+<div class="col-xs-6 col-sm-6 col-md-6">
 <button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+</div>
 </div>
 </form>
 </div>

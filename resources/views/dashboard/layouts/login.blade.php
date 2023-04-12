@@ -10,6 +10,12 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+    <!-- Terbaru Datatables -->
+
+    <link rel="stylesheet" href="{{asset('asset/plugins/DataTables/datatables.css')}}">
+  <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
+
   <!-- DataTables -->
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
@@ -50,6 +56,9 @@
     @include('dashboard.partials.header')
 
     @yield('container')
+    
+  <!-- waktuAlert -->
+  <script src="/js/timerAlert.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -60,6 +69,9 @@
   <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Datatables -->
+    <script src="{{asset('asset/js/datatables-customizer.js')}}"></script>
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>

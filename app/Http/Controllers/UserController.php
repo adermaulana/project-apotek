@@ -20,16 +20,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
-        if (request()->ajax()) {
-            $model = User::get();
-                return DataTables::of($model)
 
-                ->addColumn('action', 'dashboard.user.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
-
+        $user = User::get();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -39,7 +31,7 @@ class UserController extends Controller
 
             return view('dashboard.user.index',[
                 'title' => 'User'
-            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
+            ],compact('user','total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**
@@ -127,7 +119,7 @@ class UserController extends Controller
         $validateData = $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => '',
             'is_admin' => 'required'
             ]);
 

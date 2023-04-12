@@ -41,20 +41,15 @@
 <div class="row mt-3">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Nama Pembeli</h6>
-<input type="text" name="nama_pembeli" id="nama_pembeli" value="{{ old('nama_pembeli') }}" class="form-control"  >
-@error('nama_pembeli')
-<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-@enderror
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
 <h6>Obat Yang di Pilih</h6>
 <select class="form-select" name="obat_id" id="obat_id">
           <option value="0"></option>
         @foreach ($obat as $obats)
+        @if(old('obat_id') == $obats->id)
+          <option selected value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
+          @else
           <option value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
+          @endif
         @endforeach
 </select>
 </div>
@@ -97,7 +92,7 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Tanggal Beli</h6>
+<h6>Tanggal Jual</h6>
 <input type="date" name="tanggal_jual" value="{{ old('tanggal_jual') }}" class="form-control" >
 @error('tanggal_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -113,10 +108,12 @@
 @enderror
 </div>
 </div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
-<button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
-</div>
+<div>
+  <div class="col-xs-6 col-sm-6 col-md-6">
+    <div class="form-group">
+      <button style="margin-left:-15px;" type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+    </div>
+  </div>
 </form>
 </div>
     
@@ -164,5 +161,8 @@
     $('#total').val(`${total4}`);
   })
 </script>
+
+
+
 
 @endsection

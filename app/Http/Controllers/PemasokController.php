@@ -18,15 +18,8 @@ class PemasokController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
-        if (request()->ajax()) {
-            $model = Pemasok::latest()->get();
-                return DataTables::of($model)
-                ->addColumn('action', 'dashboard.pemasok.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
 
+        $pemasok = Pemasok::latest()->get();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -36,7 +29,7 @@ class PemasokController extends Controller
 
             return view('dashboard.pemasok.index',[
                 'title' => 'Pemasok'
-            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
+            ],compact('pemasok','total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**

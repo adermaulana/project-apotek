@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('obat_id');
             $table->string('harga_jual');
             $table->string('banyak');
-            $table->string('nama_pembeli');
             $table->string('tanggal_jual');
             $table->string('total');
             $table->timestamps();

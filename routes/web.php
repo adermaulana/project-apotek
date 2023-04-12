@@ -76,6 +76,7 @@ Route::get('/dashboard',function(){
 //Obat
 Route::get('/dashboard/obat/kadaluwarsa',[ObatController::class,'kadaluwarsa'])->name('kadaluwarsa')->middleware('auth');
 Route::get('/dashboard/obat/habis',[ObatController::class,'habis'])->name('habis')->middleware('auth');
+Route::post('/dashboard/obat/kadaluwarsa',[ObatController::class,'hapus'])->name('habis')->middleware('auth');
 Route::resource('/dashboard/obat',ObatController::class)->middleware('auth');
 
 //Unit
@@ -89,8 +90,7 @@ Route::resource('/dashboard/penjualan',PenjualanController::class)->middleware('
 
 //Pembelian
 Route::resource('/dashboard/pembelian',PembelianController::class)->middleware('auth');
-Route::get('/dashboard/pembelian/obat/create',[ObatController::class,'create'])->middleware('auth');
-
+Route::post('/dashboard/obat/{id}/kadaluwarsa',[PembelianController::class,'updateKadaluwarsa'])->name('update-kadaluwarsa')->middleware('auth');
 //User
 Route::resource('/dashboard/user',UserController::class)->middleware('auth');
 

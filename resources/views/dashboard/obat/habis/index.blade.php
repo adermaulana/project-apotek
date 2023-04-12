@@ -27,7 +27,7 @@
 
             <div class="card-body">
               <h5 class="card-title">Daftar Obat Habis</h5>
-              <table class="table table-bordered" id="datatable-crud">
+              <table class="table table-bordered" id="datatable-noexport">
             <thead>
             <tr>
                 <th>No</th>
@@ -35,11 +35,19 @@
                 <th>Stok</th>
                 <th>Harga Jual</th>
                 <th>Unit</th>
-                <th>Action</th>
-
             </tr>
         </thead>
         <tbody>
+        @foreach ($obat_habis as $data)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $data->nama_obat}}</td>
+            <td>{{ $data->stok }}</td>
+            <td>{{ $data->formatRupiah('harga_jual') }}</td>
+            <td>{{ $data->unit->unit }} </td>
+          </tr>
+          <!-- Modal -->
+          @endforeach
         </tbody>
     </table>
 
@@ -57,29 +65,7 @@
 </main><!-- End #main -->
 
 <script type="text/javascript" id="javascript">
-$(document).ready( function () {
-$.ajaxSetup({
-headers: {
-'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
-$('#datatable-crud').DataTable({
-processing: true,
-serverSide: true,
-ajax: "{{ route('habis') }}",
-columns: [
-{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-{ data: 'nama_obat', name: 'nama_obat' },
-{ data: 'stok', name: 'stok' },
-{ data: 'harga_jual', name: 'harga_jual' },
-{ data: 'unit', name: 'unit.unit' },
-{ data: 'action', name: 'action', orderable: false },
 
-],
-order: [[0, 'desc']]
-});
-
-});
 </script>
 
 @endsection

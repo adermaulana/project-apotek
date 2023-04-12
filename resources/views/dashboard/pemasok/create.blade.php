@@ -66,10 +66,11 @@
 @enderror
 </div>
 </div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<div class="form-group">
-
-<button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+<div>
+  <div class="col-xs-6 col-sm-6 col-md-6">
+    <div class="form-group">
+      <button style="margin-left:-15px;" type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+    </div>
 </div>
 </form>
 </div>

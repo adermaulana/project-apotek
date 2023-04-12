@@ -21,7 +21,6 @@
 
             <div class="card-body">
               <h5 class="card-title">{{ $title }}</h5>
-              <p>Role 1 = Admin<br>Role 0 = Kasir</p>
               <div class="container">
 <div class="row">
 <div class="col-lg-12 margin-tb">
@@ -71,14 +70,13 @@
 <div class="form-group">
 <h6>Role</h6>
 <select class="form-select" name="is_admin">
-          <option value="1" selected>1</option>
-          <option value="0">0</option>
+          <option value="1" selected>Admin</option>
+          <option value="0">Kasir</option>
 </select>
 </div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-
 <button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
 </div>
 </form>

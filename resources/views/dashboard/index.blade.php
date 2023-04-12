@@ -113,7 +113,7 @@
                   <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>Rp {{ $total_penjualan }}</h6>
+                  <h6>Rp {{ number_format($total_penjualan,0,',','.') }}</h6>
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@
                   <i class="bi bi-wallet"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>Rp {{ $total_pembelian }}</h6>
+                  <h6>Rp {{ number_format($total_pembelian,0,',','.') }}</h6>
                 </div>
               </div>
             </div>
@@ -153,7 +153,7 @@
                   <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>Rp {{ $total_pendapatan }}</h6>
+                  <h6>Rp {{ number_format($total_pendapatan,0,',','.') }}</h6>
                 </div>
               </div>
             </div>

@@ -18,15 +18,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
-        if (request()->ajax()) {
-            $model = Unit::latest()->get();
-                return DataTables::of($model)
-                ->addColumn('action', 'dashboard.unit.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
-
+        $unit = Unit::all();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -36,7 +28,7 @@ class UnitController extends Controller
 
             return view('dashboard.unit.index',[
                 'title' => 'Unit'
-            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
+            ],compact('unit','total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
     /**

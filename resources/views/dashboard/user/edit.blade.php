@@ -72,9 +72,13 @@
 <h6>Role</h6>
 <select class="form-select" name="is_admin">
     @if(old('is_admin',$user->is_admin) == $user->is_admin)
-          <option selected value="{{ $user->is_admin }}">{{ $user->is_admin }}</option>
-          <option value="1" >1</option>
-          <option value="0">0</option>
+          @if(old('is_admin',$user->is_admin) == 1 )
+          <option selected value="{{ $user->is_admin }}"> Admin </option>
+          @else
+          <option selected value="{{ $user->is_admin }}"> Kasir </option>
+          @endif
+          <option value="1" >Admin</option>
+          <option value="0">Kasir</option>
     @endif
 </select>
 </div>

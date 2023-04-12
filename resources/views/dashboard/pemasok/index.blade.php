@@ -29,7 +29,7 @@
             <div class="card-body ">
               <h5 class="card-title">Daftar Pemasok Obat</h5>
               <a class="btn btn-success mb-3" href="{{ route('pemasok.create') }}"> Tambah Pemasok</a>
-              <table class="table table-bordered " id="datatable-crud">
+              <table class="table table-bordered " id="datatable-noexport">
             <thead>
             <tr>
                 <th>No</th>
@@ -40,6 +40,45 @@
             </tr>
         </thead>
         <tbody>
+        @foreach ($pemasok as $data)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $data->nama_pemasok }} </td>
+            <td>{{ $data->alamat}} </td>
+            <td>{{ $data->telepon }} </td>
+            <td>
+										<div class="actions">
+											<a class="btn btn-success" href="{{ route('pemasok.edit',$data) }}">
+                      <span data-feather="edit"></span>
+											</a>
+                      <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $data->id }}" class="delete btn btn-danger" ><span data-feather="x-circle"></span></button>
+										</div>
+            </td>
+          </tr>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Menghapus Data</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <img style="margin-left:180px; margin-bottom:20px;" width="100" src="/img/danger.png" alt="">
+                  <p class="text-center">Apakah Anda Yakin Ingin Menghapus? <br> Proses Ini Tidak Bisa Dibatalkan!</p> 
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                  <form action="{{ route('pemasok.destroy',$data) }}" method="post" class="d-inline">
+                              @method('delete')
+                              @csrf
+                              <button class="delete btn btn-danger">Hapus</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endforeach 
         </tbody>
     </table>
 
@@ -60,29 +99,5 @@
     feather.replace();
 </script>
 
-<script type="text/javascript" id="javascript">
-$(document).ready( function () {
-$.ajaxSetup({
-headers: {
-'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
-$('#datatable-crud').DataTable({
-processing: true,
-serverSide: true,
-ajax: "{{ route('pemasok.index') }}",
-columns: [
-{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-{ data: 'nama_pemasok', name: 'nama_pemasok' },
-{ data: 'alamat', name: 'alamat' },
-{ data: 'telepon', name: 'telepon' },
-{ data: 'action', name: 'action', orderable: false },
-
-],
-order: [[0, 'desc']]
-});
-
-});
-</script>
 
 @endsection

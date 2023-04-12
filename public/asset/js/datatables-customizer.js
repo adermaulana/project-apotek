@@ -25,6 +25,11 @@ $(document).ready(function (){
     	]
 	});
 
+
+	$('#datatable-noexport').DataTable( {
+
+	});
+
 	
 });
 

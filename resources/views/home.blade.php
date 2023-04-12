@@ -5,7 +5,7 @@
 <div class="pagetitle">
   <h1>Daftar Obat Yang Tersedia</h1>
 </div><!-- End Page Title -->
-<table class="fixed-th zebra-table">
+<table class="fixed-th zebra-table" id="datatable-noexport">
 
 		<thead>
 			<tr>

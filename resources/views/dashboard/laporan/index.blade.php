@@ -62,7 +62,7 @@
 											<td>{{$data->obat->nama_obat}}</td>
 											<td>{{$data->pemasok->nama_pemasok}}</td>
 											<td>{{$data->banyak}}</td>
-											<td>{{$data->total}}</td>
+											<td>{{$data->formatRupiah('total')}}</td>
 										</tr>
 								@endforeach
 							</tbody>
@@ -88,7 +88,6 @@
 									<th>No</th>
 									<th>Tanggal</th>
 									<th>Nama Obat</th>
-									<th>Pembeli</th>
 									<th>Banyak</th>
 									<th>Bayar</th>
 								</tr>
@@ -99,21 +98,20 @@
 											<td>{{ $loop->iteration }}</td>
 											<td>{{date_format(date_create($data->created_at),"d M, Y")}}</td>
 											<td>{{$data->obat->nama_obat}}</td>
-											<td>{{$data->nama_pembeli}}</td>
 											<td>{{$data->banyak}}</td>
-											<td>{{$data->total}}</td>
+											<td>{{$data->formatRupiah('total')}}</td>
 										</tr>
 								@endforeach
 							</tbody>
 						</table>
 						@isset($pembelian)
 						<div class="container-fluid mt-4">
-							<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ $total_pembelian }}</p>
+							<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ number_format($total_pembelian,0,',','.') }}</p>
 						</div>
 						@endisset
 						@isset($penjualan)
 						<div class="container-fluid mt-4">
-							<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ $total_penjualan }}</p>
+							<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ number_format($total_penjualan,0,',','.') }}</p>
 						</div>
 						@endisset
 					</div>

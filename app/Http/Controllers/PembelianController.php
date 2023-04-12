@@ -7,8 +7,10 @@ use App\Models\Pemasok;
 use App\Models\Obat;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use DataTables;
 use Carbon\Carbon;
+
 
 class PembelianController extends Controller
 {
@@ -20,17 +22,8 @@ class PembelianController extends Controller
     public function index()
     {
 
-        if (request()->ajax()) {
-            $model = Pembelian::with('pemasok')->latest()->get();
-                return DataTables::of($model)
-                ->addColumn('pemasok', function (Pembelian $pembelian) {
-                    return $pembelian->pemasok->nama_pemasok;
-                })
-                ->addColumn('action', 'dashboard.pembelian.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
 
+        $pembelian = Pembelian::latest()->get();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -40,7 +33,7 @@ class PembelianController extends Controller
 
             return view('dashboard.pembelian.index',[
                 'title' => 'Pembelian'
-            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif','pembelian'));
     }
 
     /**
@@ -78,7 +71,7 @@ class PembelianController extends Controller
             'harga_beli' => 'required',
             'banyak' => 'required',
             'pemasok_id' => 'required',
-            'kadaluwarsa' => 'required',
+            'kadaluwarsa' => '',
             'tanggal_beli' => 'required',
             'total' => 'required'
             ]);
@@ -100,8 +93,18 @@ class PembelianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Pembelian $pembelian)
-    {
-        //
+    {   
+        $title = "Invoice Pembelian";
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
+        return view('dashboard.pembelian.show',[
+            'pembelian' => Pembelian::find($pembelian)
+        ],compact('title','total_notif','kadaluwarsa','obat_habis'));
     }
 
     /**
@@ -112,7 +115,7 @@ class PembelianController extends Controller
      */
     public function edit(Pembelian $pembelian)
     {
-        $kadaluwarsa = Obat::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
         $obat_habis = Obat::where('stok', '<=', 0)->get();
@@ -135,22 +138,13 @@ class PembelianController extends Controller
      */
     public function update(Request $request, Pembelian $pembelian)
     {
-        $validatedData = $request->validate([
-            'obat_id' => 'required',
-            'harga_beli' => 'required',
-            'banyak' => 'required',
-            'pemasok_id' => 'required',
-            'kadaluwarsa' => 'required',
-            'tanggal_beli' => 'required',
-            'total' => 'required'
-            ]);
 
-            Pembelian::where('id',$pembelian->id)
-            ->update($validatedData);
-            
             $obat = Obat::find($request->obat_id);
-            $obat->stok = $request->banyak;
-            $obat->save();
+            $obat->stok -= $request->banyak;
+            $obat->save(); 
+
+            $kadaluwarsa = DB::table('pembelians')->where('id', $pembelian)->first();
+            DB::table('pembelians')->where('id', $pembelian)->update(['kadaluwarsa' => null]);
 
             return redirect()->route('pembelian.index')
             ->with('success','Produk Berhasil Diperbarui');
@@ -162,19 +156,33 @@ class PembelianController extends Controller
      * @param  \App\Models\Pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembelian $pembelian)
+    public function destroy(Request $request, Pembelian $pembelian)
     {
+        
         Pembelian::destroy($pembelian->id);
 
         return redirect()->route('pembelian.index')
         ->with('success','Produk Berhasil Dihapus');
     }
 
-    public function hapus(Pembelian $pembelian)
+    public function updateKadaluwarsa($pembelian)
     {
-        Pembelian::destroy($pembelian->id);
 
-        return redirect()->route('kadaluwarsa.index')
-        ->with('success','Produk Berhasil Dihapus');
+        $kadaluwarsa = DB::table('pembelians')->where('id', $pembelian)->first();
+        DB::table('pembelians')->where('id', $pembelian)->update(['kadaluwarsa' => null]);
+
+        $data_pembelian = Pembelian::select('id','banyak')->get();
+
+        foreach ($data_pembelian as $pembelian) 
+            $details = Pembelian::where('id', $pembelian->id)->get();
+            foreach ($details as $detail) {
+                $produk = Obat::find($detail->obat_id);
+                $produk->stok -= $detail->banyak;
+                $produk->save();
+            }
+        
+
+        return redirect('/dashboard/obat/kadaluwarsa')->with('success', 'Kadaluwarsa Obat berhasil diubah');
     }
+
 }

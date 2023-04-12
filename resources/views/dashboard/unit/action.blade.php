@@ -20,7 +20,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <form action="{{ route('unit.destroy',$id) }}}}" method="post" class="d-inline">
+        <form action="{{ route('unit.destroy',$id) }}" method="post" class="d-inline">
                     @method('delete')
                     @csrf
                     <button class="delete btn btn-danger">Hapus</button>

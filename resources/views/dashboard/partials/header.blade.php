@@ -2,26 +2,24 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     @auth
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/dashboard" class="logo d-flex align-items-center">
+      <div class="logo d-flex align-items-center">
         <img src="/assets/img/medical-remove.png" alt="">
         <span class="d-none d-lg-block">Pharmacy</span>
-      </a>
-      @if( $title === 'Home' )
-        <!-- Nothing is Impossible -->
+      </div>
+      @if(Request::is('/'))
+       <!--Hehe  -->
       @else
-      <i class="bi bi-list toggle-sidebar-btn"></i> 
+      <i class="bi bi-list toggle-sidebar-btn"></i>
       @endif
     </div><!-- End Logo -->
     @else
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center">
+      <div class="logo d-flex align-items-center">
         <img src="/assets/img/medical-remove.png" alt="">
         <span class="d-none d-lg-block">Pharmacy</span>
-      </a>
-      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+      </div> 
     </div><!-- End Logo -->
     @endauth
-
     <nav class="header-nav ms-auto navbar navbar-expand-lg navbar-dark bg-gradient">
       <ul class="d-flex align-items-center">
 
@@ -53,14 +51,14 @@
               <hr class="dropdown-divider">
             </li>
 
-            @foreach ( $kadaluwarsa as $kadaluwarsas)
+            @foreach ( $kadaluwarsa as $data)
             <li class="notification-item">
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
               <a style="color:black;" href="/dashboard/obat/kadaluwarsa">
-                <h4>{{ $kadaluwarsas->obat->nama_obat }}</h4>
+                <h4>{{ $data->obat->nama_obat }}</h4>
                 <p>Obat Kadaluwarsa</p>
-                <p>{{ $kadaluwarsas->created_at }}</p>
+                <p>{{ $data->created_at }}</p>
                 </a>
               </div>
             </li>
@@ -111,7 +109,7 @@
             <li>
               <form action="/logout" method="post" class="dropdown-item d-flex align-items-center">
               @csrf
-              <button style="margin-left:-12px; background-color:blue; color:white;" type="submit" class="dropdown-item">
+              <button style="margin-left:-12px; color:black;" type="submit" class="dropdown-item">
                   <i class="bi bi-box-arrow-right"></i>
                   Logout
                 </button>

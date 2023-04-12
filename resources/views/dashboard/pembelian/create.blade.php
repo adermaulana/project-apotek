@@ -61,7 +61,11 @@
 <select class="form-select" name="obat_id" id="obat_id">
         <option selected value="0"></option>
         @foreach ($obat as $obats)
-          <option  data-price="{{ $obats->harga_beli }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" value="{{ $obats->id }} " > {{ $obats->nama_obat }} </option>
+        @if(old('obat_id') == $obats->id)
+          <option selected data-price="{{ $obats->harga_beli }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" value="{{ $obats->id }} " > {{ $obats->nama_obat }} </option>
+        @else
+        <option  data-price="{{ $obats->harga_beli }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" value="{{ $obats->id }} " > {{ $obats->nama_obat }} </option>
+        @endif
         @endforeach
 </select>
 </div>
@@ -69,7 +73,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Stok</h6>
-<input type="text" name="stok" id="stok" class="form-control" readonly >
+<input type="text" name="stok" id="stok" value="{{ old('stok') }}" class="form-control" readonly >
 @error('stok')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -78,7 +82,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Harga Beli</h6>
-<input type="text" name="harga_beli" id="harga"  class="form-control" readonly >
+<input type="text" name="harga_beli" id="harga" value="{{ old('harga_beli') }}"  class="form-control" readonly >
 @error('harga_beli')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -87,7 +91,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Unit</h6>
-<input type="text" name="unit_id" value="" class="form-control" readonly >
+<input type="text" name="unit_id" value=" {{ old('unit_id') }} " class="form-control" readonly >
 @error('unit_id')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -129,9 +133,11 @@
 @enderror
 </div>
 </div>
+<div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+<button style="margin-left:-15px;"  type="submit" class="btn btn-primary col-6">Submit</button>
+</div>
 </div>
 </form>
 </div>

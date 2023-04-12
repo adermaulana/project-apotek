@@ -27,7 +27,7 @@
 
             <div class="card-body">
               <h5 class="card-title">Daftar Obat Kadaluwarsa</h5>
-              <table class="table table-bordered" id="datatable-crud">
+              <table class="table table-bordered" id="datatable-noexport">
             <thead>
             <tr>
                 <th>No</th>
@@ -36,10 +36,25 @@
                 <th>Nama Pemasok</th>
                 <th>Kadaluwarsa</th>
                 <th>Action</th>
-
             </tr>
         </thead>
         <tbody>
+        @foreach ($kadaluwarsa as $data)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $data->obat->nama_obat }} </td>
+            <td>{{ $data->banyak }} </td>
+            <td>{{ $data->pemasok->nama_pemasok }} </td>
+            <td>{{ date_format(date_create($data->kadaluwarsa),"d M, Y") }} </td>
+            <td>
+            <form action="{{ route('update-kadaluwarsa', $data->id) }}" method="post" class="d-inline">
+                  @csrf
+                  <button class="badge bg-danger border-0" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data?')"><span data-feather="x-circle"></span></button>
+              </form>
+            </td>
+          </tr>
+
+          @endforeach 
         </tbody>
     </table>
 
@@ -56,30 +71,19 @@
 
 </main><!-- End #main -->
 
+
 <script type="text/javascript" id="javascript">
-$(document).ready( function () {
-$.ajaxSetup({
-headers: {
-'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
-$('#datatable-crud').DataTable({
-processing: true,
-serverSide: true,
-ajax: "{{ route('kadaluwarsa') }}",
-columns: [
-{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-{ data: 'obat', name: 'obat.nama_obat' },
-{ data: 'banyak', name: 'banyak' },
-{ data: 'pemasok', name: 'pemasok.nama_pemasok' },
-{ data: 'kadaluwarsa', name: 'kadaluwarsa' },
-{ data: 'action', name: 'action', orderable: false },
 
-],
-order: [[0, 'desc']]
-});
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+        });
+      }, 5000);
 
-});
+
+  feather.replace();
+
+
 </script>
 
 @endsection

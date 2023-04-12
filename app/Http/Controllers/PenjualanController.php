@@ -18,14 +18,7 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        if (request()->ajax()) {
-            $model = Penjualan::get();
-                return DataTables::of($model)
-                ->addColumn('action', 'dashboard.penjualan.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
-
+        $penjualan = Penjualan::all();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -35,7 +28,7 @@ class PenjualanController extends Controller
 
             return view('dashboard.penjualan.index',[
                 'title' => 'Penjualan'
-            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif','penjualan'));
     }
 
     /**
@@ -69,7 +62,6 @@ class PenjualanController extends Controller
     {
         $validatedData = $request->validate([
             'obat_id' => 'required',
-            'nama_pembeli' => 'required',
             'harga_jual' => 'required',
             'banyak' => 'required',
             'tanggal_jual' => 'required',
@@ -94,7 +86,17 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
-        //
+        $title = "Invoice Penjualan";
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
+        return view('dashboard.penjualan.show',[
+            'penjualan' => Penjualan::find($penjualan)
+        ],compact('title','total_notif','kadaluwarsa','obat_habis'));
     }
 
     /**
@@ -131,7 +133,6 @@ class PenjualanController extends Controller
     {
         $validatedData = $request->validate([
             'obat_id' => 'required',
-            'nama_pembeli' => 'required',
             'harga_jual' => 'required',
             'banyak' => 'required',
             'tanggal_jual' => 'required',

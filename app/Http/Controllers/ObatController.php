@@ -19,17 +19,6 @@ class ObatController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
-        if (request()->ajax()) {
-            $model = Obat::with('unit')->latest()->get();
-                return DataTables::of($model)
-                ->addColumn('unit', function (Obat $obat) {
-                    return $obat->unit->unit;
-                })
-                ->addColumn('action', 'dashboard.obat.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
 
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
@@ -134,7 +123,6 @@ class ObatController extends Controller
     {
         $validateData = $request->validate([
             'nama_obat' => 'required',
-            'stok' => 'required',
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
@@ -144,6 +132,7 @@ class ObatController extends Controller
 
             Obat::where('id',$obat->id)
             ->update($validateData);
+
 
             return redirect()->route('obat.index')
             ->with('success','Obat Berhasil Diperbarui');
@@ -163,22 +152,16 @@ class ObatController extends Controller
         ->with('success','Obat Berhasil Dihapus');
     }
 
+    public function hapus(Pembelian $pembelian)
+    {
+        Pembelian::destroy($pembelian->id);
+
+        return redirect()->route('obat.index')
+        ->with('success','Obat Berhasil Dihapus');
+    }
+
     public function kadaluwarsa(){
         
-        if (request()->ajax()) {
-            $model = Pembelian::whereDate('kadaluwarsa', '<=', Carbon::now())->get();
-                return DataTables::of($model)
-                ->addColumn('obat', function (Pembelian $pembelian) {
-                    return $pembelian->obat->nama_obat;
-                })
-                ->addColumn('pemasok', function (Pembelian $pembelian) {
-                    return $pembelian->pemasok->nama_pemasok;
-                })
-                ->addColumn('action', 'dashboard.pembelian.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
-
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -192,17 +175,6 @@ class ObatController extends Controller
     }
 
     public function habis(){
-
-        if (request()->ajax()) {
-            $model = Obat::where('stok', '<=', 0)->get();
-                return DataTables::of($model)
-                ->addColumn('unit', function (Obat $obat) {
-                    return $obat->unit->unit;
-                })
-                ->addColumn('action', 'dashboard.obat.action')
-                ->addIndexColumn()
-                ->toJson();
-        }
 
         $total_obat = Obat::all();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
