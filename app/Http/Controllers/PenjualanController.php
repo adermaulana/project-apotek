@@ -18,7 +18,7 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $penjualan = Penjualan::all();
+        $penjualan = Penjualan::latest()->get();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
         $total_obat = Obat::all();
@@ -160,8 +160,8 @@ class PenjualanController extends Controller
     {
         $data_pembelian = Penjualan::select('id','obat_id','banyak')->get();
 
-        foreach ($data_pembelian as $pembelian) 
-            $details = Penjualan::where('id', $pembelian->id)->get();
+        foreach ($data_pembelian as $pembelians) 
+            $details = Penjualan::where('id', $pembelians->id)->get();
             foreach ($details as $detail) {
                 $produk = Obat::find($detail->obat_id);
                 $produk->stok += $detail->banyak;

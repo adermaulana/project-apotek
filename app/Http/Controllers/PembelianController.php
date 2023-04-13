@@ -161,15 +161,15 @@ class PembelianController extends Controller
         
         $data_pembelian = Pembelian::select('id','obat_id','banyak')->get();
 
-        foreach ($data_pembelian as $pembelian) 
-            $details = Pembelian::where('id', $pembelian->id)->get();
+        foreach ($data_pembelian as $pembelians) 
+            $details = Pembelian::where('id', $pembelians->id)->get();
             foreach ($details as $detail) {
                 $produk = Obat::find($detail->obat_id);
                 $produk->stok -= $detail->banyak;
                 $produk->save();
             } 
 
-            Pembelian::destroy($pembelian->id);
+        Pembelian::destroy($pembelian->id);
 
         return redirect()->route('pembelian.index')
 ->with('success','Produk Berhasil Dihapus');
