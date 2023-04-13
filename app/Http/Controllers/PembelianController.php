@@ -164,7 +164,7 @@ class PembelianController extends Controller
         foreach ($data_pembelian as $pembelians) 
             $details = Pembelian::where('id', $pembelians->id)->get();
             foreach ($details as $detail) {
-                $produk = Obat::find($detail->obat_id);
+                $produk = Obat::findOrFail($detail->obat_id);
                 $produk->stok -= $detail->banyak;
                 $produk->save();
             } 

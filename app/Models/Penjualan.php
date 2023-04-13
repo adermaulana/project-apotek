@@ -17,4 +17,5 @@ class Penjualan extends Model
     public function obat(){
         return $this->belongsTo(Obat::class,'obat_id','id'); 
     }
+
 }

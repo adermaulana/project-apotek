@@ -158,12 +158,12 @@ class PenjualanController extends Controller
      */
     public function destroy(Penjualan $penjualan)
     {
-        $data_pembelian = Penjualan::select('id','obat_id','banyak')->get();
+        $data_penjualan = Penjualan::select('id','obat_id','banyak')->get();
 
-        foreach ($data_pembelian as $pembelians) 
-            $details = Penjualan::where('id', $pembelians->id)->get();
+        foreach ($data_penjualan as $penjualans) 
+            $details = Penjualan::where('id', $penjualans->id)->get();
             foreach ($details as $detail) {
-                $produk = Obat::find($detail->obat_id);
+                $produk = Obat::findOrFail($detail->obat_id);
                 $produk->stok += $detail->banyak;
                 $produk->save();
             } 

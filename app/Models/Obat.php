@@ -25,5 +25,4 @@ class Obat extends Model
         return $this->belongsTo(Pemasok::class,'pemasok_id','id'); 
     }
 
-
 }
