@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('obats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("pemasok_id");
             $table->foreignId("unit_id");
             $table->string("nama_obat")->nullable();
             $table->string("stok")->nullable();
@@ -24,6 +23,11 @@ return new class extends Migration
             $table->string("harga_beli");
             $table->string("harga_jual");
             $table->timestamps();
+
+            $table->foreign('unit_id')
+            ->references('id')->on('units')
+            ->onDelete('cascade');
+
         });
     }
 

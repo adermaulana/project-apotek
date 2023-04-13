@@ -171,7 +171,7 @@ class PembelianController extends Controller
         $kadaluwarsa = DB::table('pembelians')->where('id', $pembelian)->first();
         DB::table('pembelians')->where('id', $pembelian)->update(['kadaluwarsa' => null]);
 
-        $data_pembelian = Pembelian::select('id','banyak')->get();
+        $data_pembelian = Pembelian::select('id','obat_id','banyak')->get();
 
         foreach ($data_pembelian as $pembelian) 
             $details = Pembelian::where('id', $pembelian->id)->get();

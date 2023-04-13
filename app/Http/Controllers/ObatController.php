@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
-use App\Models\Pemasok;
 use App\Models\Pembelian;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -50,8 +49,7 @@ class ObatController extends Controller
 
         return view('dashboard.obat.create',[
             'title' => 'Tambah Obat',
-            'units' => Unit::all(),
-            'pemasoks' => Pemasok::all()
+            'units' => Unit::all()
         ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
@@ -68,7 +66,6 @@ class ObatController extends Controller
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
-            'pemasok_id' => 'required',
             'unit_id' => 'required'
             ]);
 
@@ -107,8 +104,7 @@ class ObatController extends Controller
         return view('dashboard.obat.edit',[
             'title' => 'Edit Obat',
             'obat' => $obat,
-            'units' => Unit::all(),
-            'pemasoks' => Pemasok::all()
+            'units' => Unit::all()
         ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif'));
     }
 
@@ -126,7 +122,6 @@ class ObatController extends Controller
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
-            'pemasok_id' => 'required',
             'unit_id' => 'required'
             ]);
 

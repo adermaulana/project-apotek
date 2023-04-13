@@ -91,24 +91,10 @@
 </select>
 </div>
 </div>
+<div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Nama Pemasok</h6>
-<select class="form-select" name="pemasok_id">
-        @foreach ($pemasoks as $pemasok)
-
-        @if(old('pemasok_id') == $pemasok->id)
-          <option value="{{ $pemasok->id }} " selected> {{ $pemasok->nama_pemasok }} </option>
-        @else
-          <option value="{{ $pemasok->id }}"> {{ $pemasok->nama_pemasok }} </option>
-        @endif
-
-        @endforeach
-</select>
-</div>
-</div>
-<div class="col-xs-6 col-sm-6 col-md-6">
-<button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+<button style="margin-left:-15px;"  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
 </div>
 </div>
 </form>

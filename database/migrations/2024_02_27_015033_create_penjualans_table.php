@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('tanggal_jual');
             $table->string('total');
             $table->timestamps();
+
+            $table->foreign('obat_id')
+            ->references('id')->on('obats')
+            ->onDelete('cascade');
         });
     }
 
