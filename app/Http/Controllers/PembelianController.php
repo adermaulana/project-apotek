@@ -159,10 +159,20 @@ class PembelianController extends Controller
     public function destroy(Request $request, Pembelian $pembelian)
     {
         
-        Pembelian::destroy($pembelian->id);
+        $data_pembelian = Pembelian::select('id','obat_id','banyak')->get();
+
+        foreach ($data_pembelian as $pembelian) 
+            $details = Pembelian::where('id', $pembelian->id)->get();
+            foreach ($details as $detail) {
+                $produk = Obat::find($detail->obat_id);
+                $produk->stok -= $detail->banyak;
+                $produk->save();
+            } 
+
+            Pembelian::destroy($pembelian->id);
 
         return redirect()->route('pembelian.index')
-        ->with('success','Produk Berhasil Dihapus');
+->with('success','Produk Berhasil Dihapus');
     }
 
     public function updateKadaluwarsa($pembelian)

@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td> {{ $data->nama_obat }} </td>
-                <td> {{ $data->harga_jual }} </td>
+                <td> {{ $data->formatRupiah('harga_jual') }} </td>
                 <td> {{ $data->deskripsi_obat }} </td>
             </tr>
             @endforeach

@@ -158,6 +158,16 @@ class PenjualanController extends Controller
      */
     public function destroy(Penjualan $penjualan)
     {
+        $data_pembelian = Penjualan::select('id','obat_id','banyak')->get();
+
+        foreach ($data_pembelian as $pembelian) 
+            $details = Penjualan::where('id', $pembelian->id)->get();
+            foreach ($details as $detail) {
+                $produk = Obat::find($detail->obat_id);
+                $produk->stok += $detail->banyak;
+                $produk->save();
+            } 
+
         Penjualan::destroy($penjualan->id);
 
         return redirect()->route('penjualan.index')
