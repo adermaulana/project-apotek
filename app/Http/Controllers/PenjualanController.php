@@ -68,11 +68,19 @@ class PenjualanController extends Controller
             'total' => 'required'
             ]);
 
-            Penjualan::create($validatedData);
 
-            $obat = Obat::find($request->obat_id);
-            $obat->stok -= $request->banyak;
-            $obat->save();
+            $drug = Obat::findOrFail($request->obat_id);
+
+            if ($drug->stok < $request->banyak) {
+                return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
+            } else {
+
+                Penjualan::create($validatedData);
+            
+                $obat = Obat::findOrFail($request->obat_id);
+                $obat->stok -= $request->banyak;
+                $obat->save();
+            }
 
             return redirect()->route('penjualan.index')
             ->with('success','Transaksi Berhasil Ditambahkan');

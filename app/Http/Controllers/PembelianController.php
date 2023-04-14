@@ -82,8 +82,8 @@ class PembelianController extends Controller
             $obat->stok += $request->banyak;
             $obat->save();
 
-            return redirect()->route('pembelian.index')
-            ->with('success','Produk Berhasil Ditambahkan');
+        return redirect()->route('pembelian.index')
+        ->with('success','Produk Berhasil Ditambahkan'); 
     }
 
     /**
@@ -164,9 +164,16 @@ class PembelianController extends Controller
         foreach ($data_pembelian as $pembelians) 
             $details = Pembelian::where('id', $pembelians->id)->get();
             foreach ($details as $detail) {
+
+                if($detail->kadaluwarsa == null){
+                    $produk = Obat::findOrFail($detail->obat_id);
+                    $produk->stok == $detail->banyak;
+                    $produk->save();
+                } else {
                 $produk = Obat::findOrFail($detail->obat_id);
                 $produk->stok -= $detail->banyak;
                 $produk->save();
+                }
             } 
 
         Pembelian::destroy($pembelian->id);

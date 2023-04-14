@@ -36,7 +36,7 @@
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('pembelian.store') }}" method="POST" enctype="multipart/form-data">
+<form id="form-pembelian" action="{{ route('pembelian.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 <div class="row mt-3">
 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -136,7 +136,7 @@
 <div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<button style="margin-left:-15px;"  type="submit" class="btn btn-primary col-6">Submit</button>
+<button id="submit" style="margin-left:-15px;"  type="submit" class="btn btn-primary col-6">Submit</button>
 </div>
 </div>
 </form>
@@ -180,11 +180,13 @@
   $('#banyak').on('change',function(){
     const price = $('#obat_id option:selected').data('price');
     const banyak = $('#banyak').val();
-
+    
     const total4 = banyak * price;
 
     $('#total').val(`${total4}`);
-  })
+  });
+
 </script>
+
 
 @endsection

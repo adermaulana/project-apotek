@@ -4,6 +4,13 @@
 
 <main id="main" class="main">
 
+@if ($message = Session::get('error'))
+<div class="alert alert-danger alert-dismissible fade show col-lg-12" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+@endif
+
 <div class="pagetitle">
   <h1>Penjualan Obat</h1>
 </div><!-- End Page Title -->
