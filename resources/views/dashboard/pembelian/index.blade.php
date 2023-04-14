@@ -33,11 +33,9 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th>Tangal Beli</th>
                 <th>Nama Pemasok</th>
-                <th>Harga Beli</th>
+                <th>Nama Obat</th>
                 <th>Banyak</th>
-                <th>Total Pembelian</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -45,11 +43,9 @@
         @foreach ($pembelian as $data)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $data->tanggal_beli }} </td>
             <td>{{ $data->pemasok->nama_pemasok }} </td>
-            <td>{{ $data->formatRupiah('harga_beli') }} </td>
+            <td>{{ $data->obat->nama_obat }} </td>
             <td>{{ $data->banyak }} </td>
-            <td>{{ $data->formatRupiah('total') }} </td>
             <td>
 										<div class="actions">
 											<a class="btn btn-success" href="{{ route('pembelian.show',$data) }}">

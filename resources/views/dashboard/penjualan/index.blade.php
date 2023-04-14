@@ -36,7 +36,6 @@
                 <th>Tanggal Transaksi</th>
                 <th>Harga Jual</th>
                 <th>Banyak</th>
-                <th>Total Penjualan</th>
                 <th>Action</th>
 
             </tr>
@@ -48,7 +47,6 @@
             <td>{{ date_format(date_create($data->tanggal_jual),"d M, Y") }} </td>
             <td>{{ $data->formatRupiah('harga_jual') }} </td>
             <td>{{ $data->banyak }} </td>
-            <td>{{ $data->formatRupiah('total') }} </td>
             <td>
 										<div class="actions">
 											<a class="btn btn-success" href="{{ route('penjualan.show',$data) }}">

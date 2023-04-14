@@ -34,6 +34,7 @@
                 <th>Nama Obat</th>
                 <th>Stok</th>
                 <th>Harga Jual</th>
+                <th>Harga Beli</th>
                 <th>Unit</th>
             </tr>
         </thead>
@@ -44,6 +45,7 @@
             <td>{{ $data->nama_obat}}</td>
             <td>{{ $data->stok }}</td>
             <td>{{ $data->formatRupiah('harga_jual') }}</td>
+            <td>{{ $data->formatRupiah('harga_beli') }}</td>
             <td>{{ $data->unit->unit }} </td>
           </tr>
           <!-- Modal -->

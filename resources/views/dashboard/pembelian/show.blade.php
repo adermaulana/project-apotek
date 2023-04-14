@@ -128,7 +128,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="mb-4" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">Total Bayar</td>
-                                                    <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;"> {{ $data->total }} </td>
+                                                    <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;"> {{ $data->formatRupiah('total') }} </td>
                                                 </tr>
                                             </tbody>
                                         </table>
