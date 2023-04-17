@@ -28,6 +28,9 @@
 
             <div class="card-body col-12">
               <h5 class="card-title">Invoice</h5>
+              <div class="pull-right">
+              <a class="btn btn-danger" href="/dashboard/pembelian/" enctype="multipart/form-data"> Kembali</a>
+              </div>
               <center>
 
                   <div class="main" bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 50%;">
@@ -73,7 +76,7 @@
                         <table width="100%" style="background: #f9f9f9; border-bottom: 1px solid #eee; border-collapse: collapse; color: #999;">
                             <tbody>
                                 <tr>
-                                    <td width="50%" style="padding: 20px;"><strong style="color: #333; font-size: 24px;">Pembelian Obat</strong></td>
+                                    <td width="50%" style="padding: 15px;"><strong style="color: #333; font-size: 24px;">Pembelian Obat</strong></td>
                                     <td align="right" width="50%" style="padding: 20px;"><span class="il"></span></td>
                                 </tr>
                             </tbody>
@@ -107,19 +110,19 @@
                                         <table cellspacing="0" style="border-collapse: collapse; margin-bottom: 40px;">
                                             <tbody>
                                                 <tr>
-                                                    <td style="padding: 5px 0;">Pemasok</td>
+                                                    <td style="padding: 10px 200px 10px 0px;  ">Pemasok</td>
                                                     <td align="right" style="padding: 5px 0;">{{ $data->pemasok->nama_pemasok }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px 0;">Nama Obat</td>
+                                                    <td style="padding: 10px 200px 10px 0px;  ">Nama Obat</td>
                                                     <td align="right" style="padding: 5px 0;">{{ $data->obat->nama_obat }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding: 5px 0;">Banyak</td>
+                                                    <td style="padding: 10px 200px 10px 0px;  ">Banyak</td>
                                                     <td align="right" style="padding: 5px 0;"> {{ $data->banyak }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="center" style="padding: 10px 255px 10px 0px;  " >Tanggal Beli</td>
+                                                    <td align="center" style="padding: 10px 200px 10px 0px; "  >Tanggal Beli</td>
                                                     <td align="right" style="padding:0px 0px 9px 0px;"> {{ $data->tanggal_beli }}</td>
                                                 </tr>
                                                 <tr>
@@ -151,7 +154,7 @@
                                     </td>
                                     <td width="10%" style="padding: 10px 0;">&nbsp;</td>
                                     <td width="40%" valign="top" style="padding: 10px 0;">
-                                        <h4 style="margin: 0;"><span class="il">Pharmacy</span> Makassar</h4>
+                                        <h4 style="margin: 0; font-size:16px;"><span class="il">Pharmacy</span> Makassar</h4>
                                         <p style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
                                             <a href="#">Testimoni, Kec. Suka - Suka, Kota Makassar, Sulawesi Selatan 92171</a>
                                         </p>

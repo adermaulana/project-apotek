@@ -33,7 +33,7 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal Transaksi</th>
+                <th>Nama Obat</th>
                 <th>Harga Jual</th>
                 <th>Banyak</th>
                 <th>Action</th>
@@ -44,7 +44,7 @@
         @foreach ($penjualan as $data)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ date_format(date_create($data->tanggal_jual),"d M, Y") }} </td>
+            <td>{{ $data->obat->nama_obat }} </td>
             <td>{{ $data->formatRupiah('harga_jual') }} </td>
             <td>{{ $data->banyak }} </td>
             <td>
