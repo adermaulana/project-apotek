@@ -30,6 +30,7 @@
               <h5 class="card-title">Invoice</h5>
               <div class="pull-right">
               <a class="btn btn-danger" href="/dashboard/penjualan/" enctype="multipart/form-data"> Kembali</a>
+              <a href="#" class="btn btn-primary" onclick="window.print()">PRINT</a>
               </div>
               <center>
 

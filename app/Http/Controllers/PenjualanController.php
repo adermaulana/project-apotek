@@ -8,6 +8,7 @@ use App\Models\Obat;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
+use PDF;
 
 class PenjualanController extends Controller
 {
@@ -181,4 +182,5 @@ class PenjualanController extends Controller
         return redirect()->route('penjualan.index')
         ->with('success','Transaksi Berhasil Dihapus');
     }
+
 }
