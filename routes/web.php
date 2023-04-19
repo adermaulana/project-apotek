@@ -1,24 +1,25 @@
 <?php
 
+use Carbon\Carbon;
+use App\Models\Obat;
+use App\Models\Unit;
+use App\Models\Pemasok;
+use App\Models\Category;
+use App\Models\Pembelian;
+use App\Models\Penjualan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\UnitController;
+
+//Buat Dashboard
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasokController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
-
-//Buat Dashboard
-use App\Models\Obat;
-use App\Models\Category;
-use App\Models\Pemasok;
-use App\Models\Unit;
-use App\Models\Penjualan;
-use App\Models\Pembelian;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,9 @@ Route::resource('/dashboard/user',UserController::class)->middleware('auth');
 //Laporan
 Route::get('/dashboard/laporan',[LaporanController::class,'index'])->name('reports')->middleware('auth');
 Route::post('/dashboard/laporan',[LaporanController::class,'getData'])->middleware('auth');
+
+//Pelanggan
+Route::resource('/pelanggan',PelangganController::class);
 
 
 
