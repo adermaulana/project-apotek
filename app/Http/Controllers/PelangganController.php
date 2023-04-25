@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Penjualan;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use App\Models\Obat;
 use App\Models\Pembelian;
@@ -55,7 +56,7 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

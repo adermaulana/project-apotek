@@ -49,7 +49,7 @@
 
         <button style="background-color:#219ebc; border:none;" class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
       </form>
-    
+      <small style="margin-bottom:102px;" class="d-block text-center mt-3 ">Belum Daftar? <a style="color:#219ebc;" href="/register">Daftar Sekarang!</a></small>
     </main>
   </div>
 </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasokController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
@@ -101,6 +102,10 @@ Route::post('/dashboard/laporan',[LaporanController::class,'getData'])->middlewa
 
 //Pelanggan
 Route::resource('/pelanggan',PelangganController::class);
+
+//Register
+Route::get('/register', [RegisterController::class,'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class,'store']);
 
 
 
