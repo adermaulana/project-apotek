@@ -20,6 +20,8 @@
       </div> 
     </div><!-- End Logo -->
     @endauth
+
+
     <nav class="header-nav ms-auto navbar navbar-expand-lg navbar-dark bg-gradient">
       <ul class="d-flex align-items-center">
 
@@ -28,8 +30,45 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-        @auth
-        <li class="nav-item dropdown">
+        @auth('pelanggan')
+        <li class="nav-item dropdown pe-3">
+
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">Selamat Datang</span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6>{{ auth('pelanggan')->user()->name }}</h6>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <!-- <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <i class="bi bi-person">tes</i>
+              <span>My Profile</span>
+            </a>
+          </li> -->
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="/"><i class="bi bi-house"></i>Home</a>
+          </li>
+          <li>
+            <form action="/logout" method="post" class="dropdown-item d-flex align-items-center">
+            @csrf
+            <button style="margin-left:-12px; color:black;" type="submit" class="dropdown-item">
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+              </button>
+            </form>
+          </li>
+
+        </ul><!-- End Profile Dropdown Items -->  
+        </li><!-- End Profile Nav -->
+      @elseif(Auth::check())
+      <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
@@ -76,7 +115,7 @@
             </li>
             @endforeach
           </ul><!-- End Notification Dropdown Items -->
-      @endif
+       @endif
         </li><!-- End Notification Nav -->
 
         <li class="nav-item dropdown pe-3">

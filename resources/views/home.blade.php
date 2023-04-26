@@ -3,6 +3,13 @@
 @section('container')
 <main id="maino" class="maino container">
 
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-dismissible fade show col-lg-4" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+@endif
+
 @if ($message = Session::get('error'))
 <div class="alert alert-danger alert-dismissible fade show col-lg-12" role="alert">
         {{ session('error') }}

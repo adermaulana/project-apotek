@@ -27,7 +27,11 @@ class LoginController extends Controller
 
             return redirect()->intended('/dashboard');
         
-        } 
+        } else if (Auth::guard('pelanggan')->attempt($credentials)){
+            $request->session()->regenerate();
+
+            return redirect()->intended('/');
+        }
 
         return back()->with('loginError','Login Gagal');
 

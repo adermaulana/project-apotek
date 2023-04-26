@@ -20,20 +20,19 @@ class RegisterController extends Controller
 
         $validateData = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email:dns|unique:user_bookings|unique:users',
+            'email' => 'required|email:dns|unique:pelanggans|unique:users',
             'address' => 'required|max:255',
             'number' => 'required|min:6|max:13',
-            'username' => ['required','min:4','max:255','unique:user_bookings','unique:users'],
             'password' => 'required|min:5|max:255'
         ]);
 
         $validateData['password'] = Hash::make($validateData['password']);
 
-        UserBooking::create($validateData);
+        Pelanggan::create($validateData);
 
         // $request->session()->flash('success','Registration successfull! please Login');
 
-        return redirect('/login')->with('success','Registration successfull! Please login');
+        return redirect('/login')->with('success','Pendaftaran berhasil! Silahkan login');
 
     }
 
