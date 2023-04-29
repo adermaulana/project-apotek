@@ -23,8 +23,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+
                 return redirect(RouteServiceProvider::HOME)->with('success','Anda Sudah Login!');
+
             } else if (Auth::guard('pelanggan')->check()) {
+
                 return redirect('/')->with('success','Anda Sudah Login!');
             }
         }

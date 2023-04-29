@@ -29,10 +29,17 @@ class PelangganController extends Controller
      */
     public function create()
     {
-        if (!Auth::check()) {
-            // Jika pengguna belum terautentikasi, tampilkan pemberitahuan
+
+        if (Auth::check()) {
+            // Jika auth admin, tampilkan pemberitahuan
+            session()->flash('error', 'Anda adalah Admin tidak bisa melakukan transaksi disini!');
+            return redirect('/');
+
+        }  else if (!Auth::guard('pelanggan')->check()) {
+            // Jika pengguna bukan pelanggan terautentikasi, tampilkan pemberitahuan
             session()->flash('error', 'Anda Harus Login Terlebih Dahulu Untuk Melakukan Transaksi!');
             return redirect('/');
+
         }
 
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
@@ -40,12 +47,12 @@ class PelangganController extends Controller
         $obat_habis = Obat::where('stok', '<=', 0)->get();
         $total_obat_habis = $obat_habis->count();
         $total_notif = $total_kadaluwarsa + $total_obat_habis;
-
         
         return view("pelanggan.create",[
             'title' => 'Beli Obat',
             'obat' => Obat::all()
     ],compact('total_notif','kadaluwarsa','obat_habis'));
+
     }
 
     /**
@@ -56,6 +63,31 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'obat_id' => 'required',
+            'harga_jual' => 'required',
+            'banyak' => 'required',
+            'tanggal_jual' => 'required',
+            'total' => 'required'
+            ]);
+
+        $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
+
+            $drug = Obat::findOrFail($request->obat_id);
+
+            if ($drug->stok < $request->banyak) {
+                return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
+            } else {
+
+                Penjualan::create($validatedData);
+            
+                $obat = Obat::findOrFail($request->obat_id);
+                $obat->stok -= $request->banyak;
+                $obat->save();
+            }
+
+            return redirect()->route('penjualan.index')
+            ->with('success','Transaksi Berhasil Ditambahkan');
         
     }
 
@@ -65,9 +97,36 @@ class PelangganController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(Penjualan $penjualan)
+    public function show($id)
     {
-        //
+        if (Auth::check()) {
+            // Jika auth admin, tampilkan pemberitahuan
+            session()->flash('error', 'Anda adalah Admin tidak bisa melakukan transaksi disini!');
+            return redirect('/');
+
+        }  else if (!Auth::guard('pelanggan')->check()) {
+            // Jika pengguna bukan pelanggan terautentikasi, tampilkan pemberitahuan
+            session()->flash('error', 'Anda Harus Login Terlebih Dahulu Untuk Melakukan Transaksi!');
+            return redirect('/');
+
+        }
+
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+        $obat = Obat::findOrFail($id);
+        
+        try {
+            return view("pelanggan.create",[
+                'title' => 'Beli Obat',
+                'obat' => $obat
+        ],compact('total_notif','kadaluwarsa','obat_habis'));
+        } catch (ModelNotFoundException $exception) {
+            return abort(404);
+        }
+
     }
 
     /**

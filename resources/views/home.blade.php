@@ -40,7 +40,7 @@
                 <td> {{ $data->deskripsi_obat }} </td>
 				<td>
 					<div class="actions">
-						<a class="btn btn-success" href="{{ route('pelanggan.create',$data) }}">
+						<a class="btn btn-success" href="{{ route('pelanggan.show', $data->id) }}">
                       		<span data-feather="edit">Beli</span>
 						</a>
 					</div>

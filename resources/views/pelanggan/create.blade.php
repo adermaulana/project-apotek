@@ -2,17 +2,17 @@
 
 @section('container')
 
-<main id="main" class="main">
+<div style="margin-top:30px;">waw</div>
 
 @if ($message = Session::get('error'))
-<div class="alert alert-danger alert-dismissible fade show col-lg-12" role="alert">
+<div style="margin-top:30px; margin-left:10px;" class="alert alert-danger alert-dismissible fade show col-lg-11" role="alert">
         {{ session('error') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
 @endif
 
-<div class="pagetitle">
-  <h1>Penjualan Obat</h1>
+<div style="margin-top:20px; margin-left:20px;" class="pagetitle">
+  <h1>Transaksi</h1>
 </div><!-- End Page Title -->
 
 <section class="section dashboard">
@@ -34,7 +34,7 @@
 <div class="pull-left">
 </div>
 <div class="pull-right">
-<a class="btn btn-danger" href="{{ route('penjualan.index') }}" enctype="multipart/form-data"> Batal</a>
+<a class="btn btn-danger" href="/" enctype="multipart/form-data"> Batal</a>
 </div>
 </div>
 </div>
@@ -43,28 +43,23 @@
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('penjualan.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('pelanggan.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
+<input type="hidden" id="obat_id" data-price="{{ $obat->harga_jual }}" name="obat_id" value="{{ $obat->id }}">
 <div class="row mt-3">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Obat Yang di Pilih</h6>
-<select class="form-select" name="obat_id" id="obat_id">
-          <option value="0"></option>
-        @foreach ($obat as $obats)
-        @if(old('obat_id') == $obats->id)
-          <option selected value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
-          @else
-          <option value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
-          @endif
-        @endforeach
-</select>
+<h6>Nama Obat</h6>
+<input type="text" readonly data-stok="{{ $obat->stok }}" name="nama_obat" value="{{ old('nama_obat',$obat->nama_obat) }}" class="form-control" >
+@error('nama_obat')
+<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+@enderror
 </div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Stok</h6>
-<input type="text" name="stok" id="stok" value="{{ old('stok') }}"  class="form-control" readonly >
+<input type="text" name="stok" id="stok" value="{{ old('stok', $obat->stok) }}"  class="form-control" readonly >
 @error('stok')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -73,7 +68,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Harga Jual</h6>
-<input type="text" name="harga_jual" id="harga" value="{{ old('harga_jual') }}"  class="form-control" readonly >
+<input type="text" name="harga_jual" id="harga" value="{{ old('harga_jual',$obat->harga_jual) }}"  class="form-control" readonly >
 @error('harga_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -82,7 +77,7 @@
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Unit</h6>
-<input type="text" name="unit_id" value="{{ old('unit_id') }}" class="form-control" readonly >
+<input type="text" name="unit_id" value="{{ old('unit_id',$obat->unit->unit) }}" class="form-control" readonly >
 @error('unit_id')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -136,37 +131,18 @@
   </div>
 </section>
 
-</main><!-- End #main -->
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
-        $('#obat_id').on('change', function(){
-  // ambil data dari elemen option yang dipilih
-  const price = $('#obat_id option:selected').data('price');
-  const unit = $('#obat_id option:selected').data('unit');
-  const stok = $('#obat_id option:selected').data('stok');
-  const banyak = $('#banyak').val();
-  
-  // kalkulasi total harga
-  const total = price;
-  const total2 = unit;
-  const total3 = stok;
-  
-  // tampilkan data ke element
-  $('[name=stok]').val(`${total3}`);
-  $('[name=unit_id]').val(`${total2}`);
-  
-  $('#harga').val(`${total}`);
-});
 
   $('#banyak').on('change',function(){
-    const price = $('#obat_id option:selected').data('price');
+    const harga = $('#harga').val();
     const banyak = $('#banyak').val();
 
-    const total4 = banyak * price;
+    const total4 = banyak * harga;
 
     $('#total').val(`${total4}`);
   })
+
 </script>
 
 
