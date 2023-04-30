@@ -6,7 +6,7 @@
 @if(session()->has('invoice'))
       <div class=" alert-success col-lg-11" role="alert">
         {{ session('invoice') }}
-        <a target="_blank" href="/pelanggan/invoice">Silahkan klik link berikut untuk melihat Invoice</a>
+        <a target="_blank" href="/pelanggan">Silahkan klik link berikut untuk melihat Invoice</a>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
 @endif
