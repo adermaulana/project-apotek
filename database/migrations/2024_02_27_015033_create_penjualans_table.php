@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('obat_id');
-            $table->foreignId('pelanggan_id')->unique();
+            $table->foreignId('pelanggan_id')->nullable();
             $table->string('harga_jual');
             $table->string('banyak');
             $table->string('tanggal_jual');
             $table->string('total');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('obat_id')

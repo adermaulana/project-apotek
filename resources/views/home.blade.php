@@ -3,8 +3,16 @@
 @section('container')
 <main id="maino" class="maino container">
 
+@if(session()->has('invoice'))
+      <div class=" alert-success col-lg-11" role="alert">
+        {{ session('invoice') }}
+        <a target="_blank" href="/pelanggan/invoice">Silahkan klik link berikut untuk melihat Invoice</a>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+@endif
+
 @if ($message = Session::get('success'))
-<div class="alert alert-success alert-dismissible fade show col-lg-4" role="alert">
+<div class="alert alert-success alert-dismissible fade show col-lg-5" role="alert">
         {{ session('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>

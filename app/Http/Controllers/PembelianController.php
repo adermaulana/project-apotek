@@ -92,7 +92,7 @@ class PembelianController extends Controller
      * @param  \App\Models\Pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function show(Pembelian $pembelian)
+    public function show($id)
     {   
         $title = "Invoice Pembelian";
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
@@ -101,9 +101,9 @@ class PembelianController extends Controller
         $obat_habis = Obat::where('stok', '<=', 0)->get();
         $total_obat_habis = $obat_habis->count();
         $total_notif = $total_kadaluwarsa + $total_obat_habis;
-
+        $pembelian = Pembelian::findOrFail($id);
         return view('dashboard.pembelian.show',[
-            'pembelian' => Pembelian::find($pembelian)
+            'pembelian' => $pembelian
         ],compact('title','total_notif','kadaluwarsa','obat_habis'));
     }
 

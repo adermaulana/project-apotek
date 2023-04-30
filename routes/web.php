@@ -102,6 +102,7 @@ Route::post('/dashboard/laporan',[LaporanController::class,'getData'])->middlewa
 
 //Pelanggan
 Route::resource('/pelanggan',PelangganController::class);
+Route::get('/pelanggan/invoice',[PelangganController::class,'konfirmasi']);
 
 //Register
 Route::get('/register', [RegisterController::class,'index'])->middleware('guest');

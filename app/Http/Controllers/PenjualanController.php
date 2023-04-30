@@ -66,7 +66,8 @@ class PenjualanController extends Controller
             'harga_jual' => 'required',
             'banyak' => 'required',
             'tanggal_jual' => 'required',
-            'total' => 'required'
+            'total' => 'required',
+            'status' => 'required'
             ]);
 
 
@@ -93,7 +94,7 @@ class PenjualanController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(Penjualan $penjualan)
+    public function show($id)
     {
         $title = "Invoice Penjualan";
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
@@ -102,9 +103,9 @@ class PenjualanController extends Controller
         $obat_habis = Obat::where('stok', '<=', 0)->get();
         $total_obat_habis = $obat_habis->count();
         $total_notif = $total_kadaluwarsa + $total_obat_habis;
-
+        $penjualan = Penjualan::findOrFail($id);
         return view('dashboard.penjualan.show',[
-            'penjualan' => Penjualan::find($penjualan)
+            'penjualan' => $penjualan
         ],compact('title','total_notif','kadaluwarsa','obat_habis'));
     }
 
@@ -141,22 +142,14 @@ class PenjualanController extends Controller
     public function update(Request $request, Penjualan $penjualan)
     {
         $validatedData = $request->validate([
-            'obat_id' => 'required',
-            'harga_jual' => 'required',
-            'banyak' => 'required',
-            'tanggal_jual' => 'required',
-            'total' => 'required'
+            'status' => 'required'
             ]);
 
             Penjualan::where('id',$penjualan->id)
             ->update($validatedData);
 
-            $obat = Obat::find($request->obat_id);
-            $obat->stok += $request->banyak;
-            $obat->save();
-
             return redirect()->route('penjualan.index')
-            ->with('success','Transaksi Berhasil Diperbarui');
+            ->with('success','Status Berhasil Diperbarui!');
     }
 
     /**

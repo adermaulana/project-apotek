@@ -36,6 +36,7 @@
                 <th>Nama Obat</th>
                 <th>Harga Jual</th>
                 <th>Banyak</th>
+                <th>Status</th>
                 <th>Action</th>
 
             </tr>
@@ -47,6 +48,13 @@
             <td>{{ $data->obat->nama_obat }} </td>
             <td>{{ $data->formatRupiah('harga_jual') }} </td>
             <td>{{ $data->banyak }} </td>
+            @if($data->status == 'Sudah Bayar')
+            <td><button type="button" data-bs-toggle="modal" data-bs-target="#status{{ $data->id }}"  class=" btn btn-success"><span>{{ $data->status }}</span></button></td>
+            @elseif($data->status == 'Pending')
+            <td><button type="button" data-bs-toggle="modal" data-bs-target="#status{{ $data->id }}"  class=" btn btn-warning"><span>{{ $data->status }}</span></button></td>
+            @else
+            <td><button type="button" data-bs-toggle="modal" data-bs-target="#status{{ $data->id }}"  class=" btn btn-danger"><span>{{ $data->status }}</span></button></td>
+            @endif
             <td>
 										<div class="actions">
 											<a class="btn btn-success" href="{{ route('penjualan.show',$data) }}">
@@ -77,6 +85,35 @@
                   </form>
                 </div>
               </div>
+            </div>
+          </div>
+
+
+
+          <!-- Modal Status -->
+          <div class="modal fade" id="status{{ $data->id }}" tabindex="-1" aria-labelledby="statusmodal" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="statusmodal">Status Pembayaran</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('penjualan.update',$data->id) }}" method="post" class="d-inline">
+                @method('put')
+                @csrf
+                <div class="modal-body">
+                  <select class="form-select" name="status" id="status">
+                  <option value="Pending">Pending</option>
+                  <option value="Sudah Bayar">Sudah Bayar</option>
+                  <option value="Belum Bayar">Belum Bayar</option>
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                              <button class="delete btn btn-success">Simpan</button>
+                            </div>
+                          </div>
+                </form>
             </div>
           </div>
           @endforeach 

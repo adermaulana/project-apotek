@@ -115,6 +115,16 @@
 @enderror
 </div>
 </div>
+<div class="col-xs-6 col-sm-6 col-md-6">
+<div class="form-group">
+<h6>Status</h6>
+<select class="form-select" id="status" name="status">
+                  <option value="Belum Bayar" selected>Belum Bayar</option>
+                  <option value="Sudah Bayar">Sudah Bayar</option>
+                  <option value="Pending">Pending</option>
+</select>
+</div>
+</div>
 <div>
   <div class="col-xs-6 col-sm-6 col-md-6">
     <div class="form-group">

@@ -37,7 +37,6 @@
                   <div class="main" bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 50%;">
         <table bgcolor="#f6f6f6" cellspacing="0" style="border-collapse: collapse; padding: 40px; width: 100%;" width="100%">
             <tbody>
-            @foreach ($pembelian as $data)
                 <tr>
                     <td width="5px" style="padding: 0;"></td>
                     <td style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
@@ -61,8 +60,8 @@
                                     </td>
                                     <td style="color: #999; font-size: 12px; padding: 0; text-align: center;" align="right">
                                         Pharmacy<br />No. Pembayaran :
-                                        {{ $data->id }}<br />
-                                        {{ $data->created_at }}
+                                        {{ $pembelian->id }}<br />
+                                        {{ $pembelian->created_at }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -112,27 +111,27 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="padding: 10px 200px 10px 0px;  ">Pemasok</td>
-                                                    <td align="right" style="padding: 5px 0;">{{ $data->pemasok->nama_pemasok }}</td>
+                                                    <td align="right" style="padding: 5px 0;">{{ $pembelian->pemasok->nama_pemasok }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding: 10px 200px 10px 0px;  ">Nama Obat</td>
-                                                    <td align="right" style="padding: 5px 0;">{{ $data->obat->nama_obat }}</td>
+                                                    <td align="right" style="padding: 5px 0;">{{ $pembelian->obat->nama_obat }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding: 10px 200px 10px 0px;  ">Banyak</td>
-                                                    <td align="right" style="padding: 5px 0;"> {{ $data->banyak }}</td>
+                                                    <td align="right" style="padding: 5px 0;"> {{ $pembelian->banyak }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td align="center" style="padding: 10px 200px 10px 0px; "  >Tanggal Beli</td>
-                                                    <td align="right" style="padding:0px 0px 9px 0px;"> {{ $data->tanggal_beli }}</td>
+                                                    <td align="right" style="padding:0px 0px 9px 0px;"> {{ $pembelian->tanggal_beli }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding: 5px 0;">Harga </td>
-                                                    <td align="right" style="padding: 5px 0;" ><span style="">{{ $data->formatRupiah('harga_beli') }}</span></td>
+                                                    <td align="right" style="padding: 5px 0;" ><span style="">{{ $pembelian->formatRupiah('harga_beli') }}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="mb-4" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">Total Bayar</td>
-                                                    <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;"> {{ $data->formatRupiah('total') }} </td>
+                                                    <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;"> {{ $pembelian->formatRupiah('total') }} </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -166,7 +165,6 @@
                     </td>
                     <td width="5px" style="padding: 10px 0;"></td>
                 </tr>
-                @endforeach
             </tbody>
         </table>
               </center>

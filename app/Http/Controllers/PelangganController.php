@@ -68,15 +68,18 @@ class PelangganController extends Controller
             'harga_jual' => 'required',
             'banyak' => 'required',
             'tanggal_jual' => 'required',
-            'total' => 'required'
+            'total' => 'required',
+            'status' => 'required'
             ]);
 
         $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
 
             $drug = Obat::findOrFail($request->obat_id);
+            $buy = Pembelian::findOrFail($request->obat_id);
 
             if ($drug->stok < $request->banyak) {
                 return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
+
             } else {
 
                 Penjualan::create($validatedData);
@@ -86,8 +89,8 @@ class PelangganController extends Controller
                 $obat->save();
             }
 
-            return redirect()->route('penjualan.index')
-            ->with('success','Transaksi Berhasil Ditambahkan');
+            return redirect('/')
+            ->with('invoice','Pembelian Berhasil');
         
     }
 
@@ -161,5 +164,14 @@ class PelangganController extends Controller
     public function destroy(Penjualan $penjualan)
     {
         //
+    }
+
+    public function konfirmasi($id){
+
+        $data = Penjualan::find($id)->where('pelanggan_id', auth('pelanggan')->user()->id);
+        return view('pelanggan.show',[
+            'title' => 'Invoice Obat',
+            'data' => $data
+        ]);
     }
 }

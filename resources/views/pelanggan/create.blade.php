@@ -4,6 +4,14 @@
 
 <div style="margin-top:30px;">waw</div>
 
+
+@if(session()->has('success'))
+      <div class="alert alert-success col-lg-11" role="alert">
+        {{ session('success') }}
+        <a target="_blank" href="/pelanggan/invoice"></a>
+      </div>
+@endif
+
 @if ($message = Session::get('error'))
 <div style="margin-top:30px; margin-left:10px;" class="alert alert-danger alert-dismissible fade show col-lg-11" role="alert">
         {{ session('error') }}
@@ -45,7 +53,7 @@
 @endif
 <form action="{{ route('pelanggan.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
-<input type="hidden" id="obat_id" data-price="{{ $obat->harga_jual }}" name="obat_id" value="{{ $obat->id }}">
+<input type="hidden" id="obat_id"  name="obat_id" value="{{ $obat->id }}">
 <div class="row mt-3">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
@@ -111,6 +119,7 @@
 </div>
 </div>
 <div>
+  <input type="hidden" name="status" value="Pending">
   <div class="col-xs-6 col-sm-6 col-md-6">
     <div class="form-group">
       <button style="margin-left:-15px;" type="submit" class="btn btn-primary col-6 me-1">Submit</button>
@@ -119,7 +128,6 @@
 </form>
 </div>
     
-
             </div>
 
           </div>
