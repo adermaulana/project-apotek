@@ -166,10 +166,12 @@ class PelangganController extends Controller
         //
     }
 
-    public function konfirmasi(){
+    public function konfirmasi($id){
+        
+        $penjualan = Penjualan::findOrFail($id);
         return view('pelanggan.show',[
             'title' => 'Invoice Obat',
-            'bookingdata' => Penjualan::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->paginate(1)
+            'user' => $penjualan
         ]);
     }
 }

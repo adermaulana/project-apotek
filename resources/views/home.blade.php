@@ -4,10 +4,13 @@
 <main id="maino" class="maino container">
 
 @if(session()->has('invoice'))
-      <div class=" alert-success col-lg-11" role="alert">
-        {{ session('invoice') }}
-        <a target="_blank" href="/pelanggan">Silahkan klik link berikut untuk melihat Invoice</a>
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <div style="margin-bottom:20px;" class="badge badge-success col-lg-5" role="alert">
+	  @foreach ($penjualan as $data)
+        <a style="color:white; weight:bold;" target="_blank" href="/pelanggan/invoice/{{ $data->id }}">
+			{{ session('invoice') }}
+			Silahkan klik disini untuk melihat Invoice
+		</a>
+		@endforeach
       </div>
 @endif
 

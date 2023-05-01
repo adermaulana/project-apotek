@@ -44,7 +44,8 @@ Route::get('/',function(){
 
     return view('home',[
         'title' => 'Home',
-        'obat' => Obat::all()
+        'obat' => Obat::all(),
+        'penjualan' => Penjualan::latest()->paginate(1)
     ],compact('total_notif','obat_habis','total_kadaluwarsa','kadaluwarsa'));
 });
 
@@ -102,7 +103,7 @@ Route::post('/dashboard/laporan',[LaporanController::class,'getData'])->middlewa
 
 //Pelanggan
 Route::resource('/pelanggan',PelangganController::class);
-Route::get('/pelanggan',[PelangganController::class,'konfirmasi']);
+Route::get('/pelanggan/invoice/{id}',[PelangganController::class,'konfirmasi'])->middleware('auth:pelanggan');
 
 //Register
 Route::get('/register', [RegisterController::class,'index'])->middleware('guest');

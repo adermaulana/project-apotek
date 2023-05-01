@@ -34,7 +34,7 @@
   <div class="main" bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 50%;">
     <table bgcolor="#f6f6f6" cellspacing="0" style="border-collapse: collapse; padding: 40px; width: 100%;" width="100%">
         <tbody>
-        @foreach ($bookingdata as $user)
+
             <tr>
                 <td width="5px" style="padding: 0;"></td>
                 <td style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
@@ -160,7 +160,7 @@
                 </td>
                 <td width="5px" style="padding: 10px 0;"></td>
             </tr>
-            @endforeach
+
         </tbody>
     </table>
 

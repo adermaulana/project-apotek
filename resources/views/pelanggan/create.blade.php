@@ -5,10 +5,14 @@
 <div style="margin-top:30px;">waw</div>
 
 
-@if(session()->has('success'))
-      <div class="alert alert-success col-lg-11" role="alert">
-        {{ session('success') }}
-        <a target="_blank" href="/pelanggan/invoice"></a>
+@if(session()->has('invoice'))
+      <div style="margin-bottom:20px;" class="badge badge-success col-lg-5" role="alert">
+	  @foreach ($penjualan as $data)
+        <a style="color:white; weight:bold;" target="_blank" href="/pelanggan/invoice/{{ $data->id }}">
+			{{ session('invoice') }}
+			Silahkan klik disini untuk melihat Invoice
+		</a>
+		@endforeach
       </div>
 @endif
 
@@ -102,7 +106,7 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
-<h6>Tanggal Jual</h6>
+<h6>Tanggal Beli</h6>
 <input type="date" name="tanggal_jual" value="{{ old('tanggal_jual') }}" class="form-control" >
 @error('tanggal_jual')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
