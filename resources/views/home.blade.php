@@ -31,12 +31,13 @@
 <div class="pagetitle">
   <h1>Daftar Obat Yang Tersedia</h1>
 </div><!-- End Page Title -->
-<table class="fixed-th zebra-table" id="datatable-noexport">
+<table class="table table-bordered" id="datatable-noexport">
 
 		<thead>
 			<tr>
 				<th>No</th>
 				<th>Nama Obat</th>
+				<th>Gambar Obat</th>
 				<th>Harga Jual</th>
 				<th>Deskripsi Obat</th>
 				<th>Action</th>
@@ -47,6 +48,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td> {{ $data->nama_obat }} </td>
+                <td><img width="100" src="{{ asset('storage/' . $data->gambar)  }}"></td>
                 <td> {{ $data->formatRupiah('harga_jual') }} </td>
                 <td> {{ $data->deskripsi_obat }} </td>
 				<td>

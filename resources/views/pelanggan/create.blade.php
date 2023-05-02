@@ -5,17 +5,6 @@
 <div style="margin-top:30px;">waw</div>
 
 
-@if(session()->has('invoice'))
-      <div style="margin-bottom:20px;" class="badge badge-success col-lg-5" role="alert">
-	  @foreach ($penjualan as $data)
-        <a style="color:white; weight:bold;" target="_blank" href="/pelanggan/invoice/{{ $data->id }}">
-			{{ session('invoice') }}
-			Silahkan klik disini untuk melihat Invoice
-		</a>
-		@endforeach
-      </div>
-@endif
-
 @if ($message = Session::get('error'))
 <div style="margin-top:30px; margin-left:10px;" class="alert alert-danger alert-dismissible fade show col-lg-11" role="alert">
         {{ session('error') }}
@@ -47,6 +36,7 @@
 </div>
 <div class="pull-right">
 <a class="btn btn-danger" href="/" enctype="multipart/form-data"> Batal</a>
+<!-- <button id="tambah-form" type="button" class="btn btn-success ms-2">Tambah Pesanan</button> -->
 </div>
 </div>
 </div>
@@ -55,14 +45,14 @@
 {{ session('status') }}
 </div>
 @endif
-<form action="{{ route('pelanggan.store') }}" method="POST" enctype="multipart/form-data">
+<form id="form-input" action="{{ route('pelanggan.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 <input type="hidden" id="obat_id"  name="obat_id" value="{{ $obat->id }}">
 <div class="row mt-3">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Nama Obat</h6>
-<input type="text" readonly data-stok="{{ $obat->stok }}" name="nama_obat" value="{{ old('nama_obat',$obat->nama_obat) }}" class="form-control" >
+<input type="text" readonly data-stok="{{ $obat->stok }}" id="nama_obat" name="nama_obat" value="{{ old('nama_obat',$obat->nama_obat) }}" class="form-control" >
 @error('nama_obat')
 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 @enderror
@@ -122,11 +112,12 @@
 @enderror
 </div>
 </div>
-<div>
+<div class="row col-8">
   <input type="hidden" name="status" value="Pending">
-  <div class="col-xs-6 col-sm-6 col-md-6">
+
+  <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group">
-      <button style="margin-left:-15px;" type="submit" class="btn btn-primary col-6 me-1">Submit</button>
+      <button  type="submit" class="btn btn-primary col-6 me-1">Submit</button>
     </div>
   </div>
 </form>
@@ -154,10 +145,25 @@
 
     $('#total').val(`${total4}`);
   })
+  
 
 </script>
 
+<script>
+  $(document).ready(function() {
+    // Ketika tombol "Tambah Form" ditekan
+    $('#tambah-form').click(function() {
+      // Clone form input sebelumnya
+      var newForm = $('#form-input').clone();
+      // Ubah input text nama menjadi select
+      var newNama = newForm.find('#nama_obat');
+      var newSelect = $('<select class="form-select" name="obat_id" id="obat_id"><option value="Pria">Pria</option><option value="Wanita">Wanita</option><option value="Lainnya">Lainnya</option></select>');
+      newNama.replaceWith(newSelect);
+      // Tambahkan form input yang baru setelah form input sebelumnya
+      $('#form-input').after(newForm);
 
-
+    });
+  });
+</script>
 
 @endsection

@@ -50,6 +50,15 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
+<h6>Gambar Obat</h6>
+<input type="file" name="gambar" value="{{ old('gambar') }}" class="form-control" >
+@error('gambar')
+<div  class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+@enderror
+</div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-6">
+<div class="form-group">
 <h6>Deskripsi Obat</h6>
 <input type="text" name="deskripsi_obat" value="{{ old('deskripsi_obat') }}" class="form-control" >
 @error('deskripsi_obat')

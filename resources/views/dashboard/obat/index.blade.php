@@ -37,6 +37,7 @@
                 <th>Stok</th>
                 <th>Harga Beli</th>
                 <th>Harga Jual</th>
+                <th>Gambar Obat</th>
                 <th>Unit</th>
                 <th>Action</th>
             </tr>
@@ -49,6 +50,7 @@
             <td>{{ $data->stok }} </td>
             <td>{{ $data->formatRupiah('harga_beli') }} </td>
             <td>{{ $data->formatRupiah('harga_jual') }} </td>
+            <td><img width="100" src="{{ asset('storage/' . $data->gambar)  }}"></td>
             <td>{{ $data->unit->unit }} </td>
             <td>
 										<div class="actions">

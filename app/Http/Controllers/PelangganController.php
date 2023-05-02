@@ -124,7 +124,8 @@ class PelangganController extends Controller
         try {
             return view("pelanggan.create",[
                 'title' => 'Beli Obat',
-                'obat' => $obat
+                'obat' => $obat,
+                'medicine' => Obat::all()
         ],compact('total_notif','kadaluwarsa','obat_habis'));
         } catch (ModelNotFoundException $exception) {
             return abort(404);

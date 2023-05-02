@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text("deskripsi_obat");
             $table->string("harga_beli");
             $table->string("harga_jual");
+            $table->string("gambar");
             $table->timestamps();
 
             $table->foreign('unit_id')

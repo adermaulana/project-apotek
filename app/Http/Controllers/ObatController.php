@@ -66,8 +66,15 @@ class ObatController extends Controller
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
-            'unit_id' => 'required'
+            'unit_id' => 'required',
+            'gambar' => 'image|file|max:1024'
             ]);
+
+            if($request->gambar) {
+            $file = $request->gambar->getClientOriginalName();
+            $image = $request->gambar->storeAs('post-images', $file);
+            $validatedData['gambar'] = $image;
+        }
 
             Obat::create($validatedData);
             return redirect()->route('obat.index')
