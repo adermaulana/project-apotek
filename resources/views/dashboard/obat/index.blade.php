@@ -50,7 +50,11 @@
             <td>{{ $data->stok }} </td>
             <td>{{ $data->formatRupiah('harga_beli') }} </td>
             <td>{{ $data->formatRupiah('harga_jual') }} </td>
+            @if($data->gambar == null)
+            <td><span class="badge bg-success">Tidak Ada Gambar</span> </td>
+            @else
             <td><img width="100" src="{{ asset('storage/' . $data->gambar)  }}"></td>
+            @endif
             <td>{{ $data->unit->unit }} </td>
             <td>
 										<div class="actions">

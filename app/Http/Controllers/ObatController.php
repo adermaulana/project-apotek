@@ -8,6 +8,7 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ObatController extends Controller
 {
@@ -129,9 +130,19 @@ class ObatController extends Controller
             'harga_jual' => 'required',
             'deskripsi_obat' => 'required',
             'harga_beli' => 'required',
-            'unit_id' => 'required'
+            'unit_id' => 'required',
+            'gambar' => 'image|file|max:1024'
             ]);
 
+        if($request->file('gambar')) {
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $file = $request->gambar->getClientOriginalName();
+            $validateData['gambar'] = $request->file('gambar')->storeAs('post-images',$file);
+        }
+
+            
             Obat::where('id',$obat->id)
             ->update($validateData);
 
@@ -148,6 +159,10 @@ class ObatController extends Controller
      */
     public function destroy(Obat $obat)
     {
+        if($obat->gambar){
+            Storage::delete($obat->gambar);
+        }
+
         Obat::destroy($obat->id);
 
         return redirect()->route('obat.index')
