@@ -42,11 +42,6 @@
                         <tbody>
                             <tr>
                                 <td style="padding: 0;">
-                                    <a
-                                        href="#"
-                                        style="color: #348eda;"
-                                        target="_blank"
-                                    >
                                         <img
                                             src="/assets/img/medical-remove.png"
                                             alt=""
@@ -54,7 +49,7 @@
                                             height="50"
                                             width="157"
                                         />
-                                    </a>
+                                    
                                 </td>
                                 <td style="color: #999; font-size: 12px; padding: 0; text-align: right;" align="right">
                                     Pharmacy<br />No Penjualan :

@@ -21,6 +21,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\ListInvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,10 @@ Route::get('/pelanggan/invoice/{id}',[PelangganController::class,'konfirmasi'])-
 //Register
 Route::get('/register', [RegisterController::class,'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class,'store']);
+
+//List Invoice
+Route::get('/list-invoice', [ListInvoiceController::class,'index'])->middleware('auth:pelanggan');
+Route::get('/invoice/detail/{id}', [ListInvoiceController::class,'detail'])->middleware('auth:pelanggan');
 
 
 

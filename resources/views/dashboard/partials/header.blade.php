@@ -33,7 +33,7 @@
         @auth('pelanggan')
         <li class="nav-item dropdown pe-3">
 
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+        <a class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
           <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
           <span class="d-none d-md-block dropdown-toggle ps-2">Selamat Datang</span>
         </a><!-- End Profile Iamge Icon -->
@@ -55,6 +55,9 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="/"><i class="bi bi-house"></i>Home</a>
           </li>
+          <li>
+              <a  class="dropdown-item d-flex align-items-center" href="/list-invoice"><i class="bi bi-list"></i>Invoice</a>
+            </li>
           <li>
             <form action="/logout" method="post" class="dropdown-item d-flex align-items-center">
             @csrf
@@ -120,7 +123,7 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
             <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">Selamat Datang</span>
           </a><!-- End Profile Iamge Icon -->
