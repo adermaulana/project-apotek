@@ -37,9 +37,10 @@
 		           </div>
 		          </div>
 		          <div class="border text-dark border-bottom"></div>
-			      <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
-			      <div class="border text-dark border-bottom"></div>
-                  <form action="/logout-user" method="post">
+			         <a  class="nav-link" href="/" role="tab"><i class=""></i>Obat</a>
+            	<div class="border text-dark border-bottom"></div>
+			        <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
+                  <form action="/logout" method="post">
                     @csrf
                   <button type="submit" class="nav-link text-dark p-3"> Log Out</button>
                   </form>

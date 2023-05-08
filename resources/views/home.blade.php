@@ -3,17 +3,6 @@
 @section('container')
 <main id="maino" class="maino container">
 
-@if(session()->has('invoice'))
-      <div style="margin-bottom:20px;" class="badge badge-success col-lg-5" role="alert">
-	  @foreach ($penjualan as $data)
-        <a style="color:white; weight:bold;" target="_blank" href="/pelanggan/invoice/{{ $data->id }}">
-			{{ session('invoice') }}
-			Silahkan klik disini untuk melihat Invoice
-		</a>
-		@endforeach
-      </div>
-@endif
-
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-dismissible fade show col-lg-5" role="alert">
         {{ session('success') }}

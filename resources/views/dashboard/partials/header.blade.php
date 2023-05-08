@@ -7,6 +7,8 @@
         <span class="d-none d-lg-block">Pharmacy</span>
       </div>
       @if(Request::is('/'))
+      @elseif(Request::is('list-invoice'))
+      @elseif(Request::is('list-invoice/*'))
        <!--Hehe  -->
       @else
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -31,13 +33,27 @@
           </a>
         </li><!-- End Search Icon-->
         @auth('pelanggan')
-        <li class="nav-item dropdown pe-3">
+        @if(Request::is('list-invoice'))
+        <li class="nav-item pe-3">
 
-        <a class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
+        <span class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
           <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
-          <span class="d-none d-md-block dropdown-toggle ps-2">Selamat Datang</span>
-        </a><!-- End Profile Iamge Icon -->
+          <span class="d-none d-md-block  ps-2">Selamat Datang, {{ auth('pelanggan')->user()->name }}</span>
+        </span><!-- End Profile Iamge Icon -->
+        @elseif(Request::is('list-invoice/*'))
+        <li class="nav-item pe-3">
 
+        <span class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
+          <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block  ps-2">Selamat Datang, {{ auth('pelanggan')->user()->name }}</span>
+        </span><!-- End Profile Iamge Icon -->
+        @else
+              <li class="nav-item dropdown pe-3">
+
+      <a class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
+        <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
+        <span class="d-none d-md-block dropdown-toggle ps-2">Selamat Datang, {{ auth('pelanggan')->user()->name }}</span>
+      </a><!-- End Profile Iamge Icon -->
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
             <h6>{{ auth('pelanggan')->user()->name }}</h6>
@@ -70,6 +86,8 @@
 
         </ul><!-- End Profile Dropdown Items -->  
         </li><!-- End Profile Nav -->
+
+        @endif
       @elseif(Auth::check())
       <li class="nav-item dropdown">
 

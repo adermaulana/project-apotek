@@ -54,6 +54,7 @@ Route::get('/',function(){
 Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::post('/logout', [LoginController::class,'logout']);
+Route::get('/logout', [LoginController::class,'logout']);
 
 Route::get('/dashboard',function(){
     $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
@@ -112,7 +113,7 @@ Route::post('/register', [RegisterController::class,'store']);
 
 //List Invoice
 Route::get('/list-invoice', [ListInvoiceController::class,'index'])->middleware('auth:pelanggan');
-Route::get('/invoice/detail/{id}', [ListInvoiceController::class,'detail'])->middleware('auth:pelanggan');
+Route::get('/list-invoice/detail/{id}', [ListInvoiceController::class,'detail'])->middleware('auth:pelanggan');
 
 
 

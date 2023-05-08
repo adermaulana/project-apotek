@@ -89,7 +89,7 @@ class PelangganController extends Controller
                 $obat->save();
             }
 
-            return redirect('/')
+            return redirect('/list-invoice')
             ->with('invoice','Pembelian Berhasil');
         
     }

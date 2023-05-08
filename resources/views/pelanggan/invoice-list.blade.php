@@ -26,9 +26,9 @@
 				<div class="col-md-8">jafhjjhfwjfafawf</div>
 			</div> -->
 			
-			<div class="row justify-content-center">
+			<div  class="row justify-content-center">
 			  <div class="col-md-3 " style="margin-top:70px;" > 
-			    <div class="nav flex-column nav-pills bg-white border rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			    <div  class="nav flex-column nav-pills bg-white border rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			      <div class="nav-link p-3 text-dark" href="#">
 		           <div class="text-center">
 		           <img class="rounded-circle" src="https://bookingciremai.menlhk.go.id/kawasan-sso/images/user.png?1670035419402787" width="50px"> 
@@ -37,9 +37,11 @@
 		           </div>
 		          </div>
 		          <div class="border text-dark border-bottom"></div>
-			      <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
-			      <div class="border text-dark border-bottom"></div>
-                  <form action="/logout-user" method="post">
+			         <a  class="nav-link" href="/" role="tab"><i class=""></i>Obat</a>
+            	<div class="border text-dark border-bottom"></div>
+			        <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
+			      <div  class="border text-dark border-bottom"></div>
+                  <form action="/logout" method="post">
                     @csrf
                   <button type="submit" class="nav-link text-dark p-3"> Log Out</button>
                   </form>
@@ -56,7 +58,7 @@
                         @if($penjualan->count())
                         @foreach($penjualan as $booking)
 			      		<div id="container-booking-list">
-                            <div id="no-data-row" class="card mb-3 nodata">						 
+                            <div id="no-data-row" class="card mb-3  nodata">						 
                                 <div class="row no-gutters">						    					    
                                         <div class="col-md-12">						      
                                         <div class="card-header ">							  	
@@ -77,7 +79,7 @@
                                             </div>							    
                                             <div style="text-align:right; margin-top:-25px; " class="col-3">
                                                 <strong class="bayar"  >Rp {{ number_format($booking->total,0,',','.') }}
-                                                    <a style="margin-left:50px;" href="/invoice/detail/{{ $booking->id }}" class="btn-link ">See Details</a>
+                                                    <a style="margin-left:50px;" href="/list-invoice/detail/{{ $booking->id }}" class="btn-link ">See Details</a>
                                             </strong>
                                                 
                                             </div>						    					    
