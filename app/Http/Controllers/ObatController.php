@@ -101,6 +101,7 @@ class ObatController extends Controller
      */
     public function edit(Obat $obat)
     {
+        $this->authorize('admin');
 
         $kadaluwarsa = Obat::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
