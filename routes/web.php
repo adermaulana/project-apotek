@@ -37,6 +37,10 @@ use App\Http\Controllers\ListInvoiceController;
 //LandingPage
 Route::get('/',function(){
 
+    if (Auth::guard('pelanggan')->check()) {
+        return redirect('list-invoice');
+    }
+
     $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
     $total_kadaluwarsa = $kadaluwarsa->count();
     $obat_habis = Obat::where('stok', '<=', 0)->get();
@@ -114,6 +118,9 @@ Route::post('/register', [RegisterController::class,'store']);
 //List Invoice
 Route::get('/list-invoice', [ListInvoiceController::class,'index'])->middleware('auth:pelanggan');
 Route::get('/list-invoice/detail/{id}', [ListInvoiceController::class,'detail'])->middleware('auth:pelanggan');
+
+//List Obat
+Route::get('/list-obat', [ListInvoiceController::class,'obat'])->middleware('auth:pelanggan');
 
 
 

@@ -30,7 +30,7 @@ class LoginController extends Controller
         } else if (Auth::guard('pelanggan')->attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->intended('/')->with('success','Berhasil login!');
+            return redirect()->intended('/list-obat')->with('success','Berhasil login!');
         }
 
         return back()->with('loginError','Login Gagal');

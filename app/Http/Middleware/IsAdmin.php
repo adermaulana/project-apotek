@@ -19,6 +19,10 @@ class IsAdmin
         if(!auth()->check() || !auth()->user()->is_admin){
             abort(403);
         }
+
+        if(auth()->check() || auth()->user('pelanggan')->is_admin ){
+            abort(403);
+        }
         return $next($request);
     }
 }

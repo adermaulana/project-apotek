@@ -7,6 +7,8 @@
         <span class="d-none d-lg-block">Pharmacy</span>
       </div>
       @if(Request::is('/'))
+      @elseif(Request::is('list-obat'))
+      <!-- Tidak Tampil -->
       @elseif(Request::is('list-invoice'))
       <!-- Tidak Tampil -->
       @elseif(Request::is('list-invoice/*'))
@@ -34,7 +36,13 @@
           </a>
         </li><!-- End Search Icon-->
         @auth('pelanggan')
-        @if(Request::is('list-invoice'))
+        @if(Request::is('list-obat'))
+        <li class="nav-item pe-3">
+
+        <span class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">
+          <img src="/assets/img/medical-remove.png" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block  ps-2">Selamat Datang, {{ auth('pelanggan')->user()->name }}</span>
+        @elseif(Request::is('list-invoice'))
         <li class="nav-item pe-3">
 
         <span class="nav-link nav-profile d-flex align-items-center pe-0 me-5" href="#" data-bs-toggle="dropdown">

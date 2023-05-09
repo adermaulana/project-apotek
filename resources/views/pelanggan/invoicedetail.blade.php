@@ -37,7 +37,7 @@
 		           </div>
 		          </div>
 		          <div class="border text-dark border-bottom"></div>
-			         <a  class="nav-link" href="/" role="tab"><i class=""></i>Obat</a>
+			         <a  class="nav-link" href="/list-obat" role="tab"><i class=""></i>Obat</a>
             	<div class="border text-dark border-bottom"></div>
 			        <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
                   <form action="/logout" method="post">
