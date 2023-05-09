@@ -62,7 +62,7 @@
                                 <div class="row no-gutters">
                                     <div class="">
                                         <div class="card-header">
-                                        <table class="table table-bordered col-12">
+                                        <table class="table table-bordered col-13" id="datatable-noexport">
                                             <thead>
                                                   <tr>
                                                   <th>No</th>
