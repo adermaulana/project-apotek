@@ -67,6 +67,7 @@
                                                   <tr>
                                                   <th>No</th>
                                                   <th>Nama Obat</th>
+                                                  <th>Gambar Obat</th>
                                                   <th>Harga</th>
                                                   <th>Action</th>
                                                   </tr>
@@ -75,6 +76,7 @@
                                             <tr>
                                                 <td> {{ $loop->iteration }} </td>
                                                 <td>{{ $data->nama_obat }} </td>
+                                                <td><img width="100" src="{{ asset('storage/' . $data->gambar)  }}"></td>
                                                 <td> {{ $data->formatRupiah('harga_jual') }} </td>
                                                 <td>
                                                     <div class="actions">

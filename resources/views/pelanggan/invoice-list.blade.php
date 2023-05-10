@@ -19,7 +19,7 @@
 
 </style>
 
-<div  style="margin-bottom:318px;" id="content-wrapper">	
+<div  style="margin-bottom:318px;"  id="content-wrapper">	
 		<div class="container">
 			<!-- <div class="row">
 				<div class="col-md-4">hwhw</div>
@@ -50,15 +50,15 @@
 			  </div>
 
 
-			  <div style="margin-top:70px;" class="col-md-7">
+			  <div style="margin-top:70px;" class="col-md-9">
 			    <div class="tab-content" id="v-pills-tabContent">
 			      <div class="mt-3 mt-md-1 tab-pane fade active show" id="v-pills-booking_list" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 			      		<h4 class="mt-3">My Invoice</h4>
                         <hr>
                         @if($penjualan->count())
                         @foreach($penjualan as $booking)
-			      		<div id="container-booking-list">
-                            <div id="no-data-row" class="card mb-3  nodata">						 
+			      		<div  id="container-booking-list">
+                            <div id="no-data-row" class="card mb-3 nodata">						 
                                 <div class="row no-gutters">						    					    
                                         <div class="col-md-12">						      
                                         <div class="card-header ">							  	
@@ -79,7 +79,7 @@
                                             </div>							    
                                             <div style="text-align:right; margin-top:-25px; " class="col-3">
                                                 <strong class="bayar"  >Rp {{ number_format($booking->total,0,',','.') }}
-                                                    <a style="margin-left:50px;" href="/list-invoice/detail/{{ $booking->id }}" class="btn-link ">See Details</a>
+                                                    <a style="margin-left: 90px;" href="/list-invoice/detail/{{ $booking->id }}" class="btn-link ">See Details</a>
                                             </strong>
                                                 
                                             </div>						    					    

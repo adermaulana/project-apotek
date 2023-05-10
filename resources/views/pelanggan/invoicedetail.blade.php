@@ -49,7 +49,7 @@
 			  </div>
 
 
-			  <div style="margin-top:70px;" class="col-md-7">
+			  <div style="margin-top:70px;" class="col-md-9">
 			    <div class="tab-content" id="v-pills-tabContent">
 			      <div class="mt-3 mt-md-1 tab-pane fade active show" id="v-pills-booking_list" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 			      		<h4>My Invoice</h4>
