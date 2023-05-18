@@ -7,11 +7,12 @@ use App\Models\Pemasok;
 use App\Models\Category;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\UnitController;
 
 //Buat Dashboard
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaporanController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ListInvoiceController;
+use App\Http\Controllers\DataPelangganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +123,9 @@ Route::get('/list-invoice/detail/{id}', [ListInvoiceController::class,'detail'])
 
 //List Obat
 Route::get('/list-obat', [ListInvoiceController::class,'obat'])->middleware('auth:pelanggan');
+
+//DataPelanggan
+Route::get('/dashboard/pelanggan',[DataPelangganController::class,'index'])->middleware('auth');
 
 
 

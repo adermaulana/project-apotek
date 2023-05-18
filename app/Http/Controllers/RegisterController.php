@@ -20,7 +20,7 @@ class RegisterController extends Controller
 
         $validateData = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email:dns|unique:pelanggans|unique:users',
+            'email' => 'required|unique:pelanggans|unique:users',
             'address' => 'required|max:255',
             'number' => 'required|min:6|max:13',
             'password' => 'required|min:5|max:255'

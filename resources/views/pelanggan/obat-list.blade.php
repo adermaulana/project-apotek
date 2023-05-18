@@ -56,27 +56,31 @@
 			      		<h4 class="mt-3">Daftar Obat</h4>
                         <hr>
                         @if($obat->count())
-                        @foreach($obat as $data)
 			      		<div id="container-booking-list">
                             <div id="no-data-row" class="card mb-3 nodata">	
                                 <div class="row no-gutters">
                                     <div class="">
                                         <div class="card-header">
-                                        <table class="table table-bordered col-13" id="datatable-noexport">
+                                          <table class="table table-bordered col-13" id="datatable-noexport">
                                             <thead>
-                                                  <tr>
-                                                  <th>No</th>
-                                                  <th>Nama Obat</th>
-                                                  <th>Gambar Obat</th>
-                                                  <th>Harga</th>
-                                                  <th>Action</th>
+                                              <tr>
+                                                <th>No</th>
+                                                <th>Nama Obat</th>
+                                                <th>Gambar Obat</th>
+                                                <th>Harga</th>
+                                                <th>Action</th>
                                                   </tr>
-                                            </thead>
-                                        <tbody>   
-                                            <tr>
+                                                </thead>
+                                                <tbody>   
+                                                  @foreach($obat as $data)
+                                                  <tr>
                                                 <td> {{ $loop->iteration }} </td>
                                                 <td>{{ $data->nama_obat }} </td>
+                                                @if($data->gambar == null )
+                                                <td><span class="badge bg-success">Tidak Ada Gambar</span> </td>
+                                                @else
                                                 <td><img width="100" src="{{ asset('storage/' . $data->gambar)  }}"></td>
+                                                @endif
                                                 <td> {{ $data->formatRupiah('harga_jual') }} </td>
                                                 <td>
                                                     <div class="actions">
@@ -86,6 +90,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                             </tbody> 
                                             </table>
                                         </div>
@@ -93,7 +98,6 @@
                                 </div>					 		  
                             </div>						
 			            </div>
-                    @endforeach
                     @else
                     <p style="margin-bottom:377px;" class="text-center fs-4">No Invoice Found.</p>
                     </div>

@@ -231,6 +231,12 @@
           </li>
         </ul>
       </li><!-- End Icons Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed {{ Request::is('dashboard/pelanggan') ? 'text-primary bg-light' : '' }}" href="/dashboard/pelanggan">
+          <i class="bi bi-people"></i>
+          <span>Data Pelanggan</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
       @endcan
     </ul>
 
