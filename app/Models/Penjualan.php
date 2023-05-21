@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Obat;
 use App\Models\Pelanggan;
+use App\Models\Pembelian;
 use App\Traits\HasFormatRupiah;
 
 class Penjualan extends Model
@@ -21,6 +22,10 @@ class Penjualan extends Model
 
     public function pelanggan(){
         return $this->belongsTo(Pelanggan::class,'pelanggan_id','id'); 
+    }
+
+    public function pembelian(){
+        return $this->belongsTo(Pembelian::class,'pembelian_id','id'); 
     }
 
 }

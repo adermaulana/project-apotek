@@ -53,9 +53,9 @@
           <option value="0"></option>
         @foreach ($obat as $obats)
         @if(old('obat_id') == $obats->id)
-          <option selected value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
+          <option selected value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" data-beli="{{ $obats->harga_beli }}" > {{ $obats->nama_obat }} </option>
           @else
-          <option value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" > {{ $obats->nama_obat }} </option>
+          <option value="{{ $obats->id }}"  data-price="{{ $obats->harga_jual }}" data-unit="{{ $obats->unit->unit }}" data-stok="{{ $obats->stok }}" data-beli="{{ $obats->harga_beli }}" > {{ $obats->nama_obat }} </option>
           @endif
         @endforeach
 </select>
@@ -79,6 +79,8 @@
 @enderror
 </div>
 </div>
+<input type="hidden" id="beli" name="harga_beli" value="{{ old('harga_beli') }}">
+<input type="hidden" id="total_beli" name="total_beli" value="{{old('total_beli')}}">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Unit</h6>
@@ -155,27 +157,33 @@
   const price = $('#obat_id option:selected').data('price');
   const unit = $('#obat_id option:selected').data('unit');
   const stok = $('#obat_id option:selected').data('stok');
+  const beli = $('#obat_id option:selected').data('beli');
   const banyak = $('#banyak').val();
   
   // kalkulasi total harga
   const total = price;
+  const total1 = beli;
   const total2 = unit;
   const total3 = stok;
   
   // tampilkan data ke element
   $('[name=stok]').val(`${total3}`);
   $('[name=unit_id]').val(`${total2}`);
-  
+  $('[name=harga_beli]').val(`${total1}`);
+
   $('#harga').val(`${total}`);
 });
 
   $('#banyak').on('change',function(){
     const price = $('#obat_id option:selected').data('price');
+    const beli = $('#obat_id option:selected').data('beli');
     const banyak = $('#banyak').val();
 
     const total4 = banyak * price;
+    const total5 = banyak * beli;
 
     $('#total').val(`${total4}`);
+    $('#total_beli').val(`${total5}`);
   })
 </script>
 

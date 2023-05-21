@@ -71,6 +71,7 @@ Route::get('/dashboard',function(){
     $title = 'Apotek';
     $penjualan = Penjualan::all();
     $total_penjualan = $penjualan->sum('total');
+    $laba_beli = $penjualan->sum('total_beli');
     $total_pelanggan = $penjualan->count('nama_pembeli');
     $total_obat = Obat::all();
     $total_obats = $total_obat->sum('stok');
@@ -81,7 +82,8 @@ Route::get('/dashboard',function(){
     $pembelian = Pembelian::all();
     $total_pembelian = $pembelian->sum('total');
     $total_pendapatan = $total_penjualan - $total_pembelian;
-    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif'));
+    $laba = $total_penjualan - $laba_beli;
+    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif','laba'));
 })->middleware('auth');
 
 //Obat

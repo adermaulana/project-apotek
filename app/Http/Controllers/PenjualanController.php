@@ -64,6 +64,7 @@ class PenjualanController extends Controller
         $validatedData = $request->validate([
             'obat_id' => 'required',
             'harga_jual' => 'required',
+            'total_beli' => 'required',
             'banyak' => 'required',
             'tanggal_jual' => 'required',
             'total' => 'required',

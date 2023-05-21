@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('obat_id');
             $table->foreignId('pelanggan_id')->nullable();
+            $table->foreignId('obat_id');
             $table->string('harga_jual');
+            $table->string('total_beli');
             $table->string('banyak');
             $table->string('tanggal_jual');
             $table->string('total');
