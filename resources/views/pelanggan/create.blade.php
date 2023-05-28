@@ -76,6 +76,8 @@
 @enderror
 </div>
 </div>
+<input type="hidden" id="beli" name="harga_beli" value="{{ old('harga_beli',$obat->harga_beli) }}">
+<input type="hidden" id="total_beli" name="total_beli" value="{{old('total_beli')}}">
 <div class="col-xs-6 col-sm-6 col-md-6">
 <div class="form-group">
 <h6>Unit</h6>
@@ -140,30 +142,17 @@
   $('#banyak').on('change',function(){
     const harga = $('#harga').val();
     const banyak = $('#banyak').val();
+    const beli = $('#beli').val();
 
     const total4 = banyak * harga;
+    const total5 = banyak * beli;
 
     $('#total').val(`${total4}`);
+    $('#total_beli').val(`${total5}`);
   })
   
 
 </script>
 
-<script>
-  $(document).ready(function() {
-    // Ketika tombol "Tambah Form" ditekan
-    $('#tambah-form').click(function() {
-      // Clone form input sebelumnya
-      var newForm = $('#form-input').clone();
-      // Ubah input text nama menjadi select
-      var newNama = newForm.find('#nama_obat');
-      var newSelect = $('<select class="form-select" name="obat_id" id="obat_id"><option value="Pria">Pria</option><option value="Wanita">Wanita</option><option value="Lainnya">Lainnya</option></select>');
-      newNama.replaceWith(newSelect);
-      // Tambahkan form input yang baru setelah form input sebelumnya
-      $('#form-input').after(newForm);
-
-    });
-  });
-</script>
 
 @endsection

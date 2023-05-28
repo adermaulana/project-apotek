@@ -66,6 +66,7 @@ class PelangganController extends Controller
         $validatedData = $request->validate([
             'obat_id' => 'required',
             'harga_jual' => 'required',
+            'total_beli' => 'required',
             'banyak' => 'required',
             'tanggal_jual' => 'required',
             'total' => 'required',
@@ -75,7 +76,6 @@ class PelangganController extends Controller
         $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
 
             $drug = Obat::findOrFail($request->obat_id);
-            $buy = Pembelian::findOrFail($request->obat_id);
 
             if ($drug->stok < $request->banyak) {
                 return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');

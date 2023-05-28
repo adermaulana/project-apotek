@@ -161,8 +161,8 @@
           </div> -->
         </div><!-- End Revenue Card -->
 
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
+          <!-- Revenue Card -->
+          <div class="col-xxl-4 col-md-6">
           <div class="card info-card revenue-card">
 
             <div class="card-body">
@@ -180,6 +180,8 @@
 
           </div>
         </div><!-- End Revenue Card -->
+
+        
 
       </div>
     </div><!-- End Left side columns -->
