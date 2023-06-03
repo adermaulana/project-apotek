@@ -12,8 +12,8 @@
 
   <!-- Terbaru Datatables -->
 
-  <link rel="stylesheet" href="{{asset2('asset2/plugins/DataTables/datatables.css')}}">
-  <link rel="stylesheet" href="{{asset2('css/app.css')}}">
+  <link rel="stylesheet" href="'/asset2/plugins/DataTables/datatables.css'">
+  <link rel="stylesheet" href="'/css/app.css'">
 
   <!-- DataTables -->
   
@@ -63,8 +63,8 @@
   <script src="/js/timerAlert.js"></script>
 
 	<!-- jQuery -->
-	<script src="{{asset2('asset2/js/jquery-3.2.1.min.js')}}"></script>
-  <script src="{{asset2('asset2/plugins/DataTables/datatables.min.js')}}"></script>
+	<script src="/asset2/js/jquery-3.2.1.min.js}"></script>
+  <script src="/asset2/plugins/DataTables/datatables.min.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -78,7 +78,7 @@
 
   <!-- Datatables -->
 
-  <script src="{{asset2('asset2/js/datatables-customizer.js')}}"></script>
+  <script src="/asset2/js/datatables-customizer.js"></script>
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
