@@ -40,6 +40,8 @@
     @include('partials.navbar')
 
     @yield('container')
+
+    @include('partials.footer')
     
   <!-- waktuAlert -->
   <script src="/js/timerAlert.js"></script>
