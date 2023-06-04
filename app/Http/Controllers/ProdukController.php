@@ -16,18 +16,6 @@ class ProdukController extends Controller
     public function index()
     {
         
-        if (Auth::check()) {
-            // Jika auth admin, tampilkan pemberitahuan
-            session()->flash('error', 'Anda adalah Admin tidak bisa melakukan transaksi disini!');
-            return redirect('/');
-
-        }  else if (!Auth::guard('pelanggan')->check()) {
-            // Jika pengguna bukan pelanggan terautentikasi, tampilkan pemberitahuan
-            session()->flash('error', 'Anda Harus Login Terlebih Dahulu Untuk Melakukan Transaksi!');
-            return redirect('/');
-
-        }
-        
         $obat = Obat::latest()->paginate(6);
           return view('produk.index',[
             'title' => 'Produk',
@@ -68,12 +56,12 @@ class ProdukController extends Controller
         if (Auth::check()) {
             // Jika auth admin, tampilkan pemberitahuan
             session()->flash('error', 'Anda adalah Admin tidak bisa melakukan transaksi disini!');
-            return redirect('/');
+            return redirect('/produk');
 
         }  else if (!Auth::guard('pelanggan')->check()) {
             // Jika pengguna bukan pelanggan terautentikasi, tampilkan pemberitahuan
             session()->flash('error', 'Anda Harus Login Terlebih Dahulu Untuk Melakukan Transaksi!');
-            return redirect('/');
+            return redirect('/produk');
 
         }
         

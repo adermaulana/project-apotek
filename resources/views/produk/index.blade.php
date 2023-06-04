@@ -9,6 +9,12 @@
       </div>
     </div>
 
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+        {{ session('error') }}
+        </div>
+        @endif
+
         <div class="site-section">
       <div class="container">
         <form action="{{ route('search') }}" method="GET">
