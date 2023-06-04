@@ -42,11 +42,11 @@
               Welcome Back, {{ auth('pelanggan')->user()->name }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Home</a>
+              <a class="dropdown-item" href="/">Home</a>
               <a class="dropdown-item" href="/list-invoice">List Invoice</a>
-              <form action="/logout" method="post" class="dropdown-item d-flex align-items-center">
+              <form action="/logout" method="post">
               @csrf
-              <button style="margin-left:-20px; color:black;" type="submit" class="dropdown-item">
+              <button style="" type="submit" class="dropdown-item">
                   <i class="bi bi-box-arrow-right"></i>
                   Logout
                 </button>
@@ -59,9 +59,9 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/">Home</a>
               <a class="dropdown-item" href="/dashboard">Dashboard</a>
-              <form action="/logout" method="post" class="dropdown-item d-flex align-items-center">
+              <form action="/logout" method="post">
               @csrf
-              <button style="margin-left:-20px; color:black;" type="submit" class="dropdown-item">
+              <button style="" type="submit" class="dropdown-item">
                   <i class="bi bi-box-arrow-right"></i>
                   Logout
                 </button>
