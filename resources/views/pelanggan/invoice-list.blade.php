@@ -37,14 +37,7 @@
 		           </div>
 		          </div>
 		          <div class="border text-dark border-bottom"></div>
-			         <a  class="nav-link" href="/list-obat" role="tab"><i class=""></i>Obat</a>
-            	<div class="border text-dark border-bottom"></div>
-			        <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
-			      <div  class="border text-dark border-bottom"></div>
-                  <form action="/logout" method="post">
-                    @csrf
-                  <button type="submit" class="nav-link text-dark p-3"> Log Out</button>
-                  </form>
+			        <a style="color:black;" class="btn" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a> 
 
 			    </div>
 			  </div>
@@ -63,30 +56,31 @@
                                         <div class="col-md-12">						      
                                         <div class="card-header ">							  	
                                             <div class="row">								    
-                                                <div class="col text-left text-muted">Invoice ID : <strong>
-                                                    {{ $booking->id }}
-                                                </strong>
-                                            </div>								    
-                                            <div class="row mt-1">
-                                            <div class="col text-left align-self-center">
-                                                @if($booking->status == 'Sudah Bayar')
-                                                <span class="text-decoration-none badge bg-success">{{ $booking->status }} <i class="fas fa-ban"></i></span>
-                                                @elseif($booking->status == 'Pending')
-                                                <span class="text-decoration-none badge bg-warning">{{ $booking->status }} <i class="fas fa-ban"></i></span>
-                                                @else
-                                                <span class="text-decoration-none badge bg-danger">{{ $booking->status }} <i class="fas fa-ban"></i></span>
-                                                @endif
-                                            </div>							    
-                                            <div style="text-align:right; margin-top:-25px; " class="col-3">
+                                                <div class="col text-left text-muted">Invoice ID :
+                                                <strong>{{ $booking->id }}</strong>
+                                                </div>								    
+                                            <div class="row">
+						    
+                                            <div  class="col mr-3">
                                                 <strong class="bayar"  >Rp {{ number_format($booking->total,0,',','.') }}
-                                                    <a style="margin-left: 90px;" href="/list-invoice/detail/{{ $booking->id }}" class="btn-link ">See Details</a>
-                                            </strong>
-                                                
-                                            </div>						    					    
+                                            </strong> 
+                                            </div>
+				    					    
                                         </div>
-                                        							  
+                                        		                                            							  
                                         </div>
+                                        <div class="row ml-1">
+                                        @if($booking->status == "Pending")
+                                        <span  href="/list-invoice/detail/{{ $booking->id }}" style="color:white;"  class="badge bg-warning">{{ $booking->status }}</span>
+                                        @elseif($booking->status == "Belum Bayar")
+                                        <span  href="/list-invoice/detail/{{ $booking->id }}" style="color:white;"  class="badge bg-danger">{{ $booking->status }}</span>
+                                        @else
+                                        <span  href="/list-invoice/detail/{{ $booking->id }}" style="color:white;"  class="badge bg-success">{{ $booking->status }}</span>
+                                        @endif
                                         </div>
+                                        <a  href="/list-invoice/detail/{{ $booking->id }}" style="color:blue;" class="btn-link">See Details</a>
+                                        </div>
+                                        
                                             </div>				  
                                         </div>						
 			            </div>

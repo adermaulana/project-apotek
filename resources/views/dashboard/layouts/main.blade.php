@@ -13,7 +13,7 @@
   <!-- Terbaru Datatables -->
 
   <link rel="stylesheet" href="'/asset2/plugins/DataTables/datatables.css'">
-  <link rel="stylesheet" href="'/css/app.css'">
+  <link rel="stylesheet" href="'assets/css/app.css'">
 
   <!-- DataTables -->
   
@@ -63,7 +63,7 @@
   <script src="/js/timerAlert.js"></script>
 
 	<!-- jQuery -->
-	<script src="/asset2/js/jquery-3.2.1.min.js}"></script>
+	<script src="/asset2/js/jquery-3.2.1.min.js"></script>
   <script src="/asset2/plugins/DataTables/datatables.min.js"></script>
 
   <!-- Vendor JS Files -->

@@ -1,15 +1,34 @@
 @extends('dashboard.layouts.login')
 
 @section('container')
+
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+        </div>
+        @endif
+
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+        {{ session('error') }}
+        </div>
+        @endif
+        
+        @if ($message = Session::get('loginError'))
+        <div class="alert alert-danger" role="alert">
+        {{ session('loginError') }}
+        </div>
+        @endif
+
     <div class="site-blocks-cover" style="background-image: url('/asset/images/hero_1.jpg');">
         <div class="container">
             <div class="row">
-            <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
+            <div class="col-lg-8 mx-auto order-lg-2 align-self-center">
                 <div class="site-block-cover-content text-center">
-                <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
-                <h1>Welcome To Pharma</h1>
+                <h2 class="sub-title">Temukan Obat Rekomendasi Dokter</h2>
+                <h1>Selamat Datang, Apotek Melati</h1>
                 <p>
-                    <a href="#" class="btn btn-primary px-5 py-3">Shop Now</a>
+                    <a href="/produk" class="btn btn-primary px-5 py-3">Beli Sekarang!</a>
                 </p>
                 </div>
             </div>
@@ -62,21 +81,29 @@
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
-            <h2 class="text-uppercase">Popular Products</h2>
+            <h2 class="text-uppercase">Produk</h2>
           </div>
         </div>
 
         <div class="row">
+            @foreach($obat as $data)
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="/asset/images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
+            <a href="shop-single.html">
+            @if($data->gambar == null)
+            <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
+            @else 
+            <img src="{{ asset('storage/' . $data->gambar) }}" width="150" alt="Image">
+            @endif
+            </a>
+            <h3 class="text-dark"><a href="shop-single.html">{{ $data->nama_obat }}</a></h3>
+            <p class="price">Rp. {{ number_format($data->harga_jual,0,',','.') }}</p>
           </div>
+            @endforeach
+
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="shop.html" class="btn btn-primary px-4 py-3">View All Products</a>
+            <a href="/produk" class="btn btn-primary px-4 py-3">Lihat Semua Produk</a>
           </div>
         </div>
       </div>
@@ -86,37 +113,26 @@
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
-            <h2 class="text-uppercase">New Products</h2>
+            <h2 class="text-uppercase">Produk Baru!</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 block-3 products-wrap">
             <div class="nonloop-block-3 owl-carousel">
 
+              @foreach($semuaobat as $data)
               <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="/asset/images/product_03.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
+                <a href="produk/{{ $data->id }}"> 
+                 @if($data->gambar == null)
+                <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
+                @else 
+                <img src="{{ asset('storage/' . $data->gambar) }}" width="150" alt="Image">
+                @endif
+                </a>
+                <h3 class="text-dark"><a href="produk/{{ $data->id }}">{{ $data->nama_obat }}</a></h3>
+                <p class="price">Rp. {{ number_format($data->harga_jual,0,',','.') }}</p>
               </div>
-
-              <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="/asset/images/product_01.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="/asset/images/product_02.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="/asset/images/product_04.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
+              @endforeach
             </div>
           </div>
         </div>
@@ -127,7 +143,7 @@
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
-            <h2 class="text-uppercase">Testimonials</h2>
+            <h2 class="text-uppercase">Testimoni</h2>
           </div>
         </div>
         <div class="row">
@@ -182,29 +198,5 @@
       </div>
     </div>
 
-    <div class="site-section bg-secondary bg-image" style="background-image: url('/asset/images/bg_2.jpg');">
-      <div class="container">
-        <div class="row align-items-stretch">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
-              <div class="banner-1-inner align-self-center">
-                <h2>Pharma Products</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
-              <div class="banner-1-inner ml-auto  align-self-center">
-                <h2>Rated by Experts</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
 
 @endsection

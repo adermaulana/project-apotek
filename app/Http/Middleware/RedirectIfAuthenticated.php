@@ -25,11 +25,7 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
 
                 return redirect('/dashboard')->with('success','Anda Sudah Login!');
-
-            } else if (Auth::guard('pelanggan')->check()) {
-
-                return redirect('/list-invoice')->with('success','Anda Sudah Login!');
-            }
+            } 
         }
 
         return $next($request);

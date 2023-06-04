@@ -10,6 +10,11 @@ use App\Models\Penjualan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\ChartController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\DetailController;
+use App\Http\Controllers\SearchController;
 
 //Buat Dashboard
 use App\Http\Controllers\UnitController;
@@ -39,22 +44,22 @@ use App\Http\Controllers\DataPelangganController;
 //LandingPage
 Route::get('/',function(){
 
-    if (Auth::guard('pelanggan')->check()) {
-        return redirect('list-invoice');
-    }
-
     $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
     $total_kadaluwarsa = $kadaluwarsa->count();
     $obat_habis = Obat::where('stok', '<=', 0)->get();
     $total_obat_habis = $obat_habis->count();
     $total_notif = $total_kadaluwarsa + $total_obat_habis;
 
+
+    $obat = Obat::latest()->paginate(3);
+    $semuaobat = Obat::all();
     return view('home',[
         'title' => 'Home',
-        'obat' => Obat::all(),
+        'obat' => $obat,
+        'semuaobat' => $semuaobat,
         'penjualan' => Penjualan::latest()->paginate(1)
     ],compact('total_notif','obat_habis','total_kadaluwarsa','kadaluwarsa'));
-});
+})->name('home');
 
 //login
 Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
@@ -129,6 +134,29 @@ Route::get('/list-obat', [ListInvoiceController::class,'obat'])->middleware('aut
 //DataPelanggan
 Route::get('/dashboard/pelanggan',[DataPelangganController::class,'index'])->middleware('auth');
 
+//DataPelanggan
+Route::get('/kontak',[KontakController::class,'index']);
+Route::post('/kontak',[KontakController::class,'store']);
+
+//Chart
+Route::get('/keranjang',[ChartController::class,'index']);
+Route::post('/keranjang',[ChartController::class,'addToCart']);
+
+//Chart
+Route::get('/produk/detail',[DetailController::class,'index']);
+
+//Produk
+Route::resource('/produk',ProdukController::class);
+
+//About
+Route::get('/tentang',function(){
+    return view('about',[
+        'title' => 'Tentang'
+    ]);
+});
+
+//Search
+Route::get('/search', [SearchController::class,'search'])->name('search');
 
 
 

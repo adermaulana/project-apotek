@@ -37,14 +37,7 @@
 		           </div>
 		          </div>
 		          <div class="border text-dark border-bottom"></div>
-			         <a  class="nav-link" href="/list-obat" role="tab"><i class=""></i>Obat</a>
-            	<div class="border text-dark border-bottom"></div>
-			        <a  class="nav-link" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a>
-                  <form action="/logout" method="post">
-                    @csrf
-                  <button type="submit" class="nav-link text-dark p-3"> Log Out</button>
-                  </form>
-
+			        <a style="color:black;" class="btn" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a> 
 			    </div>
 			  </div>
 
@@ -52,7 +45,7 @@
 			  <div style="margin-top:70px;" class="col-md-9">
 			    <div class="tab-content" id="v-pills-tabContent">
 			      <div class="mt-3 mt-md-1 tab-pane fade active show" id="v-pills-booking_list" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-			      		<h4>My Invoice</h4>
+			      		<h4>Detail Invoice</h4>
                         <hr>
                         <center>
 

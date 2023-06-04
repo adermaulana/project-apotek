@@ -2,9 +2,6 @@
 
 @section('container')
 
-<div style="margin-top:30px;">waw</div>
-
-
 @if ($message = Session::get('error'))
 <div style="margin-top:30px; margin-left:10px;" class="alert alert-danger alert-dismissible fade show col-lg-11" role="alert">
         {{ session('error') }}
@@ -35,7 +32,7 @@
 <div class="pull-left">
 </div>
 <div class="pull-right">
-<a class="btn btn-danger" href="/" enctype="multipart/form-data"> Batal</a>
+<a class="btn btn-danger" href="/produk" enctype="multipart/form-data"> Batal</a>
 <!-- <button id="tambah-form" type="button" class="btn btn-success ms-2">Tambah Pesanan</button> -->
 </div>
 </div>

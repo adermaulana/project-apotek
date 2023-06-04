@@ -33,7 +33,7 @@ class LoginController extends Controller
             return redirect()->intended('/')->with('success','Berhasil login!');
         }
 
-        return back()->with('loginError','Login Gagal');
+        return redirect('/')->with('loginError','Login Gagal');
 
     }
 

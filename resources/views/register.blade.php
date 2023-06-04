@@ -10,7 +10,7 @@
     <title>Apotek | {{ $title }}</title>
 </head>
 <body >
-@extends('dashboard.layouts.login')
+
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-4">
@@ -30,7 +30,7 @@
     @endif
 
     <main  class="form-signin">
-      <img class="mt-2 mb-2" src="/assets/img/medical-remove.png" alt="" width="100" style="margin-left:127px">
+      <img class="mt-2 mb-2 mx-auto d-block" src="/assets/img/medical-remove.png" alt="" width="100">
       <h1 class="h5 mb-3 fw-normal text-center ">Registrasi</h1>
       <form action="/register" method="post">
         @csrf
@@ -77,7 +77,7 @@
 
         <button style="background-color:#219ebc; border:none;" class="w-100 btn btn-lg btn-primary" type="submit">Daftar</button>
       </form>
-      <small style="margin-bottom:62px; margin-top:10px;" class="d-block text-center">Anda sudah Daftar? <a style="color:#219ebc;" href="/login">Silahkan Login</a></small>
+      <small style="margin-bottom:62px; margin-top:10px;" class="d-block text-center">Anda sudah Daftar? <a style="color:#219ebc;" href="/">Silahkan Login</a></small>
     </main>
   </div>
 </div>
