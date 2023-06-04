@@ -46,7 +46,7 @@
               <a class="dropdown-item" href="/list-invoice">List Invoice</a>
               <form action="/logout" method="post">
               @csrf
-              <button style="" type="submit" class="dropdown-item">
+              <button style="" type="submit" class="dropdown-item btn">
                   <i class="bi bi-box-arrow-right"></i>
                   Logout
                 </button>
@@ -61,7 +61,7 @@
               <a class="dropdown-item" href="/dashboard">Dashboard</a>
               <form action="/logout" method="post">
               @csrf
-              <button style="" type="submit" class="dropdown-item">
+              <button type="submit" class="dropdown-item btn">
                   <i class="bi bi-box-arrow-right"></i>
                   Logout
                 </button>
