@@ -237,6 +237,12 @@
           <span>Data Pelanggan</span>
         </a>
       </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed {{ Request::is('dashboard/saran') ? 'text-primary bg-light' : '' }}" href="/dashboard/saran">
+          <i class="bi bi-people"></i>
+          <span>Saran</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
       @endcan
     </ul>
 

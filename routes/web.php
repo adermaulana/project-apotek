@@ -15,6 +15,7 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SaranController;
 
 //Buat Dashboard
 use App\Http\Controllers\UnitController;
@@ -157,6 +158,9 @@ Route::get('/tentang',function(){
 
 //Search
 Route::get('/search', [SearchController::class,'search'])->name('search');
+
+//Saran
+Route::get('/dashboard/saran', [SaranController::class,'index']);
 
 
 
