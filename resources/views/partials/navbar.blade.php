@@ -42,7 +42,6 @@
               Welcome Back, {{ auth('pelanggan')->user()->name }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/">Home</a>
               <a class="dropdown-item" href="/list-invoice">List Invoice</a>
               <form action="/logout" method="post">
               @csrf
@@ -57,7 +56,6 @@
               Selamat Datang, {{ auth()->user()->name }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/">Home</a>
               <a class="dropdown-item" href="/dashboard">Dashboard</a>
               <form action="/logout" method="post">
               @csrf
