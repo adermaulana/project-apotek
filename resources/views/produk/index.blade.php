@@ -29,7 +29,7 @@
 @if($obat->count())
         <div class="row">
         @foreach($obat as $data)
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
+          <div class="col-sm-6 col-lg-4 text-center item mt-4 mb-4">
             <a href="{{ route('produk.show',$data) }}">
             @if($data->gambar == null) 
               <h1 style="color:black;"  class=" img-fluid p-5">Tidak Ada Gambar</h1>

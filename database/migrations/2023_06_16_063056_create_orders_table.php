@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('charts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pelanggan_id');
-            $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('cascade');
-            $table->unsignedBigInteger('obat_id');
-            $table->foreign('obat_id')->references('id')->on('obats')->onDelete('cascade');
+            $table->bigInteger('pelanggan_id');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->text('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->bigInteger('total_price')->default(0);
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('charts');
+        Schema::dropIfExists('orders');
     }
 };

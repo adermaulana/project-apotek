@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Obat;
+use App\Models\Chart;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class ChartController extends Controller
 {
+
     public function index(){
 
         if (Auth::check()) {
@@ -22,26 +25,33 @@ class ChartController extends Controller
 
         }
 
+        $chart = Chart::all();
+        $totalchart = $chart->sum('obat.harga_jual');
+
         return view('chart',[
             'title' => 'Chart',
-            'obat' => Obat::all()
-        ]);
+            'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
+        ],compact('totalchart'));
     }
 
-    public function addToCart(Request $request)
-    {
-        // Validasi data yang dikirim dari permintaan AJAX
-        $request->validate([
-            'obat_id' => 'required'
-        ]);
+    public function addToCart(Request $request , $id){
+        // dd($request->all());
 
-        // Membuat cart baru
-        $cart = new Cart();
-        $cart->pelanggan_id = Auth::id('pelanggan');
-        $cart->obat_id = $request->input('obat_id');
-        $cart->quantity = 1;
-        $cart->save();
+        $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
+        $validatedData['obat_id'] = $id;
+        Chart::create($validatedData);
 
-        return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!']);
+        return redirect('keranjang');      
     }
+    
+    public function deleteCart(Request $request , $id){
+        // dd($request->all());
+        $chart = Chart::FindOrFail($id);
+        Chart::destroy($chart->id);
+        
+        return redirect('keranjang');      
+    } 
+
+
+
 }

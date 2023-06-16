@@ -9,21 +9,23 @@ use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\KontakController;
-use App\Http\Controllers\ChartController;
-use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\DetailController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\SaranController;
-
-//Buat Dashboard
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SaranController;
+use App\Http\Controllers\DetailController;
+
+//Buat Dashboard
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasokController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
@@ -63,7 +65,6 @@ Route::get('/',function(){
 })->name('home');
 
 //login
-Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::post('/logout', [LoginController::class,'logout']);
 Route::get('/logout', [LoginController::class,'logout']);
@@ -141,7 +142,8 @@ Route::post('/kontak',[KontakController::class,'store']);
 
 //Chart
 Route::get('/keranjang',[ChartController::class,'index']);
-Route::post('/keranjang',[ChartController::class,'addToCart']);
+Route::post('/keranjang/{id}',[ChartController::class,'addToCart']);
+Route::delete('/keranjang/{id}',[ChartController::class,'deleteCart'])->name('cart-delete');
 
 //Chart
 Route::get('/produk/detail',[DetailController::class,'index']);
@@ -161,6 +163,11 @@ Route::get('/search', [SearchController::class,'search'])->name('search');
 
 //Saran
 Route::get('/dashboard/saran', [SaranController::class,'index']);
+
+//Checkout
+Route::get('/checkout',[CheckoutController::class,'index'])->middleware('auth:pelanggan');
+Route::post('/checkout',[CheckoutController::class,'checkout'])->middleware('auth:pelanggan')->name('checkout');
+
 
 
 

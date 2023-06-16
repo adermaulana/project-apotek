@@ -121,7 +121,9 @@
                                     <tbody>
                                         <tr>
                                             <td style="padding: 5px 0;">Nama Obat</td>
-                                            <td align="right" style="padding: 5px 0;">{{ $penjualan->obat->nama_obat }}</td>
+                                            @foreach($orderlist as $data)
+                                            <td align="right" style="padding: 5px 0;">{{ $data->obat->nama_obat }}</td>
+                                            @endforeach
                                         </tr>
                                         <tr>
                                             <td style="padding: 5px 0;">Banyak</td>
@@ -133,11 +135,11 @@
                                         </tr>
                                         <tr>
                                             <td align="center"style="padding: 0px 127px 10px 0px;  ">Harga </td>
-                                            <td align="right" style="padding:0px 0px 9px 0px;"><span style="">{{ $penjualan->formatRupiah('harga_jual') }}</span></td>
+                                            <td align="right" style="padding:0px 0px 9px 0px;"><span style="">Rp. {{ number_format($penjualan->obat->harga_jual,0,',','.') }}</span></td>
                                         </tr>
                                         <tr>
                                             <td class="mb-4" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 10px 0;">Total Bayar</td>
-                                            <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 10px 0;"> {{ $penjualan->formatRupiah('total') }} </td>
+                                            <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 10px 0;">Rp. {{ number_format($penjualan->order->total_price,0,',','.') }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

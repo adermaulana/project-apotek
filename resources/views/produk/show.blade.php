@@ -15,11 +15,13 @@
         <div class="row">
           <div class="col-md-5 mr-auto">
             <div class="border text-center">
-            @if($obat->gambar == null)
-                <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
-            @else
-            <img src="{{ asset('storage/' . $obat->gambar) }}" alt="Image" class="img-fluid p-5">
-            @endif
+              <form action="/keranjang/{{ $obat->id }}" method="post">
+                @csrf
+                  @if($obat->gambar == null)
+                      <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
+                  @else
+                  <img src="{{ asset('storage/' . $obat->gambar) }}" alt="Image" class="img-fluid p-5">
+                  @endif
             </div>
           </div>
           <div class="col-md-6">
@@ -44,9 +46,10 @@
               </div>
     
             </div> -->
-            <p><a href="/pelanggan/{{$obat->id}}"  class="add-to-cart buy-now btn btn-sm height-auto px-4 py-3 btn-primary"
-             >Beli</a></p>
-
+              <button type="submit" class="add-to-cart buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
+                  Add To Cart
+                </button>
+              </form>
           </div>
         </div>
       </div>

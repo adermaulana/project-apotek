@@ -62,7 +62,7 @@
                                             <div class="row">
 						    
                                             <div  class="col mr-3">
-                                                <strong class="bayar"  >Rp {{ number_format($booking->total,0,',','.') }}
+                                                <strong class="bayar"  >Rp {{ number_format($booking->total_price,0,',','.') }}
                                             </strong> 
                                             </div>
 				    					    

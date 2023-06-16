@@ -28,6 +28,10 @@ return new class extends Migration
             $table->foreign('obat_id')
             ->references('id')->on('obats')
             ->onDelete('cascade');
+
+            $table->foreign('pelanggan_id')
+            ->references('id')->on('pelanggans')
+            ->onDelete('cascade');
         });
     }
 
