@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chart;
 use App\Models\Order;
+use App\Models\Obat;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,11 +21,13 @@ class CheckoutController extends Controller
 
         $chart = Chart::all();
         $totalchart = $chart->sum('obat.harga_jual');
+        $jumlah = $chart->sum('jumlah');
+        $totalorder = $totalchart * $jumlah;
 
         return view('checkout',[
             'title' => 'Checkout',
             'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
-        ],compact('totalchart'));
+        ],compact('totalorder'));
     }
 
     public function checkout(Request $request){
@@ -35,26 +38,38 @@ class CheckoutController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'total_price' => 'required',
-            'tanggal_jual' => 'required'
+            'tanggal_jual' => 'required',
+            'banyak' => 'required'
             ]);
 
         $data['pelanggan_id'] = auth('pelanggan')->user()->id;
         // Get Carts data
         $carts = Chart::with(['obat'])->where('pelanggan_id', auth('pelanggan')->user()->id)->get();
-        // Create Transaction
-        $transaction = Order::create($data);
+        // Create Transaction    
+            $transaction = Order::create($data);
 
-        // Create Transaction item
-        foreach($carts as $cart) {
-            $items[] = OrderItem::create([
-                'order_id' => $transaction->id,
-                'pelanggan_id' => $cart->pelanggan_id,
-                'obat_id' => $cart->obat_id,
-            ]);
-        }
-        
-        // Delete cart after transaction
-        Chart::where('pelanggan_id', Auth::guard('pelanggan')->user()->id)->delete();
+            // Create Transaction item
+            foreach($carts as $cart) {
+
+                $obat = Obat::find($cart['obat_id']);
+                if ($obat->stok <= $cart['banyak']) {
+                    // Jumlah stok tidak mencukupi, berikan pesan kesalahan
+                    return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
+
+                } else {
+                
+                $obat->stok -= $cart['banyak']; // Kurangi stok obat
+                $obat->save(); // Simpan perubahan pada obat
+
+                $items[] = OrderItem::create([
+                    'order_id' => $transaction->id,
+                    'pelanggan_id' => $cart->pelanggan_id,
+                    'obat_id' => $cart->obat_id,
+                ]);
+                }
+            }
+            // Delete cart after transaction
+            Chart::where('pelanggan_id', Auth::guard('pelanggan')->user()->id)->delete();
 
         return redirect('/list-invoice');
     }

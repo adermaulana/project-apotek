@@ -18,6 +18,8 @@ return new class extends Migration
             $table->bigInteger('pelanggan_id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->string('tanggal_jual')->nullable();
+            $table->bigInteger('banyak')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->bigInteger('total_price')->default(0);

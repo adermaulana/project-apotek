@@ -2,8 +2,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Detail Pembelian</title>
-    <link rel="stylesheet" href="/invoice-html5/css/style.css">
+    <title>Invoice JS No Framework</title>
+    <link rel="stylesheet" href="css/style.css">
   
 </head>
 
@@ -13,7 +13,7 @@
             <!-- <h1><b contenteditable>INVOICE</b></h1> -->
             <div class="flexbox">
                 <div class="logo">
-                    <img src="" alt="INVOICE">
+                    <img src="" alt="INVOICE"  onerror="this.src='logo.png'"  >
                 </div>
 
                 <div class="sender">
@@ -51,7 +51,7 @@
             </div>
             <div>
                 <h3>Total invoice</h3>
-                <h1><span class="total">IDR</span><span id="prefix"> {{ number_format($penjualan->order->total_price,0,',','.') }} </span></h1>
+                <h1><span class="total">600.00</span><span id="prefix">€</span></h1>
             </div>
         </div>
 
@@ -70,13 +70,14 @@
             <tbody>
                 <tr>
                     <!-- <td><span contenteditable>01</span></td> -->
-                    <td><span >First Product</span></td>
+                    <td><a class="cut"> - </a><span >First Product</span></td>
                     <td><span data-price >280.00</span> <span data-prefix> DA</span> </td>
                     <td><span  data-qty>4</span></td>
                     <td><span data-price>1120.00</span> <span data-prefix> DA</span> </td>
                 </tr>
             </tbody>
         </table>
+        <a class="add"> Add +</a>
         <table class="balance">
             <tr>
                 <th><span >TOTAL HT :</span></th>
@@ -106,7 +107,7 @@
 
    </div>
 
-    <script src="/invoice-html5/js/main.min.js"></script>
+    <script src="js/main.min.js"></script>
 </body>
 
 </html>

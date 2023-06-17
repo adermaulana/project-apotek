@@ -13,6 +13,12 @@
       </div>
     </div>
 
+    @if ($message = Session::get('error'))
+    <div style="margin-top:30px; margin-left:10px;" class="alert alert-danger alert-dismissible fade show col-lg-11" role="alert">
+            {{ session('error') }}
+          </div>
+    @endif
+
         @if ($message = Session::get('success'))
         <div class="alert alert-success" role="alert">
         {{ session('success') }}
@@ -68,16 +74,17 @@
             <tbody>
               @foreach($chart as $data)
             <tr>
-            <td>{{ $data->obat->nama_obat }}<strong class="mx-2">x</strong> 1</td>
+            <td>{{ $data->obat->nama_obat }}<strong class="mx-2">x</strong>{{ $data->jumlah }}</td>
             <td>Rp. {{ number_format($data->obat->harga_jual,0,',','.') }}</td>
             </tr>
             @endforeach
             <tr>
             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($totalchart,0,',','.') }}</strong></td>
-            <input type="hidden" name="total_price" value="{{ $totalchart }}" >
+            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($totalorder,0,',','.') }}</strong></td>
+            <input type="hidden" name="total_price" value="{{ $totalorder }}" >
             <input type="hidden" name="status">
             <input type="hidden" name="tanggal_jual" value=" {{ date('d-m-Y') }} " id="date-input">
+            <input type="hidden" name="banyak" value="1" id="date-input">
             </tr>
             </tbody>
             </table>

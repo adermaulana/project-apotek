@@ -7,7 +7,11 @@
           <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a
               href="/produk">Produk</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{ $obat->nama_obat }}</strong></div>
         </div>
-      </div>
+        @if ($message = Session::get('error'))
+        <div style="margin-top:30px; margin-left:10px;" class="alert alert-danger alert-dismissible fade show col-lg-11" role="alert">
+                {{ session('error') }}
+              </div>
+        @endif
     </div>
 
     <div class="site-section">
@@ -17,6 +21,7 @@
             <div class="border text-center">
               <form action="/keranjang/{{ $obat->id }}" method="post">
                 @csrf
+                <input type="hidden" id="obat_id"  name="obat_id" value="{{ $obat->id }}">
                   @if($obat->gambar == null)
                       <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
                   @else
@@ -30,7 +35,9 @@
             
 
             <p><strong class="text-primary h4">Rp. {{ number_format($obat->harga_jual,0,',','.') }}</strong></p>
-
+            <div class="input-group mb-3" style="max-width: 120px;">
+              <input name="jumlah" id="jumlah"  type="number" value="{{ old('banyak') }}"  class="form-control text-center"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              </div>
             <!-- <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 220px;">
                 <div class="input-group-prepend">

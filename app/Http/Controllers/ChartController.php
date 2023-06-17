@@ -37,11 +37,27 @@ class ChartController extends Controller
     public function addToCart(Request $request , $id){
         // dd($request->all());
 
+        $validatedData = $request->validate([
+            'jumlah' => 'required'
+            ]);
+
         $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
         $validatedData['obat_id'] = $id;
 
+        $drug = Obat::findOrFail($request->obat_id);
 
+        if ($drug->stok < $request->jumlah) {
+            return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
+        
+        } else { 
+            
         Chart::create($validatedData);
+
+        $obat = Obat::findOrFail($request->obat_id);
+        $obat->stok -= $request->jumlah;
+        $obat->save();
+
+        }
 
         return redirect('keranjang');      
     }

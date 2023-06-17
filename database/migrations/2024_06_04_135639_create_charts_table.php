@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('cascade');
             $table->unsignedBigInteger('obat_id');
             $table->foreign('obat_id')->references('id')->on('obats')->onDelete('cascade');
+            $table->bigInteger('jumlah')->nullable();
             $table->timestamps();
         });
     }
