@@ -31,8 +31,6 @@
 
             <p><strong class="text-primary h4">Rp. {{ number_format($obat->harga_jual,0,',','.') }}</strong></p>
 
-            
-            
             <!-- <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 220px;">
                 <div class="input-group-prepend">

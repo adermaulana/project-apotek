@@ -131,7 +131,7 @@
                                         </tr>
                                         <tr>
                                             <td  style="padding: 5px 0;" >Tanggal Beli</td>
-                                            <td align="right" style="padding: 5px 0;"> {{ $penjualan->tanggal_jual }}</td>
+                                            <td align="right" style="padding: 5px 0;"> {{ $penjualan->order->tanggal_jual }}</td>
                                         </tr>
                                         <tr>
                                             <td align="center"style="padding: 0px 127px 10px 0px;  ">Harga </td>

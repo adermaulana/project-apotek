@@ -20,12 +20,12 @@ class ListInvoiceController extends Controller
 
     
     public function detail($id){
+        $order = Order::findOrFail($id);
         $booking = OrderItem::findOrFail($id);
         return view('pelanggan.invoicedetail',[
             'title' => 'Details',
             'penjualan' => $booking,
-            'orderlist' => OrderItem::latest()->where('order_id', auth('pelanggan')->user()->id)->get()
-
+            'orderlist' => OrderItem::latest()->where('order_id', $id , auth('pelanggan')->user()->id)->get()
         ]);
     }
 

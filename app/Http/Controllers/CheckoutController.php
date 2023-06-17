@@ -34,7 +34,8 @@ class CheckoutController extends Controller
             'email' => 'required|email',
             'address' => 'required',
             'phone' => 'required',
-            'total_price' => 'required'
+            'total_price' => 'required',
+            'tanggal_jual' => 'required'
             ]);
 
         $data['pelanggan_id'] = auth('pelanggan')->user()->id;

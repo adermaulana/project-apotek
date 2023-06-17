@@ -39,6 +39,8 @@ class ChartController extends Controller
 
         $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
         $validatedData['obat_id'] = $id;
+
+
         Chart::create($validatedData);
 
         return redirect('keranjang');      

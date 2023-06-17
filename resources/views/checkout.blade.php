@@ -77,6 +77,7 @@
             <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($totalchart,0,',','.') }}</strong></td>
             <input type="hidden" name="total_price" value="{{ $totalchart }}" >
             <input type="hidden" name="status">
+            <input type="hidden" name="tanggal_jual" value=" {{ date('d-m-Y') }} " id="date-input">
             </tr>
             </tbody>
             </table>
@@ -123,4 +124,6 @@
       
     </div>
 @endsection
+
+
 
