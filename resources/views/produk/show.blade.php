@@ -34,10 +34,14 @@
             <p>{{ $obat->deskripsi_obat }}</p>
             
 
+            <p><strong >Stok {{ $obat->stok }}</strong></p>
             <p><strong class="text-primary h4">Rp. {{ number_format($obat->harga_jual,0,',','.') }}</strong></p>
             <div class="input-group mb-3" style="max-width: 120px;">
               <input name="jumlah" id="jumlah"  type="number" value="{{ old('banyak') }}"  class="form-control text-center"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-              </div>
+            </div>
+            @error('jumlah')
+            <div class="alert alert-danger mt-1 mb-2 col-4">{{ $message }}</div>
+            @enderror
             <!-- <div class="mb-5">
               <div class="input-group mb-3" style="max-width: 220px;">
                 <div class="input-group-prepend">

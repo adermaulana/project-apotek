@@ -7,6 +7,7 @@ use App\Models\Pemasok;
 use App\Models\Category;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -77,7 +78,6 @@ Route::get('/dashboard',function(){
     $total_notif = $total_kadaluwarsa + $total_obat_habis;
     $title = 'Apotek';
     $penjualan = Penjualan::all();
-    $total_penjualan = $penjualan->sum('total');
     $laba_beli = $penjualan->sum('total_beli');
     $total_pelanggan = $penjualan->count('nama_pembeli');
     $total_obat = Obat::all();
@@ -88,9 +88,13 @@ Route::get('/dashboard',function(){
     $total_pemasok = $pemasok->count();
     $pembelian = Pembelian::all();
     $total_pembelian = $pembelian->sum('total');
+    $total_penjualan = $penjualan->sum('total');
+    $order = Order::all();
+    $total_beli_pelanggan = $order->sum('total_price');
+    $penjualan_total = $total_penjualan + $total_beli_pelanggan;
     $total_pendapatan = $total_penjualan - $total_pembelian;
-    $laba = $total_penjualan - $laba_beli;
-    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif','laba'));
+    $laba = $penjualan_total - $laba_beli;
+    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif','laba','penjualan_total'));
 })->middleware('auth');
 
 //Obat
@@ -107,6 +111,8 @@ Route::resource('/dashboard/pemasok',PemasokController::class)->middleware('auth
 
 //Penjualan
 Route::resource('/dashboard/penjualan',PenjualanController::class)->middleware('auth');
+Route::get('/dashboard/penjualan-pelanggan',[PenjualanController::class,'pelanggan'])->middleware('auth')->name('pelanggan');
+Route::put('/dashboard/penjualan-pelanggan/{id}',[PenjualanController::class,'pelangganupdate'])->middleware('auth')->name('penjualan-pelanggan');
 
 //Pembelian
 Route::resource('/dashboard/pembelian',PembelianController::class)->middleware('auth');

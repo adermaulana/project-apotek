@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pelanggan_id');
+            $table->bigInteger('pelanggan_id')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('tanggal_jual')->nullable();

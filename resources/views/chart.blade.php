@@ -54,7 +54,7 @@
             <td id="harga" class="price" value="{{ $data->obat->harga_jual }}" > Rp. {{ number_format($data->obat->harga_jual,0,',','.') }}</td>
             <td>
             <div class="input-group mb-3" style="max-width: 120px;">
-            <input name="banyak" id="banyak"  type="number" value="{{ $data->jumlah }}"  class="form-control text-center banyak"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled>
+            <input name="banyak" id="banyak"  type="number" value="{{$data->jumlah }}"  class="form-control text-center banyak"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled>
             </div>
             </td>
             <td>
@@ -103,7 +103,7 @@
             <span class="text-black">Total</span>
             </div>
             <div class="col-md-6 text-right">
-            <strong id="total_keseluruhan" class="text-black">Rp. </strong>
+            <strong id="total_keseluruhan" class="text-black">Rp. {{ number_format($totalchart,0,',','.') }}</strong>
             </div>
             </div>
             <div class="row">

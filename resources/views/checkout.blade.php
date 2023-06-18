@@ -80,11 +80,11 @@
             @endforeach
             <tr>
             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($totalorder,0,',','.') }}</strong></td>
-            <input type="hidden" name="total_price" value="{{ $totalorder }}" >
+            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($total,0,',','.') }}</strong></td>
+            <input type="hidden" name="total_price" value="{{ $total }}" >
             <input type="hidden" name="status">
             <input type="hidden" name="tanggal_jual" value=" {{ date('d-m-Y') }} " id="date-input">
-            <input type="hidden" name="banyak" value="1" id="date-input">
+            <input type="hidden" id="banyak" name="banyak" value="{{ $banyak->jumlah }}" id="date-input">
             </tr>
             </tbody>
             </table>
@@ -130,6 +130,25 @@
       </div>
       
     </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$('#name').on('change',function(){
+    const harga = $('#harga').val();
+    const banyak = $('#banyak').val();
+    const beli = $('#beli').val();
+
+    const total4 = banyak * harga;
+    const total5 = banyak * beli;
+
+    $('#total').val(`${total4}`);
+    $('#total_beli').val(`${total5}`);
+  })
+  
+
+</script>
+
 @endsection
 
 

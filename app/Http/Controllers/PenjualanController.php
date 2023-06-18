@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Penjualan;
 use App\Models\Pembelian;
 use App\Models\Obat;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
@@ -29,6 +30,22 @@ class PenjualanController extends Controller
 
             return view('dashboard.penjualan.index',[
                 'title' => 'Penjualan'
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif','penjualan'));
+    }
+
+
+    public function pelanggan()
+    {
+        $penjualan = Order::latest()->get();
+        $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+        $total_kadaluwarsa = $kadaluwarsa->count();
+        $total_obat = Obat::all();
+        $obat_habis = Obat::where('stok', '<=', 0)->get();
+        $total_obat_habis = $obat_habis->count();
+        $total_notif = $total_kadaluwarsa + $total_obat_habis;
+
+            return view('dashboard.penjualan.pelanggan',[
+                'title' => 'Penjualan Pelanggan'
             ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif','penjualan'));
     }
 
@@ -150,6 +167,19 @@ class PenjualanController extends Controller
             ->update($validatedData);
 
             return redirect()->route('penjualan.index')
+            ->with('success','Status Berhasil Diperbarui!');
+    }
+
+    public function pelangganupdate(Request $request, Order $penjualan)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required'
+            ]);
+
+            Order::where('id',$penjualan->id)
+            ->update($validatedData);
+
+            return redirect()->route('pelanggan')
             ->with('success','Status Berhasil Diperbarui!');
     }
 

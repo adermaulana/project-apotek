@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Obat;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -19,15 +20,17 @@ class CheckoutController extends Controller
     public function index()
     {
 
-        $chart = Chart::all();
+        $chart = Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get();
         $totalchart = $chart->sum('obat.harga_jual');
         $jumlah = $chart->sum('jumlah');
-        $totalorder = $totalchart * $jumlah;
+        $banyak = Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->first();
+        $total = $totalchart * $jumlah;
 
         return view('checkout',[
             'title' => 'Checkout',
-            'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
-        ],compact('totalorder'));
+            'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get(),
+            'obat' => Obat::latest()->first()
+        ],compact('totalchart','total','banyak'));
     }
 
     public function checkout(Request $request){
@@ -39,7 +42,7 @@ class CheckoutController extends Controller
             'phone' => 'required',
             'total_price' => 'required',
             'tanggal_jual' => 'required',
-            'banyak' => 'required'
+            'banyak' => 'required',
             ]);
 
         $data['pelanggan_id'] = auth('pelanggan')->user()->id;
