@@ -56,10 +56,6 @@
             <td><button type="button" data-bs-toggle="modal" data-bs-target="#status{{ $data->id }}"  class=" btn btn-danger"><span>{{ $data->status }}</span></button></td>
             @endif
             <td>
-										<div class="actions">
-											<a class="btn btn-success" href="{{ route('penjualan.show',$data) }}">
-                      <span data-feather="eye"></span>
-											</a>
                       <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $data->id }}" class="delete btn btn-danger" ><span data-feather="x-circle"></span></button>
 										</div>
             </td>

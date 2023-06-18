@@ -34,7 +34,6 @@
             <th class="product-name">Nama Obat</th>
             <th class="product-price">Harga</th>
             <th class="product-quantity">Jumlah</th>
-            <th class="product-total">Total</th>
             <th class="product-remove">Remove</th>
             </tr>
             </thead>
@@ -57,14 +56,9 @@
             <input name="banyak" id="banyak"  type="number" value="{{$data->jumlah }}"  class="form-control text-center banyak"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled>
             </div>
             </td>
-            <td>
-              <div class="input-group mb-3 ">
-                <input  type="number"  name="total_beli" value="{{old('total_beli')}}" class="form-control text-center total_beli" disabled>
-              </div>
-              </td>
             <input type="hidden" class="beli" name="harga_beli" value="{{ old('harga_beli',$data->obat->harga_jual) }}">
             <td>
-              <form action="{{ route('cart-delete', $data->id ) }}" method="post">
+              <form action="{{ route('cart-delete', $data->id) }}" method="post">
                 @method('delete')
                 @csrf
                 <button type="submit" class="btn btn-primary height-auto btn-sm">X</button>
@@ -94,20 +88,6 @@
             <div class="row justify-content-end">
             <div class="col-md-7">
             <div class="row">
-            <div class="col-md-12 text-right border-bottom mb-5">
-             <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-            </div>
-            </div>
-            <div class="row mb-5">
-            <div class="col-md-6">
-            <span class="text-black">Total</span>
-            </div>
-            <div class="col-md-6 text-right">
-            <strong id="total_keseluruhan" class="text-black">Rp. {{ number_format($totalchart,0,',','.') }}</strong>
-            </div>
-            </div>
-            <div class="row">
-            <div class="col-md-12">
             <button class="btn btn-primary btn-lg btn-block" onclick="window.location='/checkout'">Proceed To
             Checkout</button>
             @else

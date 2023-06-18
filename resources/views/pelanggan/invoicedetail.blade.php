@@ -71,7 +71,7 @@
                 @foreach($orderlist as $data)
                 <tr>
                     <td><span>{{ $data->obat->nama_obat }}</span></td>
-                    <td><span >280.00</span> <span > DA</span> </td>
+                    <td><span >IDR {{ number_format($data->obat->harga_jual,0,',','.') }}</span> </td>
                     <td><span >{{ $data->order->banyak }}</span></td>
                     <td><span >IDR</span> <span > </span> </td>
                 </tr>
@@ -81,7 +81,7 @@
         <table class="balance">
             <tr>
                 <th><span>TOTAL Harga :</span></th>
-                <td><span>IDR</span> <span data-prefix>{{ $data->order->total_price }}</span> </td>
+                <td><span>IDR</span> <span data-prefix>{{ number_format($data->order->total_price,0,',','.') }}</span> </td>
             </tr>
         </table>
 

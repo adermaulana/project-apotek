@@ -3,11 +3,11 @@
 use Carbon\Carbon;
 use App\Models\Obat;
 use App\Models\Unit;
+use App\Models\Order;
 use App\Models\Pemasok;
 use App\Models\Category;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
-use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -31,6 +31,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\DeleteChartController;
 use App\Http\Controllers\ListInvoiceController;
 use App\Http\Controllers\DataPelangganController;
 
@@ -150,6 +151,7 @@ Route::post('/kontak',[KontakController::class,'store']);
 Route::get('/keranjang',[ChartController::class,'index']);
 Route::post('/keranjang/{id}',[ChartController::class,'addToCart']);
 Route::delete('/keranjang/{id}',[ChartController::class,'deleteCart'])->name('cart-delete');
+
 
 //Chart
 Route::get('/produk/detail',[DetailController::class,'index']);

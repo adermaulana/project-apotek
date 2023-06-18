@@ -170,13 +170,14 @@ class PenjualanController extends Controller
             ->with('success','Status Berhasil Diperbarui!');
     }
 
-    public function pelangganupdate(Request $request, Order $penjualan)
+    public function pelangganupdate(Request $request, $id)
     {
         $validatedData = $request->validate([
             'status' => 'required'
             ]);
 
-            Order::where('id',$penjualan->id)
+            $order = Order::findOrFail($id);
+            Order::where('id',$order->id)
             ->update($validatedData);
 
             return redirect()->route('pelanggan')
