@@ -38,13 +38,17 @@ class ChartController extends Controller
         // dd($request->all());
 
         $validatedData = $request->validate([
-            'jumlah' => 'required'
+            'jumlah' => 'required',
             ]);
 
         $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
         $validatedData['obat_id'] = $id;
 
         $drug = Obat::findOrFail($request->obat_id);
+
+        if (!$request->filled('total_harga')) {
+            $validatedData['total_harga'] = $drug->harga_jual * $request->jumlah ; // Nilai default jika tidak ada inputan
+        }
 
         if ($drug->stok < $request->jumlah) {
             return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
@@ -64,9 +68,12 @@ class ChartController extends Controller
     
     public function deleteCart(Request $request , $id){
         // dd($request->all());
+
         $chart = Chart::FindOrFail($id);
         Chart::destroy($chart->id);
-        
+        $chart->obat->stok += $chart->jumlah;
+        $chart->save();
+
         return redirect('keranjang');      
     } 
 

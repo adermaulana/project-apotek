@@ -24,13 +24,13 @@ class CheckoutController extends Controller
         $totalchart = $chart->sum('obat.harga_jual');
         $jumlah = $chart->sum('jumlah');
         $banyak = Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->first();
-        $total = $totalchart * $jumlah;
+        $total_harga_chart = $banyak->sum('total_harga');
 
         return view('checkout',[
             'title' => 'Checkout',
             'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get(),
             'obat' => Obat::latest()->first()
-        ],compact('totalchart','total','banyak'));
+        ],compact('totalchart','banyak','total_harga_chart'));
     }
 
     public function checkout(Request $request){

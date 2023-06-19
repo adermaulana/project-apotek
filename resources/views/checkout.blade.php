@@ -80,8 +80,8 @@
             @endforeach
             <tr>
             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($total,0,',','.') }}</strong></td>
-            <input type="hidden" name="total_price" value="{{ $total }}" >
+            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($total_harga_chart,0,',','.') }}</strong></td>
+            <input type="hidden" name="total_price" value="{{ $total_harga_chart }}" >
             <input type="hidden" name="status">
             <input type="hidden" name="tanggal_jual" value=" {{ date('d-m-Y') }} " id="date-input">
             <input type="hidden" id="banyak" name="banyak" value="{{ $banyak->jumlah }}" id="date-input">
