@@ -152,10 +152,6 @@ Route::get('/keranjang',[ChartController::class,'index']);
 Route::post('/keranjang/{id}',[ChartController::class,'addToCart']);
 Route::delete('/keranjang/{id}',[ChartController::class,'deleteCart'])->name('cart-delete');
 
-
-//Chart
-Route::get('/produk/detail',[DetailController::class,'index']);
-
 //Produk
 Route::resource('/produk',ProdukController::class);
 

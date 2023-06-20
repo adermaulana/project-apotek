@@ -76,9 +76,9 @@
             <div class="row">
             <div class="col-md-6">
             <div class="row mb-5">
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
             <button id="update-cart-btn" class="btn btn-outline-success btn-md btn-block">Update Cart</button>
-            </div>
+            </div> --}}
             <div class="col-md-6">
             <a href="/produk" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
             </div>
