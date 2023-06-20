@@ -61,6 +61,8 @@
               <form action="{{ route('cart-delete', $data->id) }}" method="post">
                 @method('delete')
                 @csrf
+                <input type="hidden" id="jumlahhidden"  name="jumlahhidden" value="{{ $data->jumlah }}">
+                <input type="hidden" id="obat_id"  name="obat_id" value="{{ $data->obat->id }}">
                 <button type="submit" class="btn btn-primary height-auto btn-sm">X</button>
               </form>
             </td>

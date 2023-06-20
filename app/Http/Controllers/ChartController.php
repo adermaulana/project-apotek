@@ -71,12 +71,15 @@ class ChartController extends Controller
     }
     
     public function deleteCart(Request $request , $id){
-        // dd($request->all());
 
         $chart = Chart::FindOrFail($id);
         Chart::destroy($chart->id);
-        $chart->obat->stok += $chart->jumlah;
-        $chart->save();
+
+        $product = Obat::find($request->obat_id);
+        if ($product) {
+            $product->stok += $request->jumlahhidden; // Menambahkan 1 pada stok
+            $product->save();
+        }
 
         return redirect('keranjang');      
     } 
