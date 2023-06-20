@@ -41,22 +41,34 @@
             <div class="col-md-12">
             <label for="name" class="text-black">Name<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="name" name="name">
+            @error('name')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
             </div>
             </div>
             <div class="form-group row">
             <div class="col-md-12">
             <label for="address" class="text-black">Address <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="address" name="address" placeholder="Street address">
+            @error('address')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
             </div>
             </div>
             <div class="form-group row mb-5">
             <div class="col-md-6">
             <label for="email" class="text-black">Email Address <span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="email" name="email">
+            @error('email')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
             </div>
             <div class="col-md-6">
             <label for="phone" class="text-black">Phone <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+            @error('phone')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
             </div>
             </div>
             </div>

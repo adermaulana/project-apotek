@@ -77,7 +77,7 @@
                     <td><span>{{ $data->obat->nama_obat }}</span></td>
                     <td><span >IDR {{ number_format($data->obat->harga_jual,0,',','.') }}</span> </td>
                     <td><span >{{ $data->order->banyak }}</span></td>
-                    <td><span >IDR</span> <span > </span> </td>
+                    <td><span >IDR</span> <span > {{ number_format($data->obat->harga_jual * $data->order->banyak,0,',','.') }} </span> </td>
                 </tr>
                 @endforeach
             </tbody>
