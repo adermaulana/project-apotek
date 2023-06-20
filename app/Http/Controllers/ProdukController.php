@@ -16,7 +16,7 @@ class ProdukController extends Controller
     public function index()
     {
         
-        $obat = Obat::latest()->paginate(6);
+        $obat = Obat::latest()->paginate(12);
           return view('produk.index',[
             'title' => 'Produk',
             'obat' => $obat

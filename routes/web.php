@@ -57,7 +57,7 @@ Route::get('/',function(){
 
 
     $obat = Obat::latest()->paginate(3);
-    $semuaobat = Obat::all();
+    $semuaobat = Obat::latest()->paginate(5);
     return view('home',[
         'title' => 'Home',
         'obat' => $obat,

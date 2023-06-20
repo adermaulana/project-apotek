@@ -37,7 +37,7 @@
             <img src="{{ asset('storage/' . $data->gambar) }}" width="150" alt="Image">
             @endif
             </a>
-            <h3 class="text-dark"><a href="/detail-produk">{{ $data->nama_obat }}</a></h3>
+            <h3 class="text-dark"><a href="{{ route('produk.show',$data) }}">{{ $data->nama_obat }}</a></h3>
             <p class="price">Rp. {{ number_format($data->harga_jual,0,',','.') }}</p>
           </div>
           @endforeach

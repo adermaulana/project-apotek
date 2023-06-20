@@ -8,6 +8,10 @@
 </head>
 
 <body>
+    <div class="container mt-5 mb-3">
+        <a href="/" class="btn btn-primary mt-3">Home</a>
+        <button onclick="window.print()" type="button" class="btn btn-success mt-3">Print</button>
+    </div>
    <div class="page">
         <header>
             <!-- <h1><b>INVOICE</b></h1> -->

@@ -50,10 +50,14 @@ class ChartController extends Controller
             $validatedData['total_harga'] = $drug->harga_jual * $request->jumlah ; // Nilai default jika tidak ada inputan
         }
 
-        if ($drug->stok < $request->jumlah) {
+        if ($drug->stok < $request->jumlah ) {
             return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
         
-        } else { 
+        } else if ( $request->jumlah <= 0 ){
+            return redirect()->back()->with('error', 'Format Salah!');
+        } 
+        
+        else { 
             
         Chart::create($validatedData);
 
