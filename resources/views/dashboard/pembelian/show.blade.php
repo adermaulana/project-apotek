@@ -59,7 +59,7 @@
                                         </a>
                                     </td>
                                     <td style="color: #999; font-size: 12px; padding: 0; text-align: center;" align="right">
-                                        Pharmacy<br />No. Pembayaran :
+                                        Apotek Melati<br />No. Pembayaran :
                                         {{ $pembelian->id }}<br />
                                         {{ $pembelian->created_at }}
                                     </td>
@@ -154,9 +154,9 @@
                                     </td>
                                     <td width="10%" style="padding: 10px 0;">&nbsp;</td>
                                     <td width="40%" valign="top" style="padding: 10px 0;">
-                                        <h4 style="margin: 0; font-size:16px;"><span class="il">Pharmacy</span> Makassar</h4>
+                                        <h4 style="margin: 0; font-size:16px;"><span class="il">Apotek Melati</span> Makassar</h4>
                                         <p style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
-                                            <a href="#">Testimoni, Kec. Suka - Suka, Kota Makassar, Sulawesi Selatan 92171</a>
+                                            <a href="#">Jl. Borong Raya No.51/95, Batua, Kec. Manggala, Kota Makassar, Sulawesi Selatan 90233</a>
                                         </p>
                                     </td>
                                 </tr>

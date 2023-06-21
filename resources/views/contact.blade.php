@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md-12 mb-0">
             <a href="/">Home</a> <span class="mx-2 mb-0">/</span>
-            <strong class="text-black">Contact</strong>
+            <strong class="text-black">Kontak</strong>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h2 class="h3 mb-5 text-black">Get In Touch</h2>
+            <h2 class="h3 mb-5 text-black">Kotak Saran</h2>
           </div>
           <div class="col-md-12">
     
@@ -72,7 +72,7 @@
       </div>
     </div>
 
-    <div class="site-section bg-primary">
+    <!-- <div class="site-section bg-primary">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -99,6 +99,6 @@
         </div>
       </div>
       
-    </div>
+    </div> -->
 @endsection
 

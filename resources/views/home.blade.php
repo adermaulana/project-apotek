@@ -25,10 +25,10 @@
             <div class="row">
             <div class="col-lg-8 mx-auto order-lg-2 align-self-center">
                 <div class="site-block-cover-content text-center">
-                <h2 class="sub-title">Temukan Obat Rekomendasi Dokter</h2>
-                <h1>Selamat Datang, Apotek Melati</h1>
+                <h2 class="sub-title"></h2>
+                <h1>Selamat Datang Apotek Melati</h1>
                 <p>
-                    <a href="/produk" class="btn btn-primary px-5 py-3">Beli Sekarang!</a>
+                    <a href="/produk" class="btn btn-primary px-5 py-3 rounded-20">Beli Sekarang!</a>
                 </p>
                 </div>
             </div>
@@ -39,36 +39,33 @@
     <div class="site-section">
       <div class="container">
         <div class="row align-items-stretch section-overlap">
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+          <div class="col-md-6 col-lg-4 mb-4  mb-lg-0">
             <div class="banner-wrap bg-primary h-100">
-              <a href="#" class="h-100">
-                <h5>Free <br> Shipping</h5>
+              <a href="https://wa.me/+6287803577666" class="h-100 pt-4">
+              <h5 class="pt-4"style=""><strong>KLIK DISINI</h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
-                </p>
+                  Untuk Mengobrol Secara <br> Langsung Dengan Apoteker
+                </p></strong>
               </a>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="banner-wrap h-100">
-              <a href="#" class="h-100">
-                <h5>Season <br> Sale 50% Off</h5>
+              <a href="/register" class="h-100 pt-4">
+                <h5 class="pt-4"><strong>KLIK DISINI</h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
-                </p>
+                  Untuk Daftarkan Diri Anda dan Lakukan Pembelian
+                </p></strong>
               </a>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="banner-wrap bg-warning h-100">
-              <a href="#" class="h-100">
-                <h5>Buy <br> A Gift Card</h5>
+              <a href="/kontak" class="h-100 pt-4">
+                <h5 class="pt-4"><strong>KLIK DISINI</h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
-                </p>
+                  Untuk Memberi Masukan <br> pada Kotak Saran
+                </p></strong>
               </a>
             </div>
           </div>
@@ -88,13 +85,11 @@
         <div class="row">
             @foreach($obat as $data)
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html">
             @if($data->gambar == null)
             <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
             @else 
             <img src="{{ asset('storage/' . $data->gambar) }}" width="150" alt="Image">
             @endif
-            </a>
             <h3 class="text-dark"><a href="shop-single.html">{{ $data->nama_obat }}</a></h3>
             <p class="price">Rp. {{ number_format($data->harga_jual,0,',','.') }}</p>
           </div>
@@ -126,7 +121,7 @@
                  @if($data->gambar == null)
                 <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
                 @else 
-                <img src="{{ asset('storage/' . $data->gambar) }}" width="150" alt="Image">
+                <img src="{{ asset('storage/' . $data->gambar) }}" width="150"alt="Image">
                 @endif
                 </a>
                 <h3 class="text-dark"><a href="produk/{{ $data->id }}">{{ $data->nama_obat }}</a></h3>
@@ -139,7 +134,7 @@
       </div>
     </div>
 
-    <div class="site-section">
+    <!-- <div class="site-section">
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
@@ -196,7 +191,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
 @endsection

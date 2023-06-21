@@ -162,7 +162,7 @@
         </div><!-- End Revenue Card -->
 
           <!-- Revenue Card -->
-          <div class="col-xxl-4 col-md-6">
+          <div class="col-xxl-4 col-md-13">
           <div class="card info-card revenue-card">
 
             <div class="card-body">
