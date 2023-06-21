@@ -3,31 +3,35 @@
 use Carbon\Carbon;
 use App\Models\Obat;
 use App\Models\Unit;
+use App\Models\Order;
 use App\Models\Pemasok;
 use App\Models\Category;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\KontakController;
-use App\Http\Controllers\ChartController;
-use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\DetailController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\SaranController;
-
-//Buat Dashboard
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SaranController;
+use App\Http\Controllers\DetailController;
+
+//Buat Dashboard
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasokController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\DeleteChartController;
 use App\Http\Controllers\ListInvoiceController;
 use App\Http\Controllers\DataPelangganController;
 
@@ -53,7 +57,7 @@ Route::get('/',function(){
 
 
     $obat = Obat::latest()->paginate(3);
-    $semuaobat = Obat::all();
+    $semuaobat = Obat::latest()->paginate(5);
     return view('home',[
         'title' => 'Home',
         'obat' => $obat,
@@ -63,7 +67,6 @@ Route::get('/',function(){
 })->name('home');
 
 //login
-Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::post('/logout', [LoginController::class,'logout']);
 Route::get('/logout', [LoginController::class,'logout']);
@@ -76,7 +79,6 @@ Route::get('/dashboard',function(){
     $total_notif = $total_kadaluwarsa + $total_obat_habis;
     $title = 'Apotek';
     $penjualan = Penjualan::all();
-    $total_penjualan = $penjualan->sum('total');
     $laba_beli = $penjualan->sum('total_beli');
     $total_pelanggan = $penjualan->count('nama_pembeli');
     $total_obat = Obat::all();
@@ -87,9 +89,13 @@ Route::get('/dashboard',function(){
     $total_pemasok = $pemasok->count();
     $pembelian = Pembelian::all();
     $total_pembelian = $pembelian->sum('total');
+    $total_penjualan = $penjualan->sum('total');
+    $order = Order::all();
+    $total_beli_pelanggan = $order->sum('total_price');
+    $penjualan_total = $total_penjualan + $total_beli_pelanggan;
     $total_pendapatan = $total_penjualan - $total_pembelian;
-    $laba = $total_penjualan - $laba_beli;
-    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif','laba'));
+    $laba = $penjualan_total - $laba_beli;
+    return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif','laba','penjualan_total'));
 })->middleware('auth');
 
 //Obat
@@ -106,6 +112,8 @@ Route::resource('/dashboard/pemasok',PemasokController::class)->middleware('auth
 
 //Penjualan
 Route::resource('/dashboard/penjualan',PenjualanController::class)->middleware('auth');
+Route::get('/dashboard/penjualan-pelanggan',[PenjualanController::class,'pelanggan'])->middleware('auth')->name('pelanggan');
+Route::put('/dashboard/penjualan-pelanggan/{id}',[PenjualanController::class,'pelangganupdate'])->middleware('auth')->name('penjualan-pelanggan');
 
 //Pembelian
 Route::resource('/dashboard/pembelian',PembelianController::class)->middleware('auth');
@@ -141,10 +149,8 @@ Route::post('/kontak',[KontakController::class,'store']);
 
 //Chart
 Route::get('/keranjang',[ChartController::class,'index']);
-Route::post('/keranjang',[ChartController::class,'addToCart']);
-
-//Chart
-Route::get('/produk/detail',[DetailController::class,'index']);
+Route::post('/keranjang/{id}',[ChartController::class,'addToCart']);
+Route::delete('/keranjang/{id}',[ChartController::class,'deleteCart'])->name('cart-delete');
 
 //Produk
 Route::resource('/produk',ProdukController::class);
@@ -161,6 +167,11 @@ Route::get('/search', [SearchController::class,'search'])->name('search');
 
 //Saran
 Route::get('/dashboard/saran', [SaranController::class,'index']);
+
+//Checkout
+Route::get('/checkout',[CheckoutController::class,'index'])->middleware('auth:pelanggan');
+Route::post('/checkout',[CheckoutController::class,'checkout'])->middleware('auth:pelanggan')->name('checkout');
+
 
 
 

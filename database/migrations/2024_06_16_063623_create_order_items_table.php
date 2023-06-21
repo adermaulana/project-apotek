@@ -13,14 +13,24 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('charts', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pelanggan_id');
-            $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('cascade');
             $table->unsignedBigInteger('obat_id');
-            $table->foreign('obat_id')->references('id')->on('obats')->onDelete('cascade');
-            $table->bigInteger('jumlah')->nullable();
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
+
+            $table->foreign('obat_id')
+            ->references('id')->on('obats')
+            ->onDelete('cascade');
+
+            $table->foreign('pelanggan_id')
+            ->references('id')->on('pelanggans')
+            ->onDelete('cascade');
+
+            $table->foreign('order_id')
+            ->references('id')->on('orders')
+            ->onDelete('cascade');
         });
     }
 
@@ -31,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('charts');
+        Schema::dropIfExists('order_items');
     }
 };

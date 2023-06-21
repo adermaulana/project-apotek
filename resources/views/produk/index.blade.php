@@ -29,15 +29,15 @@
 @if($obat->count())
         <div class="row">
         @foreach($obat as $data)
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
+          <div class="col-sm-6 col-lg-4 text-center item mt-4 mb-4">
             <a href="{{ route('produk.show',$data) }}">
             @if($data->gambar == null) 
-              <h1 style="color:black;"  class=" img-fluid p-5">Tidak Ada Gambar</h1>
+              <h1 style="color:black;"  class=" img-fluid p-2">Tidak Ada Gambar</h1>
             @else
             <img src="{{ asset('storage/' . $data->gambar) }}" width="150" alt="Image">
             @endif
             </a>
-            <h3 class="text-dark"><a href="/detail-produk">{{ $data->nama_obat }}</a></h3>
+            <h3 class="text-dark"><a href="{{ route('produk.show',$data) }}">{{ $data->nama_obat }}</a></h3>
             <p class="price">Rp. {{ number_format($data->harga_jual,0,',','.') }}</p>
           </div>
           @endforeach

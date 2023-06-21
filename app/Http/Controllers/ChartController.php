@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Obat;
+use App\Models\Chart;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class ChartController extends Controller
 {
+
     public function index(){
 
         if (Auth::check()) {
@@ -22,26 +25,65 @@ class ChartController extends Controller
 
         }
 
+        $chart = Chart::all();
+        $totalchart = $chart->sum('obat.harga_jual');
+
         return view('chart',[
             'title' => 'Chart',
-            'obat' => Obat::all()
-        ]);
+            'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
+        ],compact('totalchart'));
     }
 
-    public function addToCart(Request $request)
-    {
-        // Validasi data yang dikirim dari permintaan AJAX
-        $request->validate([
-            'obat_id' => 'required'
-        ]);
+    public function addToCart(Request $request , $id){
+        // dd($request->all());
 
-        // Membuat cart baru
-        $cart = new Cart();
-        $cart->pelanggan_id = Auth::id('pelanggan');
-        $cart->obat_id = $request->input('obat_id');
-        $cart->quantity = 1;
-        $cart->save();
+        $validatedData = $request->validate([
+            'jumlah' => 'required',
+            ]);
 
-        return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!']);
+        $validatedData['pelanggan_id'] = auth('pelanggan')->user()->id;
+        $validatedData['obat_id'] = $id;
+
+        $drug = Obat::findOrFail($request->obat_id);
+
+        if (!$request->filled('total_harga')) {
+            $validatedData['total_harga'] = $drug->harga_jual * $request->jumlah ; // Nilai default jika tidak ada inputan
+        }
+
+        if ($drug->stok < $request->jumlah ) {
+            return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
+        
+        } else if ( $request->jumlah <= 0 ){
+            return redirect()->back()->with('error', 'Format Salah!');
+        } 
+        
+        else { 
+            
+        Chart::create($validatedData);
+
+        $obat = Obat::findOrFail($request->obat_id);
+        $obat->stok -= $request->jumlah;
+        $obat->save();
+
+        }
+
+        return redirect('keranjang');      
     }
+    
+    public function deleteCart(Request $request , $id){
+
+        $chart = Chart::FindOrFail($id);
+        Chart::destroy($chart->id);
+
+        $product = Obat::find($request->obat_id);
+        if ($product) {
+            $product->stok += $request->jumlahhidden; // Menambahkan 1 pada stok
+            $product->save();
+        }
+
+        return redirect('keranjang');      
+    } 
+
+
+
 }

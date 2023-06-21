@@ -1,183 +1,109 @@
-@extends('dashboard.layouts.login')
+<html>
 
-@section('container')
+<head>
+    <meta charset="utf-8">
+    <title>Invoice Pembelian</title>
+    <link rel="stylesheet" href="/invoice-html5/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
 
-<style>
+<body>
+    <div class="container mt-5 mb-3">
+        <a href="/" class="btn btn-primary mt-3">Home</a>
+        <button onclick="window.print()" type="button" class="btn btn-success mt-3">Print</button>
+    </div>
+   <div class="page">
+        <header>
+            <!-- <h1><b>INVOICE</b></h1> -->
+            <div class="flexbox">
+                <div class="logo">
+                    <img src="" alt="INVOICE"  >
+                </div>
 
- .nav-link {
-  color: blue;
-  
-}
+                <div class="sender">
+                    <!-- <h1>Logos </h1> -->
+                    <p> 
+                        Mehdi Allali <br>
+                        +213 561 349 993 <br>
+                        mehdi.all.go@gmail.com
+                    </p>
+                </div>
+                <div class="sender">
+                    <p>
+                        16000 Market Street <br>
+                        Suite 1005 <br>
+                        Philadelphia, PA 19103
+                    </p>
+                </div>
+            </div>
+        </header>
+        <div class="flexbox invoice-details">
+            <div class="recipient">
+                <h3>Bill to</h3>
+                <p>
+                    Company Name <br> 
+                    Full Name <br> 
+                    Street Address <br>
+                    City, State, Zip
+                </p>
+            </div>
+            <div>
+                <h3>Invoice Number</h3>
+                <p>0001</p>
+                <h3>Date</h3>
+                <p data-today>09/12/2018</p>
+            </div>
+            <div>
+                <h3>Total invoice</h3>
+                <h1><span>IDR</span><span id="prefix">{{number_format($penjualan->order->total_price,0,',','.')  }}</span></h1>
+            </div>
+        </div>
 
-.nav-link:hover {
-    color:black;
-}
+        <hr>
+        
+        <table class="inventory">
+            <thead>
+                <tr>
+                    <!-- <th width="5%"><span>N°</span></th> -->
+                    <th width="45%"><span>Keterangan</span></th>
+                    <th><span>Harga</span></th>
+                    <th width="10%"><span>Jumlah</span></th>
+                    <th><span>Total</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($orderlist as $data)
+                <tr>
+                    <td><span>{{ $data->obat->nama_obat }}</span></td>
+                    <td><span >IDR {{ number_format($data->obat->harga_jual,0,',','.') }}</span> </td>
+                    <td><span >{{ $data->order->banyak }}</span></td>
+                    <td><span >IDR</span> <span > {{ number_format($data->obat->harga_jual * $data->order->banyak,0,',','.') }} </span> </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <table class="balance">
+            <tr>
+                <th><span>TOTAL Harga :</span></th>
+                <td><span>IDR</span> <span data-prefix>{{ number_format($data->order->total_price,0,',','.') }}</span> </td>
+            </tr>
+        </table>
 
-@media (max-width: 768px) { 
+    <div class="footer">
+        <h1><span>Invoice</span></h1>
+        <div style="text-align:center">
+            <a href="https://github.com/scyrencop">Github</a> |
+            <a href="https://behance.net/scyrencop">Behance</a> |
+            <a href="https://twitter.com/scyrencop">Twitter</a> |
+            <a href="https://fb.com/dream.h.go">Facebook</a> 
 
-   }
-
-</style>
-
-<div  style="margin-bottom:318px;" id="content-wrapper">	
-		<div class="container">
-			<!-- <div class="row">
-				<div class="col-md-4">hwhw</div>
-				<div class="col-md-8">jafhjjhfwjfafawf</div>
-			</div> -->
-			
-			<div class="row justify-content-center">
-			  <div class="col-md-3 " style="margin-top:70px;" > 
-			    <div class="nav flex-column nav-pills bg-white border rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			      <div class="nav-link p-3 text-dark" href="#">
-		           <div class="text-center">
-		           <img class="rounded-circle" src="https://bookingciremai.menlhk.go.id/kawasan-sso/images/user.png?1670035419402787" width="50px"> 
-		           </div>
-		           <div class="text-center"><strong>{{ auth('pelanggan')->user()->name }}</strong> <div class="text-muted small">{{ auth('pelanggan')->user()->email }}</div>
-		           </div>
-		          </div>
-		          <div class="border text-dark border-bottom"></div>
-			        <a style="color:black;" class="btn" href="/list-invoice" role="tab"><i class=""></i> My Invoice</a> 
-			    </div>
-			  </div>
-
-
-			  <div style="margin-top:70px;" class="col-md-9">
-			    <div class="tab-content" id="v-pills-tabContent">
-			      <div class="mt-3 mt-md-1 tab-pane fade active show" id="v-pills-booking_list" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-			      		<h4>Detail Invoice</h4>
-                        <hr>
-                        <center>
-
-          <div class="main" bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 50%;">
-          <table bgcolor="#f6f6f6" cellspacing="0" style="border-collapse: collapse; padding: 40px; width: 100%;" width="100%">
-          <tbody>
-          <tr>
-            <td width="5px" style="padding: 0;"></td>
-            <td style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
-                <table width="100%" cellspacing="0" style="border-collapse: collapse;">
-                    <tbody>
-                        <tr>
-                            <td style="padding: 0;">
-                                    <img
-                                        src="/assets/img/medical-remove.png"
-                                        alt=""
-                                        style="height: 50px; max-width: 100%; width: 157px;"
-                                        height="50"
-                                        width="157"
-                                    />
-                    
-                            </td>
-                            <td style="color: #999; font-size: 12px; padding: 0; text-align: center;" align="right">
-                                Pharmacy<br />No. Penjualan :
-                                {{ $penjualan->id }}<br />
-                                {{ $penjualan->created_at }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-            <td width="5px" style="padding: 0;"></td>
-          </tr>
-
-          <tr>
-            <td width="5px" style="padding: 0;"></td>
-            <td bgcolor="#FFFFFF" style="border: 1px solid #000; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
-                <table width="100%" style="background: #f9f9f9; border-bottom: 1px solid #eee; border-collapse: collapse; color: #999;">
-                    <tbody>
-                        <tr>
-                            <td width="50%" style="padding: 20px;"><strong style="color: #333; font-size: 24px;">Penjualan Obat</strong></td>
-                            <td align="right" width="50%" style="padding: 20px;"><span class="il"></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-            <td style="padding: 0;"></td>
-            <td width="5px" style="padding: 0;"></td>
-          </tr>
-          <tr>
-            <td width="5px" style="padding: 0;"></td>
-            <td style="border: 1px solid #000; border-top: 0; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
-                <table cellspacing="0" style="border-collapse: collapse; border-left: 1px solid #000; margin: 0 auto; max-width: 600px;">
-                    <tbody>
-                        <tr>
-                            <td valign="top"  style="padding: 20px;">
-                                <h3
-                                    style="
-                                        border-bottom: 1px solid #000;
-                                        color: #000;
-                                        font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                        line-height: 1.2;
-                                        margin: 0;
-                                        margin-bottom: 15px;
-                                        padding-bottom: 5px;
-                                    "
-                                >
-                                    Ringkasan
-                                </h3>
-                                <table cellspacing="0" style="border-collapse: collapse; margin-bottom: 40px;">
-                                    <tbody>
-                                        <tr>
-                                            <td style="padding: 5px 0;">Nama Obat</td>
-                                            <td align="right" style="padding: 5px 0;">{{ $penjualan->obat->nama_obat }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 5px 0;">Banyak</td>
-                                            <td align="right" style="padding: 5px 0;"> {{ $penjualan->banyak }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td  style="padding: 5px 0;" >Tanggal Beli</td>
-                                            <td align="right" style="padding: 5px 0;"> {{ $penjualan->tanggal_jual }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center"style="padding: 0px 127px 10px 0px;  ">Harga </td>
-                                            <td align="right" style="padding:0px 0px 9px 0px;"><span style="">{{ $penjualan->formatRupiah('harga_jual') }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="mb-4" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 10px 0;">Total Bayar</td>
-                                            <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 10px 0;"> {{ $penjualan->formatRupiah('total') }} </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-            <td width="5px" style="padding: 0;"></td>
-          </tr>
-
-          <tr style="color: #666; font-size: 12px;">
-            <td width="5px" style="padding: 10px 0;"></td>
-            <td style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
-                <table width="100%" cellspacing="0" style="border-collapse: collapse;">
-                    <tbody>
-                        <tr>
-                            <td width="40%" valign="top" style="padding: 10px 0;">
-                                <h4 style="margin-left: 20px;">Terima Kasih</h4>
-                            </td>
-                            <td width="10%" style="padding: 10px 0;">&nbsp;</td>
-                            <td width="40%" valign="top" style="padding: 10px 0;">
-                                <h4 style="margin: 0; font-size:16px;"><span class="il">Pharmacy</span> Makassar</h4>
-                                <p style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
-                                    <a href="#">Testimoni, Kec. Suka - Suka, Kota Makassar, Sulawesi Selatan 92171</a>
-                                </p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-            <td width="5px" style="padding: 10px 0;"></td>
-          </tr>
-          </tbody>
-          </table>
-          </center>
-			    </div>
-			  </div>
-			</div>
-		</div>
+            <br>
+        </div>
     </div>
 
-@endsection
+   </div>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="/invoice-html5/js/main.min.js"></script>
+</body>
+
+</html>

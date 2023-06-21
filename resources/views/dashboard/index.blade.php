@@ -113,7 +113,7 @@
                   <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>Rp {{ number_format($total_penjualan,0,',','.') }}</h6>
+                  <h6>Rp {{ number_format($penjualan_total,0,',','.') }}</h6>
                 </div>
               </div>
             </div>

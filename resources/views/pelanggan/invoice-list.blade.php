@@ -62,7 +62,7 @@
                                             <div class="row">
 						    
                                             <div  class="col mr-3">
-                                                <strong class="bayar"  >Rp {{ number_format($booking->total,0,',','.') }}
+                                                <strong class="bayar"  >Rp {{ number_format($booking->total_price,0,',','.') }}
                                             </strong> 
                                             </div>
 				    					    
@@ -71,14 +71,14 @@
                                         </div>
                                         <div class="row ml-1">
                                         @if($booking->status == "Pending")
-                                        <span  href="/list-invoice/detail/{{ $booking->id }}" style="color:white;"  class="badge bg-warning">{{ $booking->status }}</span>
+                                        <span  style="color:white;"  class="badge bg-warning">{{ $booking->status }}</span>
                                         @elseif($booking->status == "Belum Bayar")
-                                        <span  href="/list-invoice/detail/{{ $booking->id }}" style="color:white;"  class="badge bg-danger">{{ $booking->status }}</span>
+                                        <span  style="color:white;"  class="badge bg-danger">{{ $booking->status }}</span>
                                         @else
-                                        <span  href="/list-invoice/detail/{{ $booking->id }}" style="color:white;"  class="badge bg-success">{{ $booking->status }}</span>
+                                        <span  style="color:white;"  class="badge bg-success">{{ $booking->status }}</span>
                                         @endif
                                         </div>
-                                        <a  href="/list-invoice/detail/{{ $booking->id }}" style="color:blue;" class="btn-link">See Details</a>
+                                        <a  href="/list-invoice/detail/{{ $booking->id }}" target="_blank" style="color:blue;" class="btn-link">See Details</a>
                                         </div>
                                         
                                             </div>				  

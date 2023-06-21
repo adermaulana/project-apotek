@@ -37,6 +37,15 @@
             @endif
             </a>
           </li>
+          <li>
+            <a href="/dashboard/penjualan-pelanggan">
+            @if(Request::is('dashboard/penjualan-pelanggan'))
+              <i class="bi bi-circle"></i><span class="text-primary">Lihat Penjualan Pelanggan</span>
+            @else
+              <i class="bi bi-circle"></i><span>Lihat Penjualan Pelanggan</span>
+            @endif
+            </a>
+          </li>
         </ul>
       </li><!-- End Charts Nav -->
 
