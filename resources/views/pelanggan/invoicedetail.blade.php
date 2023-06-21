@@ -17,40 +17,39 @@
             <!-- <h1><b>INVOICE</b></h1> -->
             <div class="flexbox">
                 <div class="logo">
-                    <img src="" alt="INVOICE"  >
+                    <h2 style="color:white;">INVOICE</h2>
                 </div>
 
                 <div class="sender">
                     <!-- <h1>Logos </h1> -->
                     <p> 
-                        Mehdi Allali <br>
+                        Fadhil <br>
                         +213 561 349 993 <br>
-                        mehdi.all.go@gmail.com
+                        xxxxxx@gmail.com
                     </p>
                 </div>
                 <div class="sender">
                     <p>
-                        16000 Market Street <br>
-                        Suite 1005 <br>
-                        Philadelphia, PA 19103
+                        Jalan xxxxxx <br>
+                        90131 <br>
+                        Makassar, Indonesia
                     </p>
                 </div>
             </div>
         </header>
         <div class="flexbox invoice-details">
             <div class="recipient">
-                <h3>Bill to</h3>
+                <h3>Kepada</h3>
                 <p>
-                    Company Name <br> 
-                    Full Name <br> 
-                    Street Address <br>
-                    City, State, Zip
+                    {{ $penjualan->order->name }} <br> 
+                    {{ $penjualan->order->address }} <br>
+                    {{ $penjualan->order->email }}
                 </p>
             </div>
             <div>
-                <h3>Invoice Number</h3>
-                <p>0001</p>
-                <h3>Date</h3>
+                <h3>Nomor Pembelian</h3>
+                <p>{{ $penjualan->order->id }}</p>
+                <h3>Tanggal</h3>
                 <p data-today>09/12/2018</p>
             </div>
             <div>
