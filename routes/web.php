@@ -114,6 +114,7 @@ Route::resource('/dashboard/pemasok',PemasokController::class)->middleware('auth
 Route::resource('/dashboard/penjualan',PenjualanController::class)->middleware('auth');
 Route::get('/dashboard/penjualan-pelanggan',[PenjualanController::class,'pelanggan'])->middleware('auth')->name('pelanggan');
 Route::put('/dashboard/penjualan-pelanggan/{id}',[PenjualanController::class,'pelangganupdate'])->middleware('auth')->name('penjualan-pelanggan');
+Route::delete('/dashboard/penjualan-pelanggan/{id}',[PenjualanController::class,'destroypelanggan'])->middleware('auth')->name('delete-pelanggan');
 
 //Pembelian
 Route::resource('/dashboard/pembelian',PembelianController::class)->middleware('auth');

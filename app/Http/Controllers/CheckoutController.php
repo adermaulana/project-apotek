@@ -55,22 +55,19 @@ class CheckoutController extends Controller
             foreach($carts as $cart) {
 
                 $obat = Obat::find($cart['obat_id']);
-                if ($obat->stok <= $cart['banyak']) {
-                    // Jumlah stok tidak mencukupi, berikan pesan kesalahan
-                    return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
 
-                } else {
                 
-                $obat->stok -= $cart['banyak']; // Kurangi stok obat
+                $obat->stok -= $cart['jumlah']; // Kurangi stok obat
                 $obat->save(); // Simpan perubahan pada obat
 
                 $items[] = OrderItem::create([
                     'order_id' => $transaction->id,
                     'pelanggan_id' => $cart->pelanggan_id,
                     'obat_id' => $cart->obat_id,
+                    'banyak' => $cart->jumlah
                 ]);
                 }
-            }
+            
             // Delete cart after transaction
             Chart::where('pelanggan_id', Auth::guard('pelanggan')->user()->id)->delete();
 

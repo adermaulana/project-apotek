@@ -12,7 +12,7 @@ class OrderItem extends Model
     use HasFactory;
     
     protected $fillable = [
-        'pelanggan_id', 'obat_id', 'order_id'
+        'pelanggan_id', 'obat_id', 'order_id','banyak'
     ]; 
 
     public function order()

@@ -74,9 +74,13 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                  <form action="{{ route('penjualan.destroy',$data) }}" method="post" class="d-inline">
+                  <form action="{{ route('delete-pelanggan',$data) }}" method="post" class="d-inline">
                               @method('delete')
                               @csrf
+                              @foreach($orderitem as $data)
+                              <input type="hidden" id="jumlahhidden"  name="jumlahhidden" value="{{ $data->order->banyak}}">
+                              <input type="hidden" name="obat_id" value="{{ $data->obat_id}}">
+                              @endforeach
                               <button class="delete btn btn-danger">Hapus</button>
                   </form>
                 </div>
