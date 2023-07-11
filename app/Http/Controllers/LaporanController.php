@@ -5,6 +5,7 @@ use App\Models\Laporan;
 use App\Models\Obat;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
@@ -65,8 +66,22 @@ class LaporanController extends Controller
             $total_obat_habis = $obat_habis->count();
             $total_notif = $total_kadaluwarsa + $total_obat_habis;
             $penjualan = Penjualan::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
-            $total_penjualan = $penjualan->sum('total');
-            return view('dashboard.laporan.index',compact('total_notif','kadaluwarsa','total_obat','title','penjualan','total_penjualan','total_kadaluwarsa','obat_habis','total_obat_habis'));
+            $order = Order::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
+            $total_penjualan = $penjualan->sum('total') + $order->sum('total_price');
+            return view('dashboard.laporan.index',compact('order','total_notif','kadaluwarsa','total_obat','title','penjualan','total_penjualan','total_kadaluwarsa','obat_habis','total_obat_habis'));
+        }
+
+        if($request->resource == 'online'){
+            $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
+            $total_kadaluwarsa = $kadaluwarsa->count();
+            $title = "Laporan Penjualan Obat";
+            $total_obat = Obat::all();
+            $obat_habis = Obat::where('stok', '<=', 0)->get();
+            $total_obat_habis = $obat_habis->count();
+            $total_notif = $total_kadaluwarsa + $total_obat_habis;
+            $online = Order::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
+            $total_penjualan = $online->sum('total_price');
+            return view('dashboard.laporan.index',compact('online','total_notif','kadaluwarsa','total_obat','title','total_penjualan','total_kadaluwarsa','obat_habis','total_obat_habis'));
         }
     }
 
