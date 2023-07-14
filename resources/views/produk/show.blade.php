@@ -22,6 +22,7 @@
               <form action="/keranjang/{{ $obat->id }}" method="post">
                 @csrf
                 <input type="hidden" id="obat_id"  name="obat_id" value="{{ $obat->id }}">
+                <input type="hidden" id="harga_beli"  name="harga_beli" value="{{ $obat->harga_beli }}">
                   @if($obat->gambar == null)
                       <h1 style="color:black;" class=" img-fluid p-5">Tidak Ada Gambar</h1>
                   @else

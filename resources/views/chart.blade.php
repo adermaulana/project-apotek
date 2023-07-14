@@ -58,9 +58,9 @@
             </td>
             <input type="hidden" class="beli" name="harga_beli" value="{{ old('harga_beli',$data->obat->harga_jual) }}">
             <td>
-              <form action="{{ route('cart-delete', $data->id) }}" method="post">
-                @method('delete')
+              <form action="{{ route('keranjang.destroy', $data->id) }}" method="post">
                 @csrf
+                @method('delete')
                 <input type="hidden" id="jumlahhidden"  name="jumlahhidden" value="{{ $data->jumlah }}">
                 <input type="hidden" id="obat_id"  name="obat_id" value="{{ $data->obat->id }}">
                 <button type="submit" class="btn btn-primary height-auto btn-sm">X</button>

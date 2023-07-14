@@ -25,7 +25,7 @@ class ListInvoiceController extends Controller
         return view('pelanggan.invoicedetail',[
             'title' => 'Details',
             'penjualan' => $booking,
-            'orderlist' => OrderItem::latest()->where('order_id', $id)->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
+            'orderlist' => OrderItem::where('order_id', $id)->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
         ]);
     }
 

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->bigInteger('total_price')->default(0);
+            $table->bigInteger('total_beli');
             $table->string('status')->default('Pending');
             $table->timestamps();
         });

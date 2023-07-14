@@ -79,7 +79,6 @@ Route::get('/dashboard',function(){
     $total_notif = $total_kadaluwarsa + $total_obat_habis;
     $title = 'Apotek';
     $penjualan = Penjualan::all();
-    $laba_beli = $penjualan->sum('total_beli');
     $total_pelanggan = $penjualan->count('nama_pembeli');
     $total_obat = Obat::all();
     $total_obats = $total_obat->sum('stok');
@@ -91,10 +90,14 @@ Route::get('/dashboard',function(){
     $total_pembelian = $pembelian->sum('total');
     $total_penjualan = $penjualan->sum('total');
     $order = Order::all();
+    $laba = $penjualan->sum('total_beli');
+    $laba_online = $order->sum('total_beli');
+    $laba_beli = $laba + $laba_online;
     $total_beli_pelanggan = $order->sum('total_price');
     $penjualan_total = $total_penjualan + $total_beli_pelanggan;
     $total_pendapatan = $total_penjualan - $total_pembelian;
     $laba = $penjualan_total - $laba_beli;
+
     return view('dashboard.index',compact('kadaluwarsa','title','total_penjualan','total_obats','total_obat','total_unit','total_pemasok','total_pembelian','total_pelanggan','total_pendapatan','total_kadaluwarsa','obat_habis','total_notif','laba','penjualan_total'));
 })->middleware('auth');
 
@@ -149,9 +152,8 @@ Route::get('/kontak',[KontakController::class,'index']);
 Route::post('/kontak',[KontakController::class,'store']);
 
 //Chart
-Route::get('/keranjang',[ChartController::class,'index']);
+Route::resource('/keranjang',ChartController::class);
 Route::post('/keranjang/{id}',[ChartController::class,'addToCart']);
-Route::delete('/keranjang/{id}',[ChartController::class,'deleteCart'])->name('cart-delete');
 
 //Produk
 Route::resource('/produk',ProdukController::class);

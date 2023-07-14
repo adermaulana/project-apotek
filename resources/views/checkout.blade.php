@@ -96,7 +96,8 @@
             <input type="hidden" name="total_price" value="{{ $total_harga_chart }}" >
             <input type="hidden" name="status">
             <input type="hidden" name="tanggal_jual" value=" {{ date('d-m-Y') }} " id="date-input">
-            <input type="hidden" id="banyak" name="banyak" value="{{ $banyak->jumlah }}" id="date-input">
+            <input type="hidden" id="banyak" name="banyak" value="{{ $banyak->jumlah }}">
+            <input type="hidden" id="total_beli" name="total_beli" value="{{ $total_harga_chart2 }}">
             </tr>
             </tbody>
             </table>
@@ -143,23 +144,7 @@
       
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript">
 
-$('#name').on('change',function(){
-    const harga = $('#harga').val();
-    const banyak = $('#banyak').val();
-    const beli = $('#beli').val();
-
-    const total4 = banyak * harga;
-    const total5 = banyak * beli;
-
-    $('#total').val(`${total4}`);
-    $('#total_beli').val(`${total5}`);
-  })
-  
-
-</script>
 
 @endsection
 

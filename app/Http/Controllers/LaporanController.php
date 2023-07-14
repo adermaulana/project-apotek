@@ -67,7 +67,7 @@ class LaporanController extends Controller
             $total_notif = $total_kadaluwarsa + $total_obat_habis;
             $penjualan = Penjualan::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
             $order = Order::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
-            $total_penjualan = $penjualan->sum('total') + $order->sum('total_price');
+            $total_penjualan = $penjualan->sum('total');
             return view('dashboard.laporan.index',compact('order','total_notif','kadaluwarsa','total_obat','title','penjualan','total_penjualan','total_kadaluwarsa','obat_habis','total_obat_habis'));
         }
 
