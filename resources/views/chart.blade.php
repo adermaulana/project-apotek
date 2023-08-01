@@ -25,7 +25,6 @@
 
         <div class="row mb-5">
             <form class="col-md-12" method="post">
-<<<<<<< HEAD
                 <div class="site-blocks-table">
                     @if($chart->count())
                     <table class="table table-bordered">
@@ -81,57 +80,6 @@
             </form>
         </div>
         <div class="row">
-=======
-            <div class="site-blocks-table">
-        @if($chart->count())
-            <table class="table table-bordered">
-            <thead>
-            <tr>
-            <th class="product-thumbnail">Gambar</th>
-            <th class="product-name">Nama Obat</th>
-            <th class="product-price">Harga</th>
-            <th class="product-quantity">Jumlah</th>
-            <th class="product-remove">Remove</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($chart as $data)
-            <tr>
-            <td class="product-thumbnail">
-            @if($data->obat->gambar == null) 
-              <h1 style="color:black;"  class=" img-fluid">Tidak Ada Gambar</h1>
-            @else
-            <img src="{{ asset('storage/' . $data->obat->gambar) }}" width="150" alt="Image">
-            @endif
-            </td>
-            <td class="product-name">
-            <h2 class="h5 text-black">{{ $data->obat->nama_obat }}</h2>
-            </td>
-            <td id="harga" class="price" value="{{ $data->obat->harga_jual }}" > Rp. {{ number_format($data->obat->harga_jual,0,',','.') }}</td>
-            <td>
-            <div class="input-group mb-3" style="max-width: 120px;">
-            <input name="banyak" id="banyak"  type="number" value="{{$data->jumlah }}"  class="form-control text-center banyak"  placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled>
-            </div>
-            </td>
-            <input type="hidden" class="beli" name="harga_beli" value="{{ old('harga_beli',$data->obat->harga_jual) }}">
-          </form>
-            <td>
-              <form action="{{ route('keranjang.destroy', $data->id) }}" method="post">
-                @csrf
-                @method('delete')
-                <input type="hidden" id="jumlahhidden"  name="jumlahhidden" value="{{ $data->jumlah }}">
-                <input type="hidden" id="obat_id"  name="obat_id" value="{{ $data->obat->id }}">
-                <button type="submit" class="btn btn-primary height-auto btn-sm">X</button>
-              </form>
-            </td>
-            </tr>
-            @endforeach
-            </tbody>
-            </table>
-            </div>
-            </div>
-            <div class="row">
->>>>>>> 492dd00c7b7114b23190e5ab9ce982ac1682398e
             <div class="col-md-6">
                 <div class="row mb-5">
                     {{-- <div class="col-md-6">
