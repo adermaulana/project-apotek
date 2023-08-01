@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('obat_id');
             $table->foreign('obat_id')->references('id')->on('obats')->onDelete('cascade');
             $table->bigInteger('jumlah')->nullable();
+            $table->bigInteger('total_harga');
+            $table->bigInteger('harga_beli');
             $table->timestamps();
         });
     }

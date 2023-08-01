@@ -11,7 +11,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pelanggan_id', 'name', 'email', 'address', 'phone','total_price', 'status','tanggal_jual','banyak'
+        'pelanggan_id', 'name', 'email', 'address', 'phone','total_price', 'status','tanggal_jual','banyak','total_beli'
     ];
 
     public function pelanggan()

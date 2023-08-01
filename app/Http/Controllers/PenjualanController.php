@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Penjualan;
 use App\Models\Pembelian;
 use App\Models\Obat;
+use App\Models\OrderItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use DataTables;
@@ -36,6 +37,7 @@ class PenjualanController extends Controller
 
     public function pelanggan()
     {
+        $orderitem = OrderItem::latest()->get();
         $penjualan = Order::latest()->get();
         $kadaluwarsa = Pembelian::whereDate('kadaluwarsa','<=',Carbon::now())->get();
         $total_kadaluwarsa = $kadaluwarsa->count();
@@ -46,7 +48,7 @@ class PenjualanController extends Controller
 
             return view('dashboard.penjualan.pelanggan',[
                 'title' => 'Penjualan Pelanggan'
-            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif','penjualan'));
+            ],compact('total_kadaluwarsa','total_obat','kadaluwarsa','obat_habis','total_notif','penjualan','orderitem'));
     }
 
     /**
@@ -205,6 +207,21 @@ class PenjualanController extends Controller
         Penjualan::destroy($penjualan->id);
 
         return redirect()->route('penjualan.index')
+        ->with('success','Transaksi Berhasil Dihapus');
+    }
+
+    public function destroypelanggan(Request $request,$id)
+    {
+        $penjualan = Order::FindOrFail($id);
+        Order::destroy($penjualan->id);
+
+        $product = Obat::find($request->obat_id);
+        if ($product) {
+            $product->stok += $request->jumlahhidden; // Menambahkan 1 pada stok
+            $product->save();
+        }
+
+        return redirect('/dashboard/penjualan-pelanggan')
         ->with('success','Transaksi Berhasil Dihapus');
     }
 

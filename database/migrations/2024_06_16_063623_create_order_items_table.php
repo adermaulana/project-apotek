@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('pelanggan_id');
             $table->unsignedBigInteger('obat_id');
             $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('banyak');
             $table->timestamps();
 
             $table->foreign('obat_id')

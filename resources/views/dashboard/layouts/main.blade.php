@@ -48,6 +48,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+
+      <!-- Datatables css -->
+      <link rel="stylesheet" href="{{asset('asset2/plugins/DataTables/datatables.css')}}">
+  
+
 </head>
 
 <body>
@@ -86,6 +92,7 @@
   <script>
     feather.replace();
   </script>
+
 </body>
 
 </html>

@@ -22,15 +22,18 @@ class CheckoutController extends Controller
 
         $chart = Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get();
         $totalchart = $chart->sum('obat.harga_jual');
+        $totalchart2 = $chart->sum('obat.harga_beli');
         $jumlah = $chart->sum('jumlah');
         $banyak = Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->first();
+        $banyak2 = Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->first();
         $total_harga_chart = $banyak->sum('total_harga');
+        $total_harga_chart2 = $banyak2->sum('harga_beli');
 
         return view('checkout',[
             'title' => 'Checkout',
             'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get(),
             'obat' => Obat::latest()->first()
-        ],compact('totalchart','banyak','total_harga_chart'));
+        ],compact('totalchart','jumlah','total_harga_chart','totalchart2','total_harga_chart2','banyak'));
     }
 
     public function checkout(Request $request){
@@ -43,6 +46,7 @@ class CheckoutController extends Controller
             'total_price' => 'required',
             'tanggal_jual' => 'required',
             'banyak' => 'required',
+            'total_beli' => 'required'
             ]);
 
         $data['pelanggan_id'] = auth('pelanggan')->user()->id;
@@ -53,24 +57,14 @@ class CheckoutController extends Controller
 
             // Create Transaction item
             foreach($carts as $cart) {
-
-                $obat = Obat::find($cart['obat_id']);
-                if ($obat->stok <= $cart['banyak']) {
-                    // Jumlah stok tidak mencukupi, berikan pesan kesalahan
-                    return redirect()->back()->with('error', 'Maaf, Stok Obat tidak mencukupi!');
-
-                } else {
-                
-                $obat->stok -= $cart['banyak']; // Kurangi stok obat
-                $obat->save(); // Simpan perubahan pada obat
-
                 $items[] = OrderItem::create([
                     'order_id' => $transaction->id,
                     'pelanggan_id' => $cart->pelanggan_id,
                     'obat_id' => $cart->obat_id,
+                    'banyak' => $cart->jumlah
                 ]);
                 }
-            }
+            
             // Delete cart after transaction
             Chart::where('pelanggan_id', Auth::guard('pelanggan')->user()->id)->delete();
 

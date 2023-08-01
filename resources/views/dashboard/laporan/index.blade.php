@@ -120,6 +120,53 @@
 			<!-- / sales -->
 		@endisset
 
+
+		@isset($online)
+		<!--  Sales -->
+		<div class="card">
+			<div class="card-body mt-3">
+				<div class="table-responsive">
+					<table id="datatable-export" class="table table-hover table-center">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Tanggal</th>
+								<th>Nama Pembeli</th>
+								<th>Bayar</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($online as $data)
+									<tr>
+										<td>{{ $loop->iteration }}</td>
+										<td>{{date_format(date_create($data->created_at),"d M, Y")}}</td>
+										<td>{{$data->name}}</td>
+										<td>{{number_format($data->total_price,0,',','.')}}</td>
+									</tr>
+							@endforeach
+						</tbody>
+					</table>
+					@isset($pembelian)
+					<div class="container-fluid mt-4">
+						<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ number_format($total_pembelian,0,',','.') }}</p>
+					</div>
+					@endisset
+					@isset($penjualan)
+					<div class="container-fluid mt-4">
+						<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ number_format($total_penjualan,0,',','.') }}</p>
+					</div>
+					@endisset
+					@isset($online)
+					<div class="container-fluid mt-4">
+						<p style="margin-right:55px;" class="text-right"><b>Total (Rp) </b>{{ number_format($total_penjualan,0,',','.') }}</p>
+					</div>
+					@endisset
+				</div>
+			</div>
+		</div>
+		<!-- / sales -->
+	@endisset
+
             </div>
             </div>
 
@@ -165,6 +212,7 @@
 								<select class="form-select" name="resource"> 
 									<option value="pembelian">Pembelian</option>
 									<option value="penjualan">Penjualan</option>
+									<option value="online">Penjualan Online</option>
 								</select>
 							</div>
 						</div>
@@ -178,5 +226,6 @@
 <!-- /Generate Modal -->
 
 </main><!-- End #main -->
+
 
 @endsection

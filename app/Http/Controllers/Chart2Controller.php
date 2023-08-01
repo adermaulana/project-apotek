@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chart;
+use Illuminate\Http\Request;
 use App\Models\Obat;
+use App\Models\Chart;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class ChartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+
+    public function index(){
+
         if (Auth::check()) {
             // Jika auth admin, tampilkan pemberitahuan
             session()->flash('error', 'Anda adalah Admin tidak bisa melakukan transaksi disini!');
@@ -37,17 +33,6 @@ class ChartController extends Controller
             'chart' => Chart::latest()->where('pelanggan_id', auth('pelanggan')->user()->id)->get()
         ],compact('totalchart'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
 
     public function addToCart(Request $request , $id){
         // dd($request->all());
@@ -86,60 +71,9 @@ class ChartController extends Controller
 
         return redirect('keranjang');      
     }
+    
+    public function deleteCart(Request $request , $id){
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Chart  $chart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Chart $chart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Chart  $chart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Chart $chart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Chart  $chart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Chart $chart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Chart  $chart
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id, Request $request)
-    {   
         $chart = Chart::FindOrFail($id);
         Chart::destroy($chart->id);
 
@@ -149,6 +83,9 @@ class ChartController extends Controller
             $product->save();
         }
 
-        return redirect('keranjang');  
-    }
+        return redirect('keranjang');      
+    } 
+
+
+
 }
