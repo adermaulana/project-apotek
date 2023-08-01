@@ -100,7 +100,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form action="/login" method="post">
+                  <form action="/authenticate" method="post">
                     @csrf
                     <div class="form-group">
                     <h2 style="color:black;" >Login</h2>

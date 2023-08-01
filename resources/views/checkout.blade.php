@@ -79,7 +79,6 @@
                 </div>
             </div>
             <div class="col-md-6">
-<<<<<<< HEAD
                 <div class="row mb-5">
                     <div class="col-md-12">
                         <h2 class="h3 mb-3 text-black">Pesananmu</h2>
@@ -109,6 +108,7 @@
                                             id="date-input">
                                         <input type="hidden" id="banyak" name="banyak" value="{{ $banyak->jumlah }}"
                                             id="date-input">
+                                        <input type="hidden" id="total_beli" name="total_beli" value="{{ $total_harga_chart2 }}">
                                     </tr>
                                 </tbody>
                             </table>
@@ -119,57 +119,6 @@
                         </div>
                     </div>
                 </div>
-=======
-            <label for="phone" class="text-black">Phone <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number">
-            @error('phone')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
-            </div>
-            </div>
-            </div>
-            </div>
-            <div class="col-md-6">
-            <div class="row mb-5">
-            <div class="col-md-12">
-            <h2 class="h3 mb-3 text-black">Pesananmu</h2>
-            <div class="p-3 p-lg-5 border">
-            <table class="table site-block-order-table mb-5">
-            <thead>
-            <tr><th>Product</th>
-            <th>Total</th>
-            </tr></thead>
-            <tbody>
-              @foreach($chart as $data)
-            <tr>
-            <td>{{ $data->obat->nama_obat }}<strong class="mx-2">x</strong>{{ $data->jumlah }}</td>
-            <td>Rp. {{ number_format($data->obat->harga_jual,0,',','.') }}</td>
-            </tr>
-            @endforeach
-            <tr>
-            <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-            <td class="text-black font-weight-bold"><strong>Rp. {{ number_format($total_harga_chart,0,',','.') }}</strong></td>
-            <input type="hidden" name="total_price" value="{{ $total_harga_chart }}" >
-            <input type="hidden" name="status">
-            <input type="hidden" name="tanggal_jual" value=" {{ date('d-m-Y') }} " id="date-input">
-            <input type="hidden" id="banyak" name="banyak" value="{{ $banyak->jumlah }}">
-            <input type="hidden" id="total_beli" name="total_beli" value="{{ $total_harga_chart2 }}">
-            </tr>
-            </tbody>
-            </table>
-            <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Place
-            Order</button>
-            </form>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            
-            </div>
->>>>>>> 492dd00c7b7114b23190e5ab9ce982ac1682398e
             </div>
         </div>
 
@@ -204,24 +153,5 @@
       </div>
       
     </div> -->
-
-<<<<<<< HEAD
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $('#name').on('change', function () {
-        const harga = $('#harga').val();
-        const banyak = $('#banyak').val();
-        const beli = $('#beli').val();
-
-        const total4 = banyak * harga;
-        const total5 = banyak * beli;
-
-        $('#total').val(`${total4}`);
-        $('#total_beli').val(`${total5}`);
-    })
-</script>
-=======
-
->>>>>>> 492dd00c7b7114b23190e5ab9ce982ac1682398e
-
+    
 @endsection

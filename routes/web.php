@@ -67,7 +67,7 @@ Route::get('/',function(){
 })->name('home');
 
 //login
-Route::post('/login', [LoginController::class,'authenticate']);
+Route::post('/authenticate', [LoginController::class,'authenticate']);
 Route::post('/logout', [LoginController::class,'logout']);
 Route::get('/logout', [LoginController::class,'logout']);
 
@@ -134,7 +134,7 @@ Route::resource('/pelanggan',PelangganController::class);
 Route::get('/pelanggan/invoice/{id}',[PelangganController::class,'konfirmasi'])->middleware('auth:pelanggan');
 
 //Register
-Route::get('/register', [RegisterController::class,'index'])->middleware('guest');
+Route::get('/register', [RegisterController::class,'index'])->middleware('guest:pelanggan');
 Route::post('/register', [RegisterController::class,'store']);
 
 //List Invoice
