@@ -31,18 +31,18 @@
           <li>
             <a href="/dashboard/penjualan">
             @if(Request::is('dashboard/penjualan'))
-              <i class="bi bi-circle"></i><span class="text-primary">Lihat Penjualan</span>
+              <i class="bi bi-circle"></i><span class="text-primary">Lihat Penjualan Offline</span>
             @else
-              <i class="bi bi-circle"></i><span>Lihat Penjualan</span>
+              <i class="bi bi-circle"></i><span>Lihat Penjualan Offline</span>
             @endif
             </a>
           </li>
           <li>
             <a href="/dashboard/penjualan-pelanggan">
             @if(Request::is('dashboard/penjualan-pelanggan'))
-              <i class="bi bi-circle"></i><span class="text-primary">Lihat Penjualan Pelanggan</span>
+              <i class="bi bi-circle"></i><span class="text-primary">Lihat Penjualan Online</span>
             @else
-              <i class="bi bi-circle"></i><span>Lihat Penjualan Pelanggan</span>
+              <i class="bi bi-circle"></i><span>Lihat Penjualan Online</span>
             @endif
             </a>
           </li>

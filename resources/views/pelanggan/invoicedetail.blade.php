@@ -20,8 +20,8 @@
                     <h2 style="color:white;">INVOICE</h2>
                 </div>
 
-                <div class="sender">
-                    <!-- <h1>Logos </h1> -->
+                <!-- <div class="sender">
+                    <h1>Logos </h1>
                     <p> 
                         Fadhil <br>
                         +213 561 349 993 <br>
@@ -34,7 +34,7 @@
                         90131 <br>
                         Makassar, Indonesia
                     </p>
-                </div>
+                </div> -->
             </div>
         </header>
         <div class="flexbox invoice-details">
@@ -88,7 +88,7 @@
             </tr>
         </table>
 
-    <div class="footer">
+    <!-- <div class="footer">
         <h1><span>Invoice</span></h1>
         <div style="text-align:center">
             <a href="https://github.com/scyrencop">Github</a> |
@@ -98,7 +98,7 @@
 
             <br>
         </div>
-    </div>
+    </div> -->
 
    </div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
