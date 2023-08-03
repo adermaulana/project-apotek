@@ -87,7 +87,7 @@
                                 <thead>
                                     <tr>
                                         <th>Produk</th>
-                                        <th>Total</th>
+                                        <th>Harga</th>
                                     </tr>
                                 </thead>
                                 <tbody>
